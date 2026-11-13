@@ -103,7 +103,6 @@ def main():
     meta = {
         "format": "int8",
         "dimensions": 512,
-        "preferredCount": len(labels),
         "labels": labels,
         "levels": levels,
     }

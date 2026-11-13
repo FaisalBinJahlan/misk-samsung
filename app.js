@@ -34,7 +34,7 @@ let expandedWorker;
 let expandedMode = false;
 let cancelExpanded;
 const expandedFolder = new URL("vendor/expanded-lite/", document.baseURI);
-const expandedCacheName = "misk-expanded-model-v3";
+const expandedCacheName = "misk-expanded-model-v4";
 
 function downloadExpandedPart(url, signal, onProgress) {
   return new Promise((resolve, reject) => {
@@ -84,6 +84,7 @@ async function downloadExpanded(session) {
   if (cache) {
     await window.caches.delete("misk-expanded-model-v1").catch(() => {});
     await window.caches.delete("misk-expanded-model-v2").catch(() => {});
+    await window.caches.delete("misk-expanded-model-v3").catch(() => {});
   }
   const progress = new Map();
   let total = 0;
@@ -174,7 +175,7 @@ async function downloadExpanded(session) {
 }
 
 function requestExpanded(message, session) {
-  expandedWorker ??= new Worker("expanded-worker.js?v=9");
+  expandedWorker ??= new Worker("expanded-worker.js?v=10");
   const worker = expandedWorker;
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => fail(new Error("انتهت مهلة تجهيز التعرّف الموسّع.")), 150000);

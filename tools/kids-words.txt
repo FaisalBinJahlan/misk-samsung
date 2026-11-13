@@ -112,9 +112,9 @@ soup | bowl of soup
 salad
 cereal | bowl of cereal
 popcorn
-tea | cup of tea
 sugar
 salt | salt shaker
+lunch | lunch plate of food
 # Animals
 cat
 dog
@@ -340,12 +340,12 @@ napkin
 tray
 vase
 candle
-mug
+pinwheel | toy pinwheel
 straw | drinking straw
 lid | pot lid
 jar
 can | tin can
-thermos
+thermos | thermos vacuum flask
 whisk
 spatula
 ladle

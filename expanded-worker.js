@@ -13,7 +13,7 @@ async function prepareDetector({ model, wasm, vocabulary, index, runtimeScript, 
   const [modelBytes, wasmBytes, labelsBytes, packedIndex] = await Promise.all(
     [model, wasm, vocabulary, index].map((data, i) => decompress(data, lengths[i])),
   );
-  const { labels, dimensions, preferredCount, format } = JSON.parse(new TextDecoder().decode(labelsBytes));
+  const { labels, dimensions, levels, format } = JSON.parse(new TextDecoder().decode(labelsBytes));
   const vectors = new Int8Array(packedIndex.buffer, packedIndex.byteOffset, packedIndex.byteLength);
   if (format !== "int8" || !labels.length || vectors.length !== labels.length * dimensions) {
     throw new Error("Invalid object index");
@@ -33,15 +33,21 @@ async function prepareDetector({ model, wasm, vocabulary, index, runtimeScript, 
     ort.env.wasm.wasmBinary = wasmBytes.buffer;
     const session = await ort.InferenceSession.create(modelBytes, { executionProviders: ["wasm"] });
     ort.env.wasm.wasmBinary = undefined;
-    return { session, labels, dimensions, inverseNorms, preferredCount, vectors };
+    return { session, labels, dimensions, inverseNorms, levels: levels ?? labels.map(() => 1), vectors };
   } finally {
     URL.revokeObjectURL(scriptUrl);
     URL.revokeObjectURL(moduleUrl);
   }
 }
 
+// Below this cosine score the answer is too uncertain to show a child.
+const minScore = 0.21;
+// When a simpler (lower level) word scores almost as high, show it instead,
+// e.g. "cup" rather than a near tie with "thermos".
+const levelMargin = 0.02;
+
 async function recognize(pixels) {
-  const { session, labels, dimensions, inverseNorms, preferredCount, vectors } = detector;
+  const { session, labels, dimensions, inverseNorms, levels, vectors } = detector;
   const size = 256 * 256;
   const rgb = new Float32Array(size * 3);
   for (let i = 0; i < size; i++) {
@@ -56,8 +62,7 @@ async function recognize(pixels) {
     const imageNorm = Math.hypot(...embedding);
     let bestIndex = -1;
     let bestScore = -Infinity;
-    let familiarIndex = -1;
-    let familiarScore = -Infinity;
+    const levelBest = new Map();
     for (let i = 0; i < labels.length; i++) {
       const base = i * dimensions;
       let similarity = 0;
@@ -67,14 +72,15 @@ async function recognize(pixels) {
         bestIndex = i;
         bestScore = score;
       }
-      if (i < preferredCount && score > familiarScore) {
-        familiarIndex = i;
-        familiarScore = score;
-      }
+      const top = levelBest.get(levels[i]);
+      if (!top || score > top.score) levelBest.set(levels[i], { index: i, score });
     }
     // Cosine similarity is a heuristic, not a probability or a safety rating.
-    if (bestScore < 0.21) return "";
-    if (familiarScore >= 0.19 && bestScore - familiarScore <= 0.075) return labels[familiarIndex];
+    if (bestScore < minScore) return "";
+    for (const level of [...levelBest.keys()].sort((a, b) => a - b)) {
+      const { index, score } = levelBest.get(level);
+      if (score >= minScore && score >= bestScore - levelMargin) return labels[index];
+    }
     return labels[bestIndex];
   } finally {
     input.dispose();
