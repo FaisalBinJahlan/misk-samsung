@@ -32,6 +32,25 @@ let cancelExpanded;
 const expandedFolder = new URL("vendor/expanded-lite/", document.baseURI);
 const expandedCacheName = "misk-expanded-model-v5";
 
+// GitHub Pages lets browsers keep the page for a while, so phones can keep
+// running an old version. Compare with version.json and reload when it changed.
+const appVersion = "13";
+async function checkForUpdate() {
+  try {
+    const response = await fetch(`version.json?t=${Date.now()}`, { cache: "no-store" });
+    const { version } = await response.json();
+    if (!version || version === appVersion || busy) return;
+    const key = `misk-reloaded-${version}`;
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "1");
+    location.replace(`${location.pathname}?v=${version}`);
+  } catch {}
+}
+checkForUpdate();
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") checkForUpdate();
+});
+
 function downloadExpandedPart(url, signal, onProgress) {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
