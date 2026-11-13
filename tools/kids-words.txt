@@ -38,6 +38,7 @@ basket
 phone | mobile phone
 television
 remote control
+AirPods | airpods wireless earbuds
 computer | desktop computer
 book
 pen
@@ -779,7 +780,6 @@ flash drive | usb flash drive
 router | wifi router
 monitor | computer monitor
 webcam
-earbuds
 drone
 video camera
 joystick

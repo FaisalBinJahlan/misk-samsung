@@ -164,8 +164,6 @@ button:disabled { cursor: wait; }
   gap: 11px;
   pointer-events: none;
 }
-.mode { pointer-events: auto; }
-.mode[aria-pressed="true"] { border-color: var(--lime); color: var(--lime); }
 .status {
   margin: 0;
   padding: 6px 10px;

@@ -10,7 +10,6 @@ const result = document.getElementById("result");
 const word = document.getElementById("word");
 const sentence = document.getElementById("sentence");
 const replay = document.getElementById("replay");
-const expanded = document.getElementById("expanded");
 const voiceSettings = document.getElementById("voice-settings");
 const voiceDialog = document.getElementById("voice-dialog");
 const voiceSelect = document.getElementById("voice-select");
@@ -25,16 +24,13 @@ let draftVoice = "";
 try { selectedVoice = localStorage.getItem(voiceStorageKey) ?? ""; } catch {}
 
 let stream;
-let modelPromise;
-let useCpu = false;
 let cameraSession = 0;
 let busy = false;
 let spokenWord = "";
 let expandedWorker;
-let expandedMode = false;
 let cancelExpanded;
 const expandedFolder = new URL("vendor/expanded-lite/", document.baseURI);
-const expandedCacheName = "misk-expanded-model-v4";
+const expandedCacheName = "misk-expanded-model-v5";
 
 function downloadExpandedPart(url, signal, onProgress) {
   return new Promise((resolve, reject) => {
@@ -85,6 +81,7 @@ async function downloadExpanded(session) {
     await window.caches.delete("misk-expanded-model-v1").catch(() => {});
     await window.caches.delete("misk-expanded-model-v2").catch(() => {});
     await window.caches.delete("misk-expanded-model-v3").catch(() => {});
+    await window.caches.delete("misk-expanded-model-v4").catch(() => {});
   }
   const progress = new Map();
   let total = 0;
@@ -94,7 +91,7 @@ async function downloadExpanded(session) {
     if (session !== cameraSession) return;
     const sum = [...progress.values()].reduce((a, b) => a + b, 0);
     const percent = total ? Math.min(99, Math.floor(100 * sum / total)) : 0;
-    const caption = retrying ? "جاري إعادة محاولة الاتصال" : "جاري تحميل التعرّف الموسّع";
+    const caption = retrying ? "جاري إعادة محاولة الاتصال" : "جاري تحميل نموذج التعرّف";
     const message = `${caption}… ${percent}٪`;
     if (message !== lastMessage) {
       lastMessage = message;
@@ -175,10 +172,10 @@ async function downloadExpanded(session) {
 }
 
 function requestExpanded(message, session) {
-  expandedWorker ??= new Worker("expanded-worker.js?v=10");
+  expandedWorker ??= new Worker("expanded-worker.js?v=11");
   const worker = expandedWorker;
   return new Promise((resolve, reject) => {
-    const timer = setTimeout(() => fail(new Error("انتهت مهلة تجهيز التعرّف الموسّع.")), 150000);
+    const timer = setTimeout(() => fail(new Error("انتهت مهلة تجهيز التعرّف.")), 150000);
     const fail = (error) => {
       clearTimeout(timer);
       worker.terminate();
@@ -211,151 +208,13 @@ async function recognizeExpanded(session) {
   if (!expandedWorker) {
     const assets = await downloadExpanded(session);
     if (session !== cameraSession) return "";
-    status.textContent = "اكتمل التحميل. جاري تجهيز التعرّف الموسّع…";
+    status.textContent = "اكتمل التحميل. جاري تجهيز التعرّف…";
     await requestExpanded({ type: "prepare", ...assets }, session);
   }
   if (session !== cameraSession) return "";
   status.textContent = "جاري التعرّف…";
   const { label } = await requestExpanded({ type: "recognize", pixels }, session);
   return label;
-}
-
-const modelUrl = new URL("vendor/model/model.json", document.baseURI).href;
-const publicModelUrl = "https://storage.googleapis.com/tfjs-models/savedmodel/ssdlite_mobilenet_v2/model.json";
-const modelBytes = 18561843; // Bundled manifest and five weight files.
-
-function showModelStatus(message) {
-  if (stream && !expandedMode && busy) status.textContent = message;
-}
-
-function modelDownload(url, { local, compatibility }) {
-  const controller = new AbortController();
-  const caption = local ? "جاري تحميل نموذج التعرّف" : "جاري التحميل من المصدر الاحتياطي";
-  let received = 0;
-  let deadline;
-  function updateProgress(bytes = 0) {
-    clearTimeout(deadline);
-    deadline = setTimeout(() => controller.abort(), 15000);
-    received += bytes;
-    const percent = Math.min(99, Math.floor(received / modelBytes * 100));
-    showModelStatus(`${caption}… ${percent}٪`);
-  }
-
-  const http = window.tf.io.http(url, {
-    requestInit: { signal: controller.signal },
-    fetchFunc: async (input, options) => {
-      const response = await fetch(input, options);
-      if (!response.ok || response.headers.get("content-type")?.includes("text/html")) {
-        throw new Error(`Could not read model file (${response.status})`);
-      }
-      if (!response.body) {
-        const buffer = await response.arrayBuffer();
-        updateProgress(buffer.byteLength);
-        return new Response(buffer, { headers: response.headers });
-      }
-      const reader = response.body.getReader();
-      const progressStream = new ReadableStream({
-        async pull(output) {
-          const { done, value } = await reader.read();
-          if (done) output.close();
-          else {
-            updateProgress(value.byteLength);
-            output.enqueue(value);
-          }
-        },
-        cancel: (reason) => reader.cancel(reason),
-      });
-      return new Response(progressStream, { headers: response.headers });
-    },
-  });
-
-  return {
-    async load() {
-      updateProgress();
-      try {
-        const artifacts = await http.load();
-        showModelStatus(compatibility
-          ? "اكتمل التحميل. جاري تجهيز النموذج بوضع التوافق…"
-          : "اكتمل التحميل. جاري تجهيز النموذج على جوالك…");
-        return artifacts;
-      } catch (error) {
-        controller.abort();
-        throw error;
-      } finally {
-        clearTimeout(deadline);
-      }
-    },
-  };
-}
-
-let detectorRouter;
-function registerDetectorRouter(tf) {
-  if (detectorRouter) return;
-  detectorRouter = {
-    async load() {
-      try {
-        return await modelDownload(modelUrl, { local: true, compatibility: useCpu }).load();
-      } catch (localError) {
-        try {
-          return await modelDownload(publicModelUrl, { local: false, compatibility: useCpu }).load();
-        } catch (backupError) {
-          throw new Error("تعذّر تحميل النموذج من البورت والمصدر الاحتياطي. تأكد من الاتصال واضغط للمحاولة.", {
-            cause: new AggregateError([localError, backupError]),
-          });
-        }
-      }
-    },
-  };
-  tf.io.registerLoadRouter((url) => url === "local-camera-model://detector" ? detectorRouter : null);
-}
-
-function loadScript(path) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    const timeout = setTimeout(failed, 20000);
-    function failed() {
-      clearTimeout(timeout);
-      script.remove();
-      reject(new Error("تعذّر تحميل ملفات التعرّف. اضغط «ماهذا؟» للمحاولة."));
-    }
-    script.onload = () => {
-      clearTimeout(timeout);
-      resolve();
-    };
-    script.onerror = failed;
-    script.src = path;
-    document.head.append(script);
-  });
-}
-
-async function prepareModel() {
-  showModelStatus("جاري تجهيز التعرّف الأساسي…");
-  if (!window.tf) await loadScript("vendor/tf.min.js");
-  if (!window.cocoSsd) await loadScript("vendor/coco-ssd.min.js");
-  const tf = window.tf;
-  if (!tf || !window.cocoSsd) throw new Error("تعذّر تحميل ملفات التعرّف. حدّث الصفحة وجرّب مرة ثانية.");
-  registerDetectorRouter(tf);
-  try {
-    if (useCpu) {
-      showModelStatus("جاري تجهيز التعرّف بوضع التوافق…");
-      await tf.setBackend("cpu");
-    }
-    return await window.cocoSsd.load({
-      base: "lite_mobilenet_v2",
-      modelUrl: "local-camera-model://detector",
-    });
-  } catch (error) {
-    if (!error.cause) useCpu = true;
-    throw error;
-  }
-}
-
-function loadModel() {
-  return modelPromise ??= prepareModel().catch((error) => {
-    modelPromise = undefined;
-    console.warn("Model preparation failed", error);
-    throw error;
-  });
 }
 
 function availableEnglishVoices() {
@@ -416,7 +275,6 @@ function closeCamera(message = "شغّل الكاميرا ووجّهها نحو 
   status.textContent = message;
   action.textContent = "شغّل الكاميرا";
   action.disabled = false;
-  expanded.disabled = false;
   busy = false;
 }
 
@@ -462,13 +320,8 @@ async function openCamera() {
   action.disabled = false;
 }
 
-function startupError(error) {
-  return /^[\u0600-\u06ff]/.test(error.message)
-    ? error.message
-    : "تعذّر تجهيز التعرّف. اضغط «ماهذا؟» للمحاولة.";
-}
-
-function takeSnapshot(square = false) {
+// Crop exactly the on-screen square, so only what is inside the frame is read.
+function takeSnapshot() {
   const width = camera.videoWidth;
   const height = camera.videoHeight;
   const preview = camera.getBoundingClientRect();
@@ -476,34 +329,16 @@ function takeSnapshot(square = false) {
   const scale = Math.max(preview.width / width, preview.height / height);
   const x = (target.left - preview.left + (width * scale - preview.width) / 2) / scale;
   const y = (target.top - preview.top + (height * scale - preview.height) / 2) / scale;
-  const padding = target.width / scale * 0.1;
-  const left = Math.max(0, Math.floor(x - padding));
-  const top = Math.max(0, Math.floor(y - padding));
-  const right = Math.min(width, Math.ceil(x + target.width / scale + padding));
-  const bottom = Math.min(height, Math.ceil(y + target.height / scale + padding));
-  canvas.width = square ? 256 : Math.min(480, right - left);
-  canvas.height = square ? 256 : Math.min(480, bottom - top);
-  context.drawImage(camera, left, top, right - left, bottom - top, 0, 0, canvas.width, canvas.height);
-}
-
-function chooseObject(predictions, width = canvas.width, height = canvas.height) {
-  let best;
-  let bestRank = 0;
-  for (const prediction of predictions) {
-    const [x, y, w, h] = prediction.bbox;
-    const distance = Math.hypot((x + w / 2) / width - 0.5, (y + h / 2) / height - 0.5);
-    if (distance > 0.43 || prediction.score < 0.62) continue;
-    const rank = prediction.score * (1 - 0.95 * distance);
-    if (rank > bestRank) {
-      bestRank = rank;
-      best = prediction;
-    }
-  }
-  return best;
+  const side = Math.min(target.width / scale, width, height);
+  const left = Math.min(Math.max(0, x), width - side);
+  const top = Math.min(Math.max(0, y), height - side);
+  canvas.width = 256;
+  canvas.height = 256;
+  context.drawImage(camera, left, top, side, side, 0, 0, 256, 256);
 }
 
 const pluralWords = new Set([
-  "binoculars", "biscuits", "blocks", "boots", "boxing gloves", "bubbles", "chickpeas", "chips",
+  "AirPods", "binoculars", "biscuits", "blocks", "boots", "boxing gloves", "bubbles", "chickpeas", "chips",
   "chopsticks", "colored pencils", "crackers", "dates", "dice", "earbuds", "earrings", "flip-flops",
   "flippers", "french fries", "gloves", "glasses", "goggles", "grapes", "headphones", "high heels",
   "ice skates", "lentils", "lungs", "marbles", "measuring spoons", "mittens", "noodles", "nuts",
@@ -544,32 +379,19 @@ async function recognize() {
     return;
   }
   const session = cameraSession;
-  const useExpanded = expandedMode;
   busy = true;
   action.disabled = true;
-  expanded.disabled = !useExpanded;
   result.hidden = true;
   spokenWord = "";
   speech?.cancel();
   status.textContent = "جاري التعرّف…";
 
   try {
-    takeSnapshot(useExpanded);
-    let label;
-    if (useExpanded) {
-      label = await recognizeExpanded(session);
-    } else {
-      const model = await loadModel().catch((error) => {
-        if (session === cameraSession) status.textContent = startupError(error);
-        return null;
-      });
-      if (!model || session !== cameraSession) return;
-      status.textContent = "جاري التعرّف…";
-      label = chooseObject(await model.detect(canvas, 20, 0.62))?.class;
-    }
-    if (session !== cameraSession || useExpanded !== expandedMode) return;
+    takeSnapshot();
+    const label = await recognizeExpanded(session);
+    if (session !== cameraSession) return;
     if (!label) {
-      status.textContent = "قرّب الغرض من وسط الإطار وجرّب مرة ثانية.";
+      status.textContent = "قرّب الغرض داخل الإطار وجرّب مرة ثانية.";
       return;
     }
     spokenWord = label;
@@ -580,39 +402,20 @@ async function recognize() {
     result.hidden = false;
     say(sentence.textContent, { auto: true });
   } catch (error) {
-    if (session !== cameraSession || useExpanded !== expandedMode) return;
+    if (session !== cameraSession) return;
     console.warn("Recognition failed", error);
-    status.textContent = useExpanded
-      ? "توقّف التعرّف الموسّع. اضغط «ماهذا؟» للمتابعة من الملفات المحفوظة، أو اختر التعرّف الأساسي."
-      : "تعذّر فحص اللقطة. جرّب مرة ثانية.";
+    status.textContent = "توقّف التعرّف. اضغط «ماهذا؟» للمتابعة من الملفات المحفوظة.";
   } finally {
     if (session === cameraSession) {
       canvas.width = 0;
       canvas.height = 0;
       action.disabled = false;
       busy = false;
-      expanded.disabled = false;
     }
   }
 }
 
 action.addEventListener("click", () => stream ? recognize() : openCamera());
-expanded.addEventListener("click", () => {
-  expandedMode = !expandedMode;
-  if (!expandedMode) {
-    cancelExpanded?.();
-    if (expandedWorker) {
-      expandedWorker.terminate();
-      expandedWorker = undefined;
-    }
-  }
-  expanded.setAttribute("aria-pressed", String(expandedMode));
-  expanded.textContent = expandedMode ? "تعرّف أساسي" : "تعرّف موسّع";
-  result.hidden = true;
-  spokenWord = "";
-  speech?.cancel();
-  if (stream) status.textContent = "حط الغرض داخل الإطار واضغط الزر.";
-});
 stop.addEventListener("click", () => closeCamera());
 replay.addEventListener("click", () => { if (spokenWord) say(spokenWord); });
 window.addEventListener("pagehide", () => closeCamera());
