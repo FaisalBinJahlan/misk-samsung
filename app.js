@@ -34,7 +34,7 @@ let expandedWorker;
 let expandedMode = false;
 let cancelExpanded;
 const expandedFolder = new URL("vendor/expanded-lite/", document.baseURI);
-const expandedCacheName = "misk-expanded-model-v2";
+const expandedCacheName = "misk-expanded-model-v3";
 
 function downloadExpandedPart(url, signal, onProgress) {
   return new Promise((resolve, reject) => {
@@ -80,8 +80,11 @@ async function downloadExpanded(session) {
   const { signal } = controller;
   cancelExpanded = () => controller.abort();
   const cache = await window.caches?.open(expandedCacheName).catch(() => null);
-  // Reclaim space for the smaller bundle if this browser cached the old one.
-  if (cache) await window.caches.delete("misk-expanded-model-v1").catch(() => {});
+  // Reclaim space from bundles this browser cached for older versions.
+  if (cache) {
+    await window.caches.delete("misk-expanded-model-v1").catch(() => {});
+    await window.caches.delete("misk-expanded-model-v2").catch(() => {});
+  }
   const progress = new Map();
   let total = 0;
   let retrying = 0;
@@ -171,7 +174,7 @@ async function downloadExpanded(session) {
 }
 
 function requestExpanded(message, session) {
-  expandedWorker ??= new Worker("expanded-worker.js?v=8");
+  expandedWorker ??= new Worker("expanded-worker.js?v=9");
   const worker = expandedWorker;
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => fail(new Error("انتهت مهلة تجهيز التعرّف الموسّع.")), 150000);
@@ -498,15 +501,37 @@ function chooseObject(predictions, width = canvas.width, height = canvas.height)
   return best;
 }
 
+const pluralWords = new Set([
+  "binoculars", "biscuits", "blocks", "boots", "boxing gloves", "bubbles", "chickpeas", "chips",
+  "chopsticks", "colored pencils", "crackers", "dates", "dice", "earbuds", "earrings", "flip-flops",
+  "flippers", "french fries", "gloves", "glasses", "goggles", "grapes", "headphones", "high heels",
+  "ice skates", "lentils", "lungs", "marbles", "measuring spoons", "mittens", "noodles", "nuts",
+  "oats", "overalls", "pajamas", "pants", "peas", "playing cards", "pliers", "raisins",
+  "roller skates", "safety goggles", "sandals", "scissors", "shorts", "skis", "slippers", "sneakers",
+  "stairs", "sunglasses", "tongs", "window blinds", "ballet shoes", "beans", "trousers", "jeans",
+]);
+const massWords = new Set([
+  "asparagus", "basil", "bamboo", "bread", "broccoli", "butter", "caramel", "cardamom", "cauliflower",
+  "cereal", "chalk", "cheese", "chewing gum", "chocolate", "clay", "coral", "cotton candy",
+  "falafel", "fire", "flour", "fruit salad", "garlic", "glue", "gold", "grass",
+  "hay", "honey", "hummus", "ice", "jam", "jelly", "juice", "ketchup",
+  "lava", "lemonade", "lettuce", "lightning", "meat", "milk", "mint", "mud",
+  "mustard", "oil", "okra", "origami", "paint", "paper", "parsley", "pasta", "pita bread", "popcorn",
+  "porridge", "rice", "salad", "salt", "sand", "sesame", "shampoo", "snow",
+  "soap", "soda", "soil", "soup", "spaghetti", "spinach", "sugar", "sushi",
+  "tape", "tea", "toast", "toilet paper", "toothpaste", "water", "wheat", "yarn",
+  "yogurt",
+]);
+const theWords = new Set([
+  "earth", "moon", "sea", "sky", "solar system", "sun",
+]);
+
 function englishSentence(label) {
-  if (/^(scissors|skis|headphones|sunglasses|glasses|trousers|pants|jeans)$/.test(label)) {
-    return `These are ${label}.`;
-  }
-  if (/^(broccoli|chalk|glue|ice cream|paper|toilet paper)$/.test(label)) {
-    return `This is ${label}.`;
-  }
-  const vowelSound = /^(hour|honest)\b/.test(label)
-    || (/^[aeiou]/.test(label) && !/^(one\b|uni(?:[fv]|corn)|use|eu)/.test(label));
+  if (pluralWords.has(label)) return `These are ${label}.`;
+  if (massWords.has(label)) return `This is ${label}.`;
+  if (theWords.has(label)) return `This is the ${label}.`;
+  const vowelSound = /^(hour|honest)/.test(label)
+    || (/^[aeiou]/.test(label) && !/^(one|uni(?:[fv]|corn|cycle)|use|usb|eu)/.test(label));
   const article = vowelSound ? "an" : "a";
   return `This is ${article} ${label}.`;
 }

@@ -13,19 +13,15 @@ async function prepareDetector({ model, wasm, vocabulary, index, runtimeScript, 
   const [modelBytes, wasmBytes, labelsBytes, packedIndex] = await Promise.all(
     [model, wasm, vocabulary, index].map((data, i) => decompress(data, lengths[i])),
   );
-  const { labels, dimensions, preferredCount } = JSON.parse(new TextDecoder().decode(labelsBytes));
-  const stride = dimensions / 2;
-  if (labels.length < 10000 || packedIndex.length !== labels.length * stride) {
+  const { labels, dimensions, preferredCount, format } = JSON.parse(new TextDecoder().decode(labelsBytes));
+  const vectors = new Int8Array(packedIndex.buffer, packedIndex.byteOffset, packedIndex.byteLength);
+  if (format !== "int8" || !labels.length || vectors.length !== labels.length * dimensions) {
     throw new Error("Invalid object index");
   }
   const inverseNorms = new Float32Array(labels.length);
   for (let i = 0; i < labels.length; i++) {
     let squaredNorm = 0;
-    for (let j = i * stride; j < (i + 1) * stride; j++) {
-      const first = (packedIndex[j] >> 4) - 8;
-      const second = (packedIndex[j] & 15) - 8;
-      squaredNorm += first * first + second * second;
-    }
+    for (let j = i * dimensions; j < (i + 1) * dimensions; j++) squaredNorm += vectors[j] * vectors[j];
     inverseNorms[i] = 1 / Math.sqrt(squaredNorm);
   }
   const scriptUrl = URL.createObjectURL(new Blob([runtimeScript], { type: "text/javascript" }));
@@ -37,7 +33,7 @@ async function prepareDetector({ model, wasm, vocabulary, index, runtimeScript, 
     ort.env.wasm.wasmBinary = wasmBytes.buffer;
     const session = await ort.InferenceSession.create(modelBytes, { executionProviders: ["wasm"] });
     ort.env.wasm.wasmBinary = undefined;
-    return { session, labels, stride, inverseNorms, preferredCount, packedIndex };
+    return { session, labels, dimensions, inverseNorms, preferredCount, vectors };
   } finally {
     URL.revokeObjectURL(scriptUrl);
     URL.revokeObjectURL(moduleUrl);
@@ -45,7 +41,7 @@ async function prepareDetector({ model, wasm, vocabulary, index, runtimeScript, 
 }
 
 async function recognize(pixels) {
-  const { session, labels, stride, inverseNorms, preferredCount, packedIndex } = detector;
+  const { session, labels, dimensions, inverseNorms, preferredCount, vectors } = detector;
   const size = 256 * 256;
   const rgb = new Float32Array(size * 3);
   for (let i = 0; i < size; i++) {
@@ -63,13 +59,9 @@ async function recognize(pixels) {
     let familiarIndex = -1;
     let familiarScore = -Infinity;
     for (let i = 0; i < labels.length; i++) {
-      const base = i * stride;
+      const base = i * dimensions;
       let similarity = 0;
-      for (let j = 0; j < stride; j++) {
-        const packed = packedIndex[base + j];
-        similarity += ((packed >> 4) - 8) * embedding[j * 2]
-          + ((packed & 15) - 8) * embedding[j * 2 + 1];
-      }
+      for (let j = 0; j < dimensions; j++) similarity += vectors[base + j] * embedding[j];
       const score = similarity * inverseNorms[i] / imageNorm;
       if (score > bestScore) {
         bestIndex = i;
@@ -81,7 +73,7 @@ async function recognize(pixels) {
       }
     }
     // Cosine similarity is a heuristic, not a probability or a safety rating.
-    if (bestScore < 0.245) return "";
+    if (bestScore < 0.21) return "";
     if (familiarScore >= 0.19 && bestScore - familiarScore <= 0.075) return labels[familiarIndex];
     return labels[bestIndex];
   } finally {
