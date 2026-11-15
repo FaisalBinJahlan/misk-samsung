@@ -1,151 +1,146 @@
 "use strict";
 
-const spokenQuestions = [
-  "ما هذا", "ما هذه", "وش هذا", "وش هذي", "إيش هذا", "إيش هذي",
-  "شنو هذا", "شنو هذي", "وش اسمه", "وش اسمها", "وش اسم هذا", "وش اسم هذي",
-  "إيش اسمه", "إيش اسمها", "شنو اسمه", "شنو اسمها", "ما اسم هذا", "ما اسم هذه",
-  "وش هذا بالإنجليزي", "إيش هذا بالإنجليزي", "وش اسمه بالإنجليزي", "وش اسمها بالإنجليزي",
-  "شنو اسمه بالإنجليزي", "كيف أقول هذا بالإنجليزي", "سمّ هذا بالإنجليزي", "قل لي وش هذا",
-  "What is this", "What's this thing", "What's it called", "What's this called",
-];
-
-function normalizeQuestion(transcript) {
-  return transcript.toLowerCase()
-    .replace(/[’']/g, "")
-    .replace(/[إأآٱ]/g, "ا")
-    .replace(/[\u064B-\u065F\u0670\u0640]/g, "")
-    .replace(/[^\u0621-\u064Aa-z\s]/g, " ")
-    .trim()
-    .replace(/\s+/g, " ")
-    .replace(/^(?:(?:طيب|يلا|please) )+/, "")
-    .replace(/ (?:لو سمحت|من فضلك|please)$/, "")
-    .replace(/^ما(?=هذا|هذه|اسم)/, "ما ")
-    .replace(/\bwhats\b/g, "what is");
-}
-
-const questionSet = new Set(spokenQuestions.map(normalizeQuestion));
-
 function createSpeechInput({ canListen, onQuestion, onError }) {
-  const Recognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
   const wave = document.getElementById("mic-wave");
+  const levelBars = [...wave.children];
   const state = document.getElementById("mic-state");
-  const privacy = document.getElementById("mic-privacy");
-  const language = document.getElementById("question-language");
-  const localPacks = new Set();
-  let enabled = false;
+  const AudioEngine = window.AudioContext ?? window.webkitAudioContext;
+  const barWeights = [0.35, 0.62, 0.83, 1, 0.83, 0.62, 0.35];
   let current;
-  let restartTimer;
-  let startTimer;
+  let frame;
+  let lastSample;
+  let quietUntil;
+  let noise = 0.004;
+  let lastLoud;
+  let loudDuration = 0;
+  let level = 0;
 
-  if (typeof Recognition?.available === "function") {
-    for (const option of language.options) {
-      Promise.resolve().then(() => Recognition.available({ langs: [option.value], processLocally: true }))
-        .then((status) => {
-          if (status === "available") localPacks.add(option.value);
-          updatePrivacy();
-        }).catch(() => {});
+  function renderLevel(next) {
+    for (const [i, bar] of levelBars.entries()) {
+      bar.style.transform = `scaleY(${0.16 + next * 0.84 * barWeights[i]})`;
     }
   }
 
-  function updatePrivacy() {
-    const isLocal = current ? current.processLocally === true : localPacks.has(language.value);
-    privacy.textContent = isLocal ? "التعرّف الصوتي على جهازك." : "قد يعالج المتصفح الكلام عبر الإنترنت.";
+  function reset() {
+    cancelAnimationFrame(frame);
+    frame = undefined;
+    lastSample = undefined;
+    quietUntil = performance.now() + 260;
+    loudDuration = 0;
+    lastLoud = undefined;
+    level = 0;
+    renderLevel(0);
   }
 
-  function halt() {
-    clearTimeout(startTimer);
-    clearTimeout(restartTimer);
-    wave.dataset.speaking = "false";
-    if (!current) return;
-    const recognizer = current;
+  function disable() {
+    reset();
+    const session = current;
     current = undefined;
-    try { recognizer.abort(); } catch {}
+    if (!session) return;
+    session.track?.stop();
+    session.source?.disconnect();
+    session.context.close().catch(() => {});
   }
 
   function fail(message) {
-    enabled = false;
-    halt();
+    disable();
     onError(message);
   }
 
-  function start() {
-    clearTimeout(restartTimer);
-    if (!enabled || !canListen() || current) return;
-    if (!Recognition) {
-      fail("متصفحك ما يدعم المايك للتعرّف الصوتي. استخدم زر «ماهذا؟».");
-      return;
-    }
+  function sample(now) {
+    frame = undefined;
+    if (!current?.track?.enabled || !canListen()) return;
+    const elapsed = now - (lastSample ?? now);
+    if (lastSample === undefined || elapsed >= 30) {
+      lastSample = now;
+      current.analyser.getFloatTimeDomainData(current.samples);
+      let total = 0;
+      for (const value of current.samples) total += value * value;
+      const rms = Math.sqrt(total / current.samples.length);
+      const threshold = Math.max(0.012, noise * 3.1);
+      const audible = rms > threshold;
+      const visual = audible ? Math.min(1, Math.sqrt((rms - threshold) * 16)) : 0;
+      level += (visual - level) * (visual > level ? 0.7 : 0.25);
+      renderLevel(level);
 
-    let recognizer;
-    try { recognizer = new Recognition(); } catch {
-      fail("متصفحك ما قدر يجهّز التعرّف الصوتي. استخدم زر «ماهذا؟».");
-      return;
-    }
-    current = recognizer;
-    recognizer.lang = language.value;
-    if ("processLocally" in recognizer && localPacks.has(recognizer.lang)) recognizer.processLocally = true;
-    recognizer.continuous = false;
-    recognizer.interimResults = false;
-    recognizer.maxAlternatives = 2;
-    updatePrivacy();
-    state.textContent = "جاري تشغيل المايك…";
-
-    recognizer.onstart = () => {
-      if (current !== recognizer) return;
-      clearTimeout(startTimer);
-      state.textContent = recognizer.lang === "en-US" ? "قل: What is this?" : "أسمعك، قل «ما هذا؟»";
-    };
-    recognizer.onspeechstart = () => {
-      if (current === recognizer) wave.dataset.speaking = "true";
-    };
-    recognizer.onspeechend = () => {
-      if (current === recognizer) wave.dataset.speaking = "false";
-    };
-    recognizer.onresult = (event) => {
-      if (current !== recognizer || !canListen()) return;
-      for (const result of Array.from(event.results).slice(event.resultIndex)) {
-        if (result.isFinal && Array.from(result).some(({ transcript }) => questionSet.has(normalizeQuestion(transcript)))) {
-          halt();
-          onQuestion();
-          return;
+      if (!audible) noise += (rms - noise) * 0.04;
+      if (now >= quietUntil) {
+        if (audible) {
+          if (lastLoud !== undefined && now - lastLoud > 190 && loudDuration < 320) loudDuration = 0;
+          lastLoud = now;
+          loudDuration += Math.min(elapsed, 48);
+        } else if (lastLoud !== undefined && now - lastLoud >= 480) {
+          const ready = loudDuration >= 320;
+          loudDuration = 0;
+          lastLoud = undefined;
+          if (ready) {
+            reset();
+            onQuestion();
+            return;
+          }
         }
       }
-    };
-    recognizer.onerror = ({ error }) => {
-      if (current !== recognizer || error === "no-speech" || error === "aborted") return;
-      const denied = error === "not-allowed" || error === "service-not-allowed";
-      fail(denied
-        ? "المايك يحتاج إذن من المتصفح. تقدر تكمل بزر «ماهذا؟»."
-        : "التعرّف الصوتي تعذّر. تقدر تكمل بزر «ماهذا؟» أو تجرّب المايك مرة ثانية.");
-    };
-    recognizer.onend = () => {
-      if (current !== recognizer) return;
-      halt();
-      restartTimer = setTimeout(start, 350);
-    };
-    startTimer = setTimeout(() => {
-      if (current === recognizer) fail("المايك ما بدأ. جرّب مرة ثانية أو استخدم زر «ماهذا؟».");
-    }, 10000);
-    try { recognizer.start(); } catch {
-      fail("ما قدر المتصفح يشغّل المايك. تقدر تستخدم زر «ماهذا؟».");
+    }
+    frame = requestAnimationFrame(sample);
+  }
+
+  function refresh() {
+    const track = current?.track;
+    if (!track || !current.analyser) return;
+    const listening = canListen();
+    track.enabled = listening;
+    if (!listening) {
+      state.textContent = "المايك متوقف مؤقتًا";
+      reset();
+    } else if (frame === undefined) {
+      state.textContent = "أسمعك، تكلّم ثم اسكت لحظة";
+      frame = requestAnimationFrame(sample);
     }
   }
 
-  language.addEventListener("change", () => {
-    halt();
-    updatePrivacy();
-    start();
-  });
-
-  return {
-    enable() { enabled = true; start(); },
-    disable() { enabled = false; halt(); },
-    refresh() {
-      if (enabled && canListen()) start();
-      else {
-        halt();
-        if (enabled) state.textContent = "المايك متوقف مؤقتًا…";
+  async function enable() {
+    if (!AudioEngine || !navigator.mediaDevices?.getUserMedia) {
+      fail("متصفحك ما قدر يشغّل المايك. استخدم زر «ماهذا؟».");
+      return;
+    }
+    disable();
+    state.textContent = "جاري تشغيل المايك…";
+    let session;
+    try {
+      const context = new AudioEngine();
+      session = { context };
+      current = session;
+      const running = context.resume().catch(() => false);
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: false,
+        audio: { echoCancellation: true, noiseSuppression: true },
+      });
+      if (current !== session) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
       }
-    },
-  };
+      [session.track] = stream.getAudioTracks();
+      await running;
+      if (current !== session) return;
+      if (context.state !== "running" || !session.track) throw new Error("Microphone unavailable");
+      session.track.addEventListener("ended", () => {
+        if (current === session) fail("توقف المايك. جرّب تشغيله مرة ثانية.");
+      }, { once: true });
+      session.source = context.createMediaStreamSource(stream);
+      session.analyser = context.createAnalyser();
+      session.analyser.fftSize = 1024;
+      session.samples = new Float32Array(session.analyser.fftSize);
+      session.source.connect(session.analyser);
+      noise = 0.004;
+      reset();
+      refresh();
+    } catch (error) {
+      if (session && current !== session) return;
+      fail(error.name === "NotAllowedError"
+        ? "اسمح بالمايك من المتصفح أو استخدم زر «ماهذا؟»."
+        : "تعذّر تشغيل المايك. جرّب مرة ثانية أو استخدم زر «ماهذا؟».");
+    }
+  }
+
+  return { enable, disable, refresh };
 }

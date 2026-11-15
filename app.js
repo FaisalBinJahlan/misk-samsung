@@ -19,8 +19,6 @@ const inputModes = document.getElementById("input-modes");
 const manualMode = document.getElementById("manual-mode");
 const micMode = document.getElementById("mic-mode");
 const micPanel = document.getElementById("mic-panel");
-const micPrivacy = document.getElementById("mic-privacy");
-const questionLanguage = document.getElementById("question-language");
 const canvas = document.createElement("canvas");
 const context = canvas.getContext("2d", { willReadFrequently: true });
 const speech = window.speechSynthesis;
@@ -55,7 +53,7 @@ const expandedCacheName = "misk-expanded-model-v5";
 
 // GitHub Pages lets browsers keep the page for a while, so phones can keep
 // running an old version. Compare with version.json and reload when it changed.
-const appVersion = "14";
+const appVersion = "15";
 async function checkForUpdate() {
   try {
     const response = await fetch(`version.json?t=${Date.now()}`, { cache: "no-store" });
@@ -77,7 +75,7 @@ function setInputMode(useMic) {
   micEnabled = useMic;
   manualMode.setAttribute("aria-pressed", String(!useMic));
   micMode.setAttribute("aria-pressed", String(useMic));
-  questionLanguage.hidden = micPanel.hidden = !useMic;
+  micPanel.hidden = !useMic;
   action.hidden = useMic;
   if (useMic) speechInput.enable();
   else speechInput.disable();
@@ -332,7 +330,7 @@ function closeCamera(message = "شغّل الكاميرا ووجّهها نحو 
   cameraSession += 1;
   cameraReady = false;
   setInputMode(false);
-  inputModes.hidden = micPrivacy.hidden = true;
+  inputModes.hidden = true;
   cancelExpanded?.();
   cancelExpanded = undefined;
   if (expandedWorker) {
@@ -390,7 +388,7 @@ async function openCamera() {
 
   experience.classList.add("camera-on");
   cameraReady = true;
-  inputModes.hidden = micPrivacy.hidden = false;
+  inputModes.hidden = false;
   stop.hidden = false;
   action.textContent = "ماهذا؟";
   status.textContent = "حط الغرض داخل الإطار واضغط الزر.";

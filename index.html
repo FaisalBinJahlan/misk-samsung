@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#102525">
   <title>ماهذا؟</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e2f78a'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='sans-serif' font-size='25' font-weight='bold' fill='%23152c27'%3EAa%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=14">
-  <script defer src="speech-input.js?v=14"></script>
-  <script defer src="app.js?v=14"></script>
+  <link rel="stylesheet" href="styles.css?v=15">
+  <script defer src="speech-input.js?v=15"></script>
+  <script defer src="app.js?v=15"></script>
 </head>
 <body>
   <main id="experience" class="experience">
@@ -44,13 +44,8 @@
       <p id="status" class="status" role="status" aria-live="polite">شغّل الكاميرا ووجّهها نحو غرض واحد.</p>
       <div id="input-modes" class="input-modes" role="group" aria-label="طريقة السؤال" hidden>
         <button id="manual-mode" type="button" aria-pressed="true">بالزر</button>
-        <button id="mic-mode" type="button" aria-pressed="false" aria-describedby="mic-privacy">بالمايك</button>
-        <select id="question-language" aria-label="لغة السؤال" hidden>
-          <option value="ar-SA">العربية</option>
-          <option value="en-US">English</option>
-        </select>
+        <button id="mic-mode" type="button" aria-pressed="false">بالمايك</button>
       </div>
-      <span id="mic-privacy" class="mic-privacy" hidden>قد يعالج المتصفح الكلام عبر الإنترنت.</span>
       <button id="action" class="action" type="button">شغّل الكاميرا</button>
       <div id="mic-panel" class="mic-panel" hidden>
         <div id="mic-wave" class="mic-wave" aria-hidden="true">
