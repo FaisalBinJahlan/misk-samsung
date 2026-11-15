@@ -15,6 +15,12 @@ const voiceDialog = document.getElementById("voice-dialog");
 const voiceSelect = document.getElementById("voice-select");
 const voicePreview = document.getElementById("voice-preview");
 const voiceNote = document.getElementById("voice-note");
+const inputModes = document.getElementById("input-modes");
+const manualMode = document.getElementById("manual-mode");
+const micMode = document.getElementById("mic-mode");
+const micPanel = document.getElementById("mic-panel");
+const micPrivacy = document.getElementById("mic-privacy");
+const questionLanguage = document.getElementById("question-language");
 const canvas = document.createElement("canvas");
 const context = canvas.getContext("2d", { willReadFrequently: true });
 const speech = window.speechSynthesis;
@@ -29,12 +35,27 @@ let busy = false;
 let spokenWord = "";
 let expandedWorker;
 let cancelExpanded;
+let cameraReady = false;
+let micEnabled = false;
+let spokenUtterance;
+let speechTimer;
+const speechInput = createSpeechInput({
+  canListen: () => cameraReady && !busy && !spokenUtterance && !voiceDialog.open && !document.hidden,
+  onQuestion: () => {
+    if (!busy && camera.readyState >= 2 && camera.videoWidth) recognize();
+    else speechInput.refresh();
+  },
+  onError: (message) => {
+    setInputMode(false);
+    status.textContent = message;
+  },
+});
 const expandedFolder = new URL("vendor/expanded-lite/", document.baseURI);
 const expandedCacheName = "misk-expanded-model-v5";
 
 // GitHub Pages lets browsers keep the page for a while, so phones can keep
 // running an old version. Compare with version.json and reload when it changed.
-const appVersion = "13";
+const appVersion = "14";
 async function checkForUpdate() {
   try {
     const response = await fetch(`version.json?t=${Date.now()}`, { cache: "no-store" });
@@ -48,8 +69,25 @@ async function checkForUpdate() {
 }
 checkForUpdate();
 document.addEventListener("visibilitychange", () => {
+  speechInput.refresh();
   if (document.visibilityState === "visible") checkForUpdate();
 });
+
+function setInputMode(useMic) {
+  micEnabled = useMic;
+  manualMode.setAttribute("aria-pressed", String(!useMic));
+  micMode.setAttribute("aria-pressed", String(useMic));
+  questionLanguage.hidden = micPanel.hidden = !useMic;
+  action.hidden = useMic;
+  if (useMic) speechInput.enable();
+  else speechInput.disable();
+}
+
+function cancelSpeech() {
+  clearTimeout(speechTimer);
+  spokenUtterance = undefined;
+  speech?.cancel();
+}
 
 function downloadExpandedPart(url, signal, onProgress) {
   return new Promise((resolve, reject) => {
@@ -253,7 +291,7 @@ function refreshVoiceOptions() {
 
 function say(text, { auto = false, voiceId = selectedVoice, preview = false } = {}) {
   if (!speech || !window.SpeechSynthesisUtterance) return;
-  speech.cancel();
+  cancelSpeech();
   const utterance = new SpeechSynthesisUtterance(text);
   const voices = availableEnglishVoices();
   utterance.voice = voices.find((voice) => voice.voiceURI === voiceId)
@@ -263,8 +301,18 @@ function say(text, { auto = false, voiceId = selectedVoice, preview = false } = 
     ?? null;
   utterance.lang = utterance.voice?.lang ?? "en-US";
   utterance.rate = 0.85;
+  spokenUtterance = utterance;
+  speechInput.refresh();
+  function finish() {
+    if (spokenUtterance !== utterance) return false;
+    clearTimeout(speechTimer);
+    spokenUtterance = undefined;
+    speechInput.refresh();
+    return true;
+  }
+  utterance.onend = finish;
   utterance.onerror = (event) => {
-    if (event.error === "canceled" || event.error === "interrupted") return;
+    if (!finish() || event.error === "canceled" || event.error === "interrupted") return;
     if (preview) {
       if (!voiceDialog.open) return;
       voiceNote.hidden = false;
@@ -272,11 +320,19 @@ function say(text, { auto = false, voiceId = selectedVoice, preview = false } = 
     } else if (auto) status.textContent = "اضغط زر الصوت لسماع الكلمة.";
     else status.textContent = "تعذّر تشغيل الصوت. الكلمة ظاهرة على الشاشة.";
   };
-  speech.speak(utterance);
+  speechTimer = setTimeout(() => {
+    if (spokenUtterance !== utterance) return;
+    cancelSpeech();
+    speechInput.refresh();
+  }, 15000);
+  try { speech.speak(utterance); } catch { finish(); }
 }
 
 function closeCamera(message = "شغّل الكاميرا ووجّهها نحو غرض واحد.") {
   cameraSession += 1;
+  cameraReady = false;
+  setInputMode(false);
+  inputModes.hidden = micPrivacy.hidden = true;
   cancelExpanded?.();
   cancelExpanded = undefined;
   if (expandedWorker) {
@@ -290,7 +346,7 @@ function closeCamera(message = "شغّل الكاميرا ووجّهها نحو 
   stop.hidden = true;
   result.hidden = true;
   spokenWord = "";
-  speech?.cancel();
+  cancelSpeech();
   status.textContent = message;
   action.textContent = "شغّل الكاميرا";
   action.disabled = false;
@@ -333,6 +389,8 @@ async function openCamera() {
   }
 
   experience.classList.add("camera-on");
+  cameraReady = true;
+  inputModes.hidden = micPrivacy.hidden = false;
   stop.hidden = false;
   action.textContent = "ماهذا؟";
   status.textContent = "حط الغرض داخل الإطار واضغط الزر.";
@@ -399,10 +457,11 @@ async function recognize() {
   }
   const session = cameraSession;
   busy = true;
+  speechInput.refresh();
   action.disabled = true;
   result.hidden = true;
   spokenWord = "";
-  speech?.cancel();
+  cancelSpeech();
   status.textContent = "جاري التعرّف…";
 
   try {
@@ -423,18 +482,30 @@ async function recognize() {
   } catch (error) {
     if (session !== cameraSession) return;
     console.warn("Recognition failed", error);
-    status.textContent = "توقّف التعرّف. اضغط «ماهذا؟» للمتابعة من الملفات المحفوظة.";
+    status.textContent = micEnabled
+      ? "توقّف التعرّف. اسأل مرة ثانية للمتابعة من الملفات المحفوظة."
+      : "توقّف التعرّف. اضغط «ماهذا؟» للمتابعة من الملفات المحفوظة.";
   } finally {
     if (session === cameraSession) {
       canvas.width = 0;
       canvas.height = 0;
       action.disabled = false;
       busy = false;
+      speechInput.refresh();
     }
   }
 }
 
 action.addEventListener("click", () => stream ? recognize() : openCamera());
+manualMode.addEventListener("click", () => {
+  setInputMode(false);
+  if (!busy) status.textContent = "حط الغرض داخل الإطار واضغط الزر.";
+});
+micMode.addEventListener("click", () => {
+  if (micEnabled || !cameraReady) return;
+  if (!busy) status.textContent = "";
+  setInputMode(true);
+});
 stop.addEventListener("click", () => closeCamera());
 replay.addEventListener("click", () => { if (spokenWord) say(spokenWord); });
 window.addEventListener("pagehide", () => closeCamera());
@@ -446,6 +517,7 @@ if (speech && window.SpeechSynthesisUtterance && typeof voiceDialog.showModal ==
     refreshVoiceOptions();
     voiceDialog.returnValue = "";
     voiceDialog.showModal();
+    speechInput.refresh();
   });
   speech.addEventListener?.("voiceschanged", () => {
     if (voiceDialog.open) refreshVoiceOptions();
@@ -456,7 +528,8 @@ if (speech && window.SpeechSynthesisUtterance && typeof voiceDialog.showModal ==
     say("Hello! This is a book.", { voiceId: voiceSelect.value, preview: true });
   });
   voiceDialog.addEventListener("close", () => {
-    speech.cancel();
+    cancelSpeech();
+    speechInput.refresh();
     if (voiceDialog.returnValue !== "save") return;
     selectedVoice = draftVoice;
     try { localStorage.setItem(voiceStorageKey, selectedVoice); } catch {}
