@@ -40,7 +40,7 @@ let speechTimer;
 const speechInput = createSpeechInput({
   canListen: () => cameraReady && !busy && !spokenUtterance && !voiceDialog.open && !document.hidden,
   onQuestion: () => {
-    if (!busy && camera.readyState >= 2 && camera.videoWidth) recognize();
+    if (!busy && camera.readyState >= 2 && camera.videoWidth) recognize("voice");
     else speechInput.refresh();
   },
   onError: (message) => {
@@ -266,11 +266,33 @@ async function recognizeExpanded(session) {
     status.textContent = "اكتمل التحميل. جاري تجهيز التعرّف…";
     await requestExpanded({ type: "prepare", ...assets }, session);
   }
-  if (session !== cameraSession) return "";
+  if (session !== cameraSession) return { label: "" };
   status.textContent = "جاري التعرّف…";
-  const { label } = await requestExpanded({ type: "recognize", pixels }, session);
-  return label;
+  const { label, top = [] } = await requestExpanded({ type: "recognize", pixels }, session);
+  return { label, top };
 }
+
+// Measurement for testing (?debug=1): one record per question, kept in
+// window.showSayLog and printed to the console. No image is stored.
+const debugMode = new URLSearchParams(location.search).has("debug");
+window.showSayLog = [];
+function logAttempt(record) {
+  if (!debugMode) return;
+  window.showSayLog.push(record);
+  const guesses = record.top.map(({ word, score }) => `${word} ${score}`).join(" | ");
+  console.info(`[measure] #${window.showSayLog.length} ${record.trigger}: answer="${record.answer || "(not sure)"}" `
+    + `top3: ${guesses} | recognition ${record.recognitionMs} ms, total ${record.totalMs} ms`);
+}
+function copyMeasurements() {
+  const header = "n,trigger,answer,top1,score1,top2,score2,top3,score3,recognition_ms,total_ms";
+  const rows = window.showSayLog.map((r, i) => [
+    i + 1, r.trigger, r.answer,
+    ...[0, 1, 2].flatMap((k) => [r.top[k]?.word ?? "", r.top[k]?.score ?? ""]),
+    r.recognitionMs, r.totalMs,
+  ].join(","));
+  return [header, ...rows].join("\n");
+}
+window.copyMeasurements = copyMeasurements;
 
 function availableEnglishVoices() {
   return speech.getVoices().filter((voice) => /^en(?:[-_]|$)/i.test(voice.lang));
@@ -447,8 +469,9 @@ function englishSentence(label) {
   return `This is ${article} ${label}.`;
 }
 
-async function recognize() {
+async function recognize(trigger = "button") {
   if (busy || !stream) return;
+  const startedAt = performance.now();
   if (!camera.videoWidth || camera.readyState < 2) {
     status.textContent = "انتظر حتى تظهر الكاميرا وجرّب مرة ثانية.";
     return;
@@ -464,8 +487,16 @@ async function recognize() {
 
   try {
     takeSnapshot();
-    const label = await recognizeExpanded(session);
+    const recognitionStart = performance.now();
+    const { label, top } = await recognizeExpanded(session);
     if (session !== cameraSession) return;
+    logAttempt({
+      trigger,
+      answer: label,
+      top,
+      recognitionMs: Math.round(performance.now() - recognitionStart),
+      totalMs: Math.round(performance.now() - startedAt),
+    });
     if (!label) {
       status.textContent = "قرّب الغرض داخل الإطار وجرّب مرة ثانية.";
       return;
