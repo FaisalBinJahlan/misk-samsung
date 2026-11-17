@@ -63,6 +63,8 @@ async function recognize(pixels) {
     let bestIndex = -1;
     let bestScore = -Infinity;
     const levelBest = new Map();
+    // The three highest-scoring words, kept for measurement (shown with ?debug=1).
+    const top = [];
     for (let i = 0; i < labels.length; i++) {
       const base = i * dimensions;
       let similarity = 0;
@@ -72,16 +74,22 @@ async function recognize(pixels) {
         bestIndex = i;
         bestScore = score;
       }
-      const top = levelBest.get(levels[i]);
-      if (!top || score > top.score) levelBest.set(levels[i], { index: i, score });
+      const best = levelBest.get(levels[i]);
+      if (!best || score > best.score) levelBest.set(levels[i], { index: i, score });
+      if (top.length < 3 || score > top[2].score) {
+        top.push({ word: labels[i], level: levels[i], score });
+        top.sort((a, b) => b.score - a.score);
+        if (top.length > 3) top.pop();
+      }
     }
+    const candidates = top.map(({ word, level, score }) => ({ word, level, score: Math.round(score * 1000) / 1000 }));
     // Cosine similarity is a heuristic, not a probability or a safety rating.
-    if (bestScore < minScore) return "";
+    if (bestScore < minScore) return { label: "", top: candidates };
     for (const level of [...levelBest.keys()].sort((a, b) => a - b)) {
       const { index, score } = levelBest.get(level);
-      if (score >= minScore && score >= bestScore - levelMargin) return labels[index];
+      if (score >= minScore && score >= bestScore - levelMargin) return { label: labels[index], top: candidates };
     }
-    return labels[bestIndex];
+    return { label: labels[bestIndex], top: candidates };
   } finally {
     input.dispose();
     output.dispose();
@@ -94,7 +102,7 @@ self.onmessage = async ({ data }) => {
       detector = await prepareDetector(data);
       self.postMessage({ ready: true, count: detector.labels.length });
     } else {
-      self.postMessage({ label: await recognize(data.pixels) });
+      self.postMessage(await recognize(data.pixels));
     }
   } catch (error) {
     self.postMessage({ error: error?.message || String(error) });
