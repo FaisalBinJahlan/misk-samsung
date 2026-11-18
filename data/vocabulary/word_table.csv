@@ -1,0 +1,942 @@
+﻿word,aoa_years,how_matched,old_level,new_level,prompt,source,in_CDI
+airplane,3.94,exact,1,1,big airplane,top 2000 ranking,yes
+apple,4.15,exact,1,1,,top 2000 ranking,yes
+arm,3.26,exact,1,1,,top 2000 ranking,yes
+backpack,5.38,exact,1,1,school backpack,top 2000 ranking,no
+bag,4.28,exact,1,1,cloth bag,top 2000 ranking,no
+ball,2.9,exact,1,1,,top 2000 ranking,yes
+balloon,4.37,exact,1,1,party balloon,top 2000 ranking,yes
+banana,3.78,exact,1,1,,top 2000 ranking,yes
+bed,2.89,exact,1,1,wooden bed frame,top 2000 ranking,yes
+bird,3.52,exact,1,1,small bird,top 2000 ranking,yes
+blocks,4.79,singular,1,1,toy building blocks,manual addition,yes
+book,3.68,exact,1,1,closed book,manual addition,yes
+bottle,3.56,exact,1,1,plastic bottle,top 2000 ranking,yes
+bowl,4.26,exact,1,1,empty bowl,top 2000 ranking,yes
+box,4.3,exact,1,1,cardboard box,top 2000 ranking,yes
+bread,3.58,exact,1,1,,top 2000 ranking,yes
+bus,3.85,exact,1,1,city bus,top 2000 ranking,yes
+cake,3.26,exact,1,1,cake on a plate,top 2000 ranking,yes
+candy,4.0,exact,1,1,,top 2000 ranking,yes
+cap,5.53,exact,1,1,cap with a front brim,top 2000 ranking,no
+car,3.37,exact,1,1,family car,top 2000 ranking,yes
+carrot,2.74,exact,1,1,,top 2000 ranking,yes
+cat,3.68,exact,1,1,adult cat,top 2000 ranking,yes
+chair,3.43,exact,1,1,wooden chair,top 2000 ranking,yes
+cheese,4.33,exact,1,1,,top 2000 ranking,yes
+cherry,5.58,exact,1,1,,top 2000 ranking,no
+clock,4.42,exact,1,1,round clock,top 2000 ranking,yes
+computer,9.7,exact,1,3,desktop computer with a monitor,top 2000 ranking,no
+cookie,3.37,exact,1,1,,top 2000 ranking,yes
+cow,3.94,exact,1,1,adult cow,top 2000 ranking,yes
+crayon,3.2,exact,1,1,,ranking 2001-3139,yes
+cup,3.57,exact,1,1,small cup,top 2000 ranking,yes
+cupcake,4.11,exact,1,1,,top 2000 ranking,no
+dates,5.84,singular,1,1,date fruits,manual addition,no
+dinosaur,4.91,exact,1,1,toy dinosaur,top 2000 ranking,no
+dog,2.8,exact,1,1,adult dog,top 2000 ranking,yes
+doll,3.68,exact,1,1,toy doll,top 2000 ranking,yes
+dollhouse,4.86,exact,1,1,,ranking 2001-3139,no
+donut,,not found: level set by hand,1,1,,top 2000 ranking,yes
+door,3.05,exact,1,1,,top 2000 ranking,yes
+dress,4.05,exact,1,1,,top 2000 ranking,yes
+drum,4.63,exact,1,1,toy drum,top 2000 ranking,no
+duck,3.5,exact,1,1,adult duck,top 2000 ranking,yes
+ear,3.63,exact,1,1,,top 2000 ranking,yes
+egg,3.89,exact,1,1,whole egg,top 2000 ranking,yes
+elephant,4.8,exact,1,1,,top 2000 ranking,yes
+eye,3.75,exact,1,1,,top 2000 ranking,yes
+face,3.75,exact,1,1,,top 2000 ranking,yes
+finger,3.43,exact,1,1,one finger,top 2000 ranking,yes
+fire truck,3.69,joined,1,1,,top 2000 ranking,yes
+fish,4.05,exact,1,1,fish swimming,top 2000 ranking,yes
+foot,3.44,exact,1,1,bare foot,top 2000 ranking,yes
+fork,3.63,exact,1,1,,top 2000 ranking,yes
+french fries,,not found: level set by hand,1,1,,top 2000 ranking,yes
+frog,4.32,exact,1,1,,top 2000 ranking,yes
+giraffe,5.0,exact,1,1,,top 2000 ranking,yes
+glass,4.47,exact,1,1,clear drinking glass,manual addition,yes
+glasses,4.35,exact,1,1,eyeglasses,manual addition,yes
+goat,5.21,exact,1,1,,top 2000 ranking,no
+grape,3.94,exact,1,1,,top 2000 ranking,yes
+hair,3.17,exact,1,1,,top 2000 ranking,yes
+hamburger,5.21,exact,1,1,,top 2000 ranking,yes
+hand,2.74,exact,1,1,,top 2000 ranking,yes
+hat,3.33,exact,1,1,wide hat with a round brim,top 2000 ranking,yes
+head,3.42,exact,1,1,human head,top 2000 ranking,yes
+helicopter,5.26,exact,1,1,,top 2000 ranking,yes
+horse,4.15,exact,1,1,adult horse,top 2000 ranking,yes
+ice cream,3.33,joined,1,1,,top 2000 ranking,yes
+jacket,3.95,exact,1,1,short zip-up jacket,top 2000 ranking,yes
+juice,4.4,exact,1,1,glass of juice,top 2000 ranking,yes
+key,3.58,exact,1,1,door key,top 2000 ranking,yes
+kite,4.58,exact,1,1,,manual addition,no
+knee,4.42,exact,1,1,,top 2000 ranking,yes
+lamp,4.0,exact,1,1,table lamp,top 2000 ranking,yes
+leg,3.0,exact,1,1,,top 2000 ranking,yes
+lemon,4.74,exact,1,1,,top 2000 ranking,no
+lion,4.42,exact,1,1,,top 2000 ranking,yes
+lollipop,3.89,exact,1,1,,top 2000 ranking,yes
+mango,8.22,exact,1,2,,top 2000 ranking,no
+milk,3.37,exact,1,1,,top 2000 ranking,yes
+monkey,4.21,exact,1,1,,top 2000 ranking,yes
+mouth,3.58,exact,1,1,,top 2000 ranking,yes
+nose,2.95,exact,1,1,,top 2000 ranking,yes
+orange,3.26,exact,1,1,orange fruit,top 2000 ranking,yes
+pancake,4.26,exact,1,1,,top 2000 ranking,yes
+pants,3.23,exact,1,1,long pants,top 2000 ranking,yes
+paper,4.0,exact,1,1,sheet of paper,manual addition,yes
+peach,4.21,exact,1,1,,top 2000 ranking,no
+pear,4.0,exact,1,1,,top 2000 ranking,no
+pen,5.11,exact,1,1,ballpoint pen,top 2000 ranking,yes
+pencil,4.06,exact,1,1,wooden pencil,top 2000 ranking,yes
+penguin,5.68,exact,1,1,,top 2000 ranking,yes
+phone,4.11,exact,1,1,,top 2000 ranking,no
+pillow,3.47,exact,1,1,bed pillow,top 2000 ranking,yes
+pizza,4.67,exact,1,1,,top 2000 ranking,yes
+plate,3.84,exact,1,1,,top 2000 ranking,yes
+popcorn,4.17,exact,1,1,,top 2000 ranking,yes
+potato,4.84,exact,1,1,,top 2000 ranking,yes
+potty,2.28,exact,1,1,baby potty chair,ranking 2001-3139,yes
+puzzle,5.11,exact,1,1,jigsaw puzzle,manual addition,yes
+rabbit,3.94,exact,1,1,,top 2000 ranking,no
+rice,3.72,exact,1,1,,top 2000 ranking,no
+robot,5.35,exact,1,1,,top 2000 ranking,no
+rubber duck,7.62,hardest part,1,2,yellow rubber duck toy,manual addition,no
+sandwich,4.79,exact,1,1,,top 2000 ranking,yes
+scarf,5.68,exact,1,1,,top 2000 ranking,yes
+scissors,4.5,exact,1,1,,top 2000 ranking,yes
+sheep,4.25,exact,1,1,adult sheep,top 2000 ranking,yes
+shirt,3.53,exact,1,1,man's shirt with buttons,top 2000 ranking,yes
+shoe,2.6,exact,1,1,leather shoe,top 2000 ranking,yes
+shorts,3.95,exact,1,1,short pants,top 2000 ranking,yes
+skirt,5.67,exact,1,1,,top 2000 ranking,no
+slippers,5.26,singular,1,1,,manual addition,yes
+soap,3.17,exact,1,1,,top 2000 ranking,yes
+sock,2.94,exact,1,1,,top 2000 ranking,yes
+sofa,4.5,exact,1,1,big sofa,top 2000 ranking,yes
+spoon,2.5,exact,1,1,metal eating spoon,top 2000 ranking,yes
+strawberry,4.21,exact,1,1,,top 2000 ranking,yes
+sweater,5.22,exact,1,1,knitted sweater,top 2000 ranking,yes
+table,4.39,exact,1,1,kitchen table,manual addition,yes
+teddy bear,,not found: level set by hand,1,1,soft teddy bear toy,top 2000 ranking,yes
+television,4.11,exact,1,1,,manual addition,no
+toast,4.67,exact,1,1,,top 2000 ranking,yes
+toe,3.0,exact,1,1,toes on a foot,top 2000 ranking,yes
+tomato,4.61,exact,1,1,,top 2000 ranking,no
+tooth,3.61,exact,1,1,,top 2000 ranking,yes
+toothbrush,4.33,exact,1,1,,top 2000 ranking,yes
+towel,3.22,exact,1,1,,top 2000 ranking,yes
+train,4.0,exact,1,1,real train on tracks,top 2000 ranking,yes
+tricycle,4.05,exact,1,1,three-wheel tricycle for kids,ranking 2001-3139,yes
+truck,3.79,exact,1,1,big truck,top 2000 ranking,yes
+umbrella,5.68,exact,1,1,,top 2000 ranking,no
+watermelon,4.22,exact,1,1,,top 2000 ranking,no
+window,4.74,exact,1,1,,top 2000 ranking,yes
+zebra,4.79,exact,1,1,,top 2000 ranking,yes
+action figure,7.53,hardest part,2,2,,manual addition,no
+ambulance,6.16,exact,2,2,,top 2000 ranking,no
+basket,5.67,exact,2,1,,top 2000 ranking,yes
+bathrobe,7.9,exact,2,2,,ranking 2001-3139,no
+beard,4.84,exact,2,1,,top 2000 ranking,no
+bell pepper,5.47,hardest part,2,1,,top 2000 ranking,no
+belt,4.62,exact,2,1,,top 2000 ranking,yes
+bib,4.53,exact,2,1,baby bib,ranking 2001-3139,yes
+bicycle,4.26,exact,2,1,,top 2000 ranking,yes
+blanket,3.61,exact,2,1,folded blanket,top 2000 ranking,yes
+board game,6.37,hardest part,2,2,,manual addition,no
+bookmark,8.26,exact,2,2,,ranking 2001-3139,no
+bucket,5.61,exact,2,1,,top 2000 ranking,yes
+butter,5.78,exact,2,1,,top 2000 ranking,yes
+button,4.78,exact,2,1,clothing button,top 2000 ranking,yes
+cabinet,6.06,exact,2,2,kitchen cabinet,top 2000 ranking,no
+camera,6.0,exact,2,1,,top 2000 ranking,yes
+can,4.32,exact,2,1,tin can,top 2000 ranking,yes
+carpet,6.05,exact,2,2,,top 2000 ranking,no
+ceiling,4.75,exact,2,1,,top 2000 ranking,no
+chess,5.37,exact,2,1,chess pieces on a board,top 2000 ranking,no
+chocolate,3.33,exact,2,1,piece of chocolate,top 2000 ranking,yes
+clay,5.32,exact,2,1,modeling clay,manual addition,no
+closet,5.0,exact,2,1,,top 2000 ranking,yes
+coffee,4.94,exact,2,1,,top 2000 ranking,yes
+coin,4.17,exact,2,1,metal coin,manual addition,no
+computer mouse,9.7,hardest part,2,3,,top 2000 ranking,no
+corn,4.61,exact,2,1,,top 2000 ranking,yes
+costume,4.17,exact,2,1,,top 2000 ranking,no
+cotton candy,6.0,hardest part,2,1,,top 2000 ranking,no
+croissant,10.15,exact,2,3,,ranking 2001-3139,no
+cutting board,,not found: level set by hand,2,2,,top 2000 ranking,no
+desk,5.56,exact,2,1,study desk with drawers,top 2000 ranking,no
+doorbell,5.05,exact,2,1,,ranking 2001-3139,no
+doorknob,4.7,exact,2,1,,ranking 2001-3139,no
+eggplant,8.3,exact,2,2,,ranking 2001-3139,no
+eraser,4.95,exact,2,1,,ranking 2001-3139,no
+fan,5.63,exact,2,1,electric fan,top 2000 ranking,no
+first-aid kit,,not found: level set by hand,2,3,,top 2000 ranking,no
+flag,5.33,exact,2,1,,top 2000 ranking,yes
+floor,4.44,exact,2,1,,top 2000 ranking,no
+flour,6.89,exact,2,2,,top 2000 ranking,no
+flower,3.11,exact,2,1,,top 2000 ranking,yes
+game controller,10.32,hardest part,2,3,,manual addition,no
+garlic,6.89,exact,2,2,,top 2000 ranking,no
+ginger,8.05,exact,2,2,,top 2000 ranking,no
+globe,6.5,exact,2,2,,top 2000 ranking,no
+glue,4.67,exact,2,1,glue bottle,manual addition,yes
+guitar,5.32,exact,2,1,,top 2000 ranking,no
+gum,4.89,exact,2,1,,top 2000 ranking,yes
+hair dryer,6.06,joined,2,2,,manual addition,no
+hairbrush,4.7,exact,2,1,,manual addition,no
+hairpin,8.17,exact,2,2,,ranking 2001-3139,no
+hammer,5.42,exact,2,1,,top 2000 ranking,yes
+hanger,6.78,exact,2,2,clothes hanger,manual addition,no
+headband,6.33,exact,2,2,,ranking 2001-3139,no
+helmet,5.71,exact,2,1,,top 2000 ranking,no
+honey,5.44,exact,2,1,,top 2000 ranking,no
+hummus,14.84,exact; lowered by hand (common food in Saudi homes),2,2,,ranking 2001-3139,no
+iron,7.32,exact,2,2,clothes iron,manual addition,no
+jam,6.56,exact,2,2,jar of jam,top 2000 ranking,no
+jump rope,5.8,joined,2,1,,top 2000 ranking,no
+kebab,10.44,exact; lowered by hand (common food in Saudi homes),2,2,,ranking 2001-3139,no
+keyboard,9.32,exact,2,3,,top 2000 ranking,no
+ladder,4.4,exact,2,1,,top 2000 ranking,yes
+laptop,12.44,exact,2,3,open laptop computer,top 2000 ranking,no
+leaf,4.6,exact,2,1,,top 2000 ranking,no
+lip,3.79,exact,2,1,human lips,top 2000 ranking,yes
+lunch box,4.25,joined,2,1,,manual addition,no
+map,5.6,exact,2,1,,top 2000 ranking,no
+marbles,7.05,singular,2,2,glass marbles,manual addition,no
+mask,4.8,exact,2,1,face mask,top 2000 ranking,no
+meat,4.42,exact,2,1,raw meat,top 2000 ranking,yes
+meatball,6.0,exact,2,1,,ranking 2001-3139,no
+mirror,4.89,exact,2,1,,top 2000 ranking,no
+mop,5.11,exact,2,1,floor mop,manual addition,yes
+nail polish,8.06,hardest part,2,2,,top 2000 ranking,no
+neck,3.0,exact,2,1,,top 2000 ranking,no
+notebook,6.37,exact,2,2,spiral notebook,manual addition,no
+olive,6.68,exact,2,2,,top 2000 ranking,no
+omelet,6.5,exact,2,2,,ranking 2001-3139,no
+oven,5.67,exact,2,1,kitchen oven door,top 2000 ranking,yes
+paint,4.45,exact,2,1,jar of paint,top 2000 ranking,yes
+paintbrush,6.22,exact,2,2,,ranking 2001-3139,no
+painting,5.26,exact,2,1,,top 2000 ranking,no
+pajamas,3.48,exact,2,1,,manual addition,yes
+pan,4.72,exact,2,1,frying pan with a handle,top 2000 ranking,no
+paper clip,6.42,joined,2,2,,top 2000 ranking,no
+paper towel,4.0,hardest part,2,1,roll of paper towels,top 2000 ranking,no
+pasta,5.78,exact,2,1,short pasta like penne,top 2000 ranking,no
+peanut,5.0,exact,2,1,,top 2000 ranking,no
+pencil case,6.74,hardest part,2,2,,top 2000 ranking,no
+pencil sharpener,5.31,joined,2,1,,ranking 2001-3139,no
+piano,5.5,exact,2,1,,top 2000 ranking,no
+picture,4.05,exact,2,1,drawing or photo on paper,top 2000 ranking,yes
+pie,3.67,exact,2,1,baked pie,top 2000 ranking,no
+plant,3.95,exact,2,1,green plant in a pot,top 2000 ranking,yes
+playing card,,not found: level set by hand,2,2,,top 2000 ranking,no
+plug,6.05,exact,2,2,electric plug on a cord,top 2000 ranking,no
+pomegranate,11.17,exact; lowered by hand (common food in Saudi homes),2,2,,ranking 2001-3139,no
+pot,5.95,exact,2,1,cooking pot,top 2000 ranking,no
+prayer mat,5.25,hardest part,2,1,,manual addition,no
+purse,5.53,exact,2,1,woman's small purse,top 2000 ranking,yes
+raincoat,5.5,exact,2,1,,ranking 2001-3139,no
+raisin,5.05,exact,2,1,,ranking 2001-3139,yes
+remote control,7.26,hardest part,2,2,,top 2000 ranking,no
+rocket,5.63,exact,2,1,,top 2000 ranking,no
+rolling pin,7.6,joined,2,2,,top 2000 ranking,no
+rope,5.44,exact,2,1,,top 2000 ranking,no
+ruler,5.94,exact,2,1,,manual addition,no
+safety pin,6.53,joined,2,2,,top 2000 ranking,no
+salad,5.61,exact,2,1,plate of salad,top 2000 ranking,no
+sandals,5.21,singular,2,1,,manual addition,no
+shark,5.47,exact,2,1,,top 2000 ranking,no
+shelf,5.5,exact,2,1,wall shelf,top 2000 ranking,no
+shoulder,4.5,exact,2,1,,top 2000 ranking,yes
+shower,4.72,exact,2,1,,top 2000 ranking,yes
+sink,4.47,exact,2,1,,top 2000 ranking,yes
+sleeping bag,,not found: level set by hand,2,2,,top 2000 ranking,no
+soup,5.37,exact,2,1,bowl of soup,top 2000 ranking,yes
+spider,3.43,exact,2,1,,top 2000 ranking,no
+sponge,5.0,exact,2,1,,manual addition,no
+stairs,4.22,exact,2,1,,top 2000 ranking,yes
+stapler,5.83,exact,2,1,,ranking 2001-3139,no
+string,4.94,exact,2,1,piece of string,top 2000 ranking,no
+sugar,3.95,exact,2,1,,top 2000 ranking,no
+suitcase,8.22,exact,2,2,,manual addition,no
+switch,4.78,exact,2,1,light switch,top 2000 ranking,no
+tablecloth,6.26,exact,2,2,,ranking 2001-3139,no
+tablet,6.83,exact,2,2,tablet computer screen,top 2000 ranking,no
+tambourine,6.53,exact,2,2,,ranking 2001-3139,no
+tape,4.42,exact,2,1,roll of sticky tape,top 2000 ranking,yes
+tea,5.47,exact,2,1,,top 2000 ranking,no
+teapot,6.22,exact,2,2,ceramic teapot,ranking 2001-3139,no
+thread,7.06,exact,2,2,,top 2000 ranking,no
+thumb,4.42,exact,2,1,thumb up,top 2000 ranking,no
+tie,4.74,exact,2,1,necktie,top 2000 ranking,no
+tissue,4.76,exact,2,1,box of tissues,manual addition,no
+toaster,6.72,exact,2,2,,manual addition,no
+toilet,3.54,exact,2,1,toilet seat,top 2000 ranking,no
+toilet paper,5.09,joined,2,1,roll of toilet paper,manual addition,no
+tongue,4.47,exact,2,1,,top 2000 ranking,yes
+toolbox,6.67,exact,2,2,,ranking 2001-3139,no
+trash can,4.5,joined,2,1,,top 2000 ranking,no
+turtle,4.17,exact,2,1,pet turtle,top 2000 ranking,yes
+uniform,5.6,exact,2,1,,top 2000 ranking,no
+wall,3.79,exact,2,1,,top 2000 ranking,no
+wallet,5.89,exact,2,1,,top 2000 ranking,no
+washing machine,4.8,joined,2,1,front-loading washing machine,manual addition,yes
+watch,4.33,exact,2,1,wristwatch,top 2000 ranking,yes
+water tap,5.84,hardest part,2,1,,top 2000 ranking,no
+yo-yo,,not found: level set by hand,2,1,,top 2000 ranking,no
+abacus,8.69,exact,3,2,,ranking 2001-3139,no
+air conditioner,7.68,hardest part,3,2,,top 2000 ranking,no
+almond,7.67,exact,3,2,,top 2000 ranking,no
+aluminum foil,7.57,hardest part,3,2,,top 2000 ranking,no
+ant,4.32,exact,3,1,,top 2000 ranking,yes
+apricot,6.15,exact,3,2,,ranking 2001-3139,no
+apron,6.75,exact,3,2,,top 2000 ranking,no
+asparagus,6.79,exact,3,2,,top 2000 ranking,no
+avocado,9.29,exact,3,3,,top 2000 ranking,no
+bagel,8.9,exact,3,2,,top 2000 ranking,no
+bamboo,9.28,exact,3,3,,top 2000 ranking,no
+bandage,5.94,exact,3,1,,top 2000 ranking,no
+basil,10.13,exact,3,3,,top 2000 ranking,no
+bathtub,3.22,exact,3,1,,top 2000 ranking,yes
+binder,10.42,exact,3,3,ring binder,top 2000 ranking,no
+binoculars,6.79,exact,3,2,,top 2000 ranking,no
+biscuit,4.63,exact,3,1,,top 2000 ranking,no
+blackberry,8.95,exact,3,2,,top 2000 ranking,no
+blender,6.84,exact,3,2,,top 2000 ranking,no
+blueberry,6.22,exact,3,2,,top 2000 ranking,no
+bottle opener,7.17,hardest part,3,2,,top 2000 ranking,no
+bracelet,5.68,exact,3,1,,top 2000 ranking,no
+broccoli,5.2,exact,3,1,,top 2000 ranking,no
+broom,5.5,exact,3,1,,top 2000 ranking,yes
+burrito,9.37,exact,3,3,,top 2000 ranking,no
+cabbage,5.78,exact,3,1,,top 2000 ranking,no
+cactus,6.72,exact,3,2,,top 2000 ranking,no
+calculator,8.22,exact,3,2,,manual addition,no
+calendar,5.89,exact,3,1,,manual addition,no
+can opener,6.96,joined,3,2,,top 2000 ranking,no
+candle,5.37,exact,3,1,,top 2000 ranking,no
+caramel,6.58,exact,3,2,,top 2000 ranking,no
+cardigan,10.11,exact,3,3,,top 2000 ranking,no
+cauliflower,6.18,exact,3,2,,top 2000 ranking,no
+celery,5.78,exact,3,1,,top 2000 ranking,no
+cereal,4.44,exact,3,1,,top 2000 ranking,yes
+chandelier,8.63,exact,3,2,,top 2000 ranking,no
+charger,10.63,exact,3,3,phone charger plug,top 2000 ranking,no
+chestnut,6.55,exact,3,2,,top 2000 ranking,no
+chili,6.61,exact,3,2,red chili pepper,top 2000 ranking,no
+clipboard,7.76,exact,3,2,,ranking 2001-3139,no
+coconut,6.5,exact,3,2,,top 2000 ranking,no
+comb,5.5,exact,3,1,,top 2000 ranking,yes
+compass,8.44,exact,3,2,drawing compass,top 2000 ranking,no
+cookie cutter,7.95,hardest part,3,2,,top 2000 ranking,no
+cranberry,6.45,exact,3,2,,top 2000 ranking,no
+crib,6.05,exact,3,2,baby crib,top 2000 ranking,yes
+cucumber,5.72,exact,3,1,,top 2000 ranking,no
+curtain,4.95,exact,3,1,,top 2000 ranking,no
+dental floss,7.21,hardest part,3,2,,ranking 2001-3139,no
+diaper,3.4,exact,3,1,,top 2000 ranking,yes
+dice,6.37,exact,3,2,pair of dice,top 2000 ranking,no
+dishwasher,7.16,exact,3,2,,top 2000 ranking,no
+dolphin,6.05,exact,3,2,,top 2000 ranking,no
+drawer,5.37,exact,3,1,,top 2000 ranking,yes
+dumbbell,7.56,exact,3,2,,ranking 2001-3139,no
+earring,7.17,exact,3,2,,top 2000 ranking,no
+elbow,4.78,exact,3,1,,top 2000 ranking,no
+envelope,6.25,exact,3,2,,top 2000 ranking,no
+feather,4.67,exact,3,1,,top 2000 ranking,no
+flashlight,5.61,exact,3,1,,top 2000 ranking,no
+glove,4.3,exact,3,1,winter glove,top 2000 ranking,yes
+goggles,7.05,exact,3,2,,top 2000 ranking,no
+grapefruit,6.9,exact,3,2,,top 2000 ranking,no
+grater,8.88,exact,3,2,,ranking 2001-3139,no
+hamster,4.37,exact,3,1,,top 2000 ranking,no
+headphones,7.74,exact,3,2,,top 2000 ranking,no
+heater,6.1,exact,3,2,electric heater,top 2000 ranking,no
+highlighter,8.24,exact,3,2,highlighter pen,ranking 2001-3139,no
+hole punch,5.75,hardest part,3,1,,manual addition,no
+hourglass,8.58,exact,3,2,,ranking 2001-3139,no
+ice cube,7.32,hardest part,3,2,,top 2000 ranking,no
+ironing board,6.58,joined,3,2,,top 2000 ranking,no
+jelly,4.11,exact,3,1,,top 2000 ranking,yes
+jug,5.83,exact,3,1,plastic water jug,top 2000 ranking,no
+ketchup,4.3,exact,3,1,,top 2000 ranking,no
+kettle,8.06,exact,3,2,electric kettle,top 2000 ranking,no
+kiwi,7.56,exact,3,2,,top 2000 ranking,no
+ladle,9.83,exact,3,3,big soup ladle,ranking 2001-3139,no
+lantern,8.55,exact,3,2,,top 2000 ranking,no
+laundry basket,6.05,hardest part,3,2,,top 2000 ranking,no
+lemonade,5.06,exact,3,1,,top 2000 ranking,no
+lid,5.95,exact,3,1,,top 2000 ranking,no
+light bulb,5.89,joined,3,1,,top 2000 ranking,no
+lipstick,5.42,exact,3,1,,top 2000 ranking,no
+magnet,6.1,exact,3,2,,top 2000 ranking,no
+magnifying glass,8.47,hardest part,3,2,,manual addition,no
+marker,4.89,exact,3,1,marker pen,top 2000 ranking,no
+marshmallow,3.8,exact,3,1,,top 2000 ranking,no
+mattress,5.1,exact,3,1,,top 2000 ranking,no
+measuring tape,,not found: level set by hand,3,3,,manual addition,no
+microphone,6.25,exact,3,2,,top 2000 ranking,no
+microscope,9.16,exact,3,3,,top 2000 ranking,no
+microwave oven,7.67,hardest part,3,2,,top 2000 ranking,no
+milkshake,4.89,exact,3,1,,top 2000 ranking,no
+muffin,5.11,exact,3,1,,top 2000 ranking,yes
+mushroom,6.44,exact,3,2,,top 2000 ranking,no
+mustard,4.95,exact,3,1,,top 2000 ranking,no
+napkin,4.79,exact,3,1,,top 2000 ranking,yes
+necklace,5.0,exact,3,1,,top 2000 ranking,yes
+newspaper,5.78,exact,3,1,,manual addition,no
+onion,6.05,exact,3,2,,top 2000 ranking,no
+padlock,8.84,exact,3,2,,ranking 2001-3139,no
+parrot,5.58,exact,3,1,parrot bird,top 2000 ranking,no
+parsley,8.95,exact,3,2,,top 2000 ranking,no
+peanut butter,5.78,hardest part,3,1,,top 2000 ranking,yes
+perfume,7.06,exact,3,2,perfume bottle,manual addition,no
+piggy bank,5.51,joined,3,1,,top 2000 ranking,no
+pineapple,6.25,exact,3,2,,top 2000 ranking,no
+pliers,7.0,exact,3,2,,ranking 2001-3139,no
+plum,5.5,exact,3,1,,top 2000 ranking,no
+porridge,6.35,exact,3,2,,top 2000 ranking,no
+printer,7.61,exact,3,2,,manual addition,no
+projector,7.16,exact,3,2,,top 2000 ranking,no
+pumpkin,4.78,exact,3,1,,top 2000 ranking,yes
+puppet,5.0,exact,3,1,,top 2000 ranking,no
+radio,5.17,exact,3,1,,manual addition,yes
+raspberry,5.33,exact,3,1,,top 2000 ranking,no
+refrigerator,4.11,exact,3,1,tall refrigerator,top 2000 ranking,yes
+ribbon,5.25,exact,3,1,,top 2000 ranking,no
+salt shaker,5.42,joined,3,1,,top 2000 ranking,no
+sausage,6.05,exact,3,2,,top 2000 ranking,no
+scooter,6.68,exact,3,2,,top 2000 ranking,no
+screwdriver,6.0,exact,3,1,,top 2000 ranking,no
+sewing machine,5.71,joined,3,1,,top 2000 ranking,no
+shampoo,5.39,exact,3,1,shampoo bottle,top 2000 ranking,no
+sieve,12.36,exact,3,3,,ranking 2001-3139,no
+skateboard,6.94,exact,3,2,,top 2000 ranking,no
+socket,8.06,exact,3,2,electrical wall socket,ranking 2001-3139,no
+spatula,7.32,exact,3,2,,ranking 2001-3139,no
+speaker,6.11,exact,3,2,bluetooth speaker,manual addition,no
+spinach,4.94,exact,3,1,,top 2000 ranking,no
+stethoscope,8.5,exact,3,2,,ranking 2001-3139,no
+sticker,4.42,exact,3,1,,top 2000 ranking,no
+stool,6.21,exact,3,2,small stool,top 2000 ranking,no
+stopwatch,8.33,exact,3,2,,ranking 2001-3139,no
+stove,4.32,exact,3,1,cooking stove top,top 2000 ranking,yes
+sushi,11.19,exact,3,3,,top 2000 ranking,no
+swimsuit,5.61,exact,3,1,,top 2000 ranking,no
+telescope,6.95,exact,3,2,,top 2000 ranking,no
+tennis racket,7.27,joined,3,2,,top 2000 ranking,no
+thermometer,6.63,exact,3,2,,top 2000 ranking,no
+thermos,8.29,exact,3,2,,ranking 2001-3139,no
+tongs,7.78,exact,3,2,,ranking 2001-3139,no
+toothpaste,3.33,exact,3,1,toothpaste tube,top 2000 ranking,no
+toothpick,6.83,exact,3,2,,ranking 2001-3139,no
+tractor,5.5,exact,3,1,,top 2000 ranking,yes
+trampoline,6.79,exact,3,2,home trampoline,top 2000 ranking,no
+tray,6.05,exact,3,2,,top 2000 ranking,yes
+treadmill,11.15,exact,3,3,,top 2000 ranking,no
+vacuum cleaner,5.68,joined,3,1,,top 2000 ranking,no
+vase,7.89,exact,3,2,,top 2000 ranking,no
+vest,5.83,exact,3,1,clothing vest,top 2000 ranking,no
+violin,7.45,exact,3,2,,top 2000 ranking,no
+waffle,5.32,exact,3,1,,top 2000 ranking,no
+walnut,6.16,exact,3,2,,top 2000 ranking,no
+webcam,15.57,exact,3,3,,top 2000 ranking,no
+whisk,8.72,exact,3,2,,ranking 2001-3139,no
+yogurt,3.72,exact,3,1,,top 2000 ranking,yes
+zipper,5.0,exact,3,1,,top 2000 ranking,yes
+zucchini,6.79,exact,3,2,,ranking 2001-3139,no
+tiger,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+pig,,added from CDI (ages 16-30 months),,1,adult pig,CDI addition,yes
+owl,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+donkey,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+ankle,,added from CDI (ages 16-30 months),,1,ankle of a foot,CDI addition,yes
+cheek,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+chin,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+belly,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+boots,,added from CDI (ages 16-30 months),,1,tall boots,CDI addition,yes
+coat,,added from CDI (ages 16-30 months),,1,long winter coat,CDI addition,yes
+jeans,,added from CDI (ages 16-30 months),,1,blue jeans,CDI addition,yes
+mittens,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+sneaker,,added from CDI (ages 16-30 months),,1,sports sneaker with laces,CDI addition,yes
+jar,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+light,,added from CDI (ages 16-30 months),,1,ceiling light,CDI addition,yes
+money,,added from CDI (ages 16-30 months),,1,paper money,CDI addition,yes
+high chair,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+rocking chair,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+dryer,,added from CDI (ages 16-30 months),,1,clothes dryer machine,CDI addition,yes
+bubbles,,added from CDI (ages 16-30 months),,1,soap bubbles,CDI addition,yes
+chalk,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+boat,,added from CDI (ages 16-30 months),,1,toy boat,CDI addition,yes
+motorcycle,,added from CDI (ages 16-30 months),,1,toy motorcycle,CDI addition,yes
+stroller,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+brush,,added from CDI (ages 16-30 months),,1,cleaning brush,CDI addition,yes
+beans,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+cracker,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+noodles,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+nuts,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+peas,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+popsicle,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+potato chip,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+pretzel,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+pudding,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+salt,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+pickle,,added from CDI (ages 16-30 months),,1,,CDI addition,yes
+chicken,3.26,exact,,1,cooked chicken,Kuperman AoA list (expansion),
+soda,4.42,exact,,1,soda can,Kuperman AoA list (expansion),
+oatmeal,4.5,exact,,1,,Kuperman AoA list (expansion),
+hotdog,4.55,exact,,1,,Kuperman AoA list (expansion),
+brownie,4.8,exact,,1,,Kuperman AoA list (expansion),
+lasagna,5.0,exact,,1,,Kuperman AoA list (expansion),
+macaroni,5.15,exact,,1,,Kuperman AoA list (expansion),
+radish,5.25,exact,,1,,Kuperman AoA list (expansion),
+syrup,5.42,exact,,1,,Kuperman AoA list (expansion),
+mayonnaise,6.1,exact,,2,,Kuperman AoA list (expansion),
+dough,6.63,exact,,2,bread dough,Kuperman AoA list (expansion),
+shrimp,7.11,exact,,2,,Kuperman AoA list (expansion),
+vinegar,7.11,exact,,2,,Kuperman AoA list (expansion),
+taco,7.72,exact,,2,,Kuperman AoA list (expansion),
+tortilla,8.28,exact,,2,,Kuperman AoA list (expansion),
+dumpling,8.5,exact,,2,,Kuperman AoA list (expansion),
+custard,8.5,exact,,2,,Kuperman AoA list (expansion),
+smoothie,8.73,exact,,2,,Kuperman AoA list (expansion),
+cheesecake,8.11,exact,,2,,Kuperman AoA list (expansion),
+bun,5.79,exact,,1,,Kuperman AoA list (expansion),
+ravioli,6.58,exact,,2,,Kuperman AoA list (expansion),
+wafer,6.89,exact,,2,,Kuperman AoA list (expansion),
+crepe,10.89,exact,,3,,Kuperman AoA list (expansion),
+lettuce,4.28,exact,,1,,Kuperman AoA list (expansion),
+cinnamon,5.37,exact,,1,,Kuperman AoA list (expansion),
+mint,5.94,exact,,1,mint leaves,Kuperman AoA list (expansion),
+lime,6.61,exact,,2,green lime fruit,Kuperman AoA list (expansion),
+beet,6.56,exact,,2,beetroot vegetable,Kuperman AoA list (expansion),
+turnip,7.0,exact,,2,,Kuperman AoA list (expansion),
+cantaloupe,7.22,exact,,2,,Kuperman AoA list (expansion),
+fig,8.06,exact,,2,fig fruit,Kuperman AoA list (expansion),
+cashew,8.68,exact,,2,,Kuperman AoA list (expansion),
+pistachio,8.74,exact,,2,,Kuperman AoA list (expansion),
+hazelnut,9.45,exact,,3,,Kuperman AoA list (expansion),
+papaya,10.84,exact,,3,,Kuperman AoA list (expansion),
+pinwheel,7.63,exact,,2,toy pinwheel,Kuperman AoA list (expansion),
+bear,3.58,exact,,1,brown bear animal,Kuperman AoA list (expansion),
+butterfly,3.67,exact,,1,,Kuperman AoA list (expansion),
+wolf,4.5,exact,,1,,Kuperman AoA list (expansion),
+squirrel,4.44,exact,,1,,Kuperman AoA list (expansion),
+ladybug,4.84,exact,,1,,Kuperman AoA list (expansion),
+bee,5.0,exact,,1,bee insect,Kuperman AoA list (expansion),
+fox,5.02,exact,,1,,Kuperman AoA list (expansion),
+snake,5.1,exact,,1,toy snake,Kuperman AoA list (expansion),
+camel,5.11,exact,,1,,Kuperman AoA list (expansion),
+crocodile,5.11,exact,,1,,Kuperman AoA list (expansion),
+caterpillar,5.17,exact,,1,,Kuperman AoA list (expansion),
+deer,5.17,exact,,1,,Kuperman AoA list (expansion),
+crab,5.28,exact,,1,,Kuperman AoA list (expansion),
+lizard,5.42,exact,,1,,Kuperman AoA list (expansion),
+whale,5.47,exact,,1,toy whale,Kuperman AoA list (expansion),
+kangaroo,5.55,exact,,1,,Kuperman AoA list (expansion),
+panda,5.67,exact,,1,,Kuperman AoA list (expansion),
+gorilla,5.74,exact,,1,,Kuperman AoA list (expansion),
+peacock,5.76,exact,,1,,Kuperman AoA list (expansion),
+starfish,5.76,exact,,1,,Kuperman AoA list (expansion),
+snail,5.79,exact,,1,,Kuperman AoA list (expansion),
+eagle,5.83,exact,,1,,Kuperman AoA list (expansion),
+koala,6.0,exact,,1,,Kuperman AoA list (expansion),
+rhinoceros,6.0,exact,,1,,Kuperman AoA list (expansion),
+flamingo,6.32,exact,,2,,Kuperman AoA list (expansion),
+ostrich,6.42,exact,,2,,Kuperman AoA list (expansion),
+jellyfish,6.61,exact,,2,,Kuperman AoA list (expansion),
+octopus,6.26,exact,,2,,Kuperman AoA list (expansion),
+leopard,6.84,exact,,2,,Kuperman AoA list (expansion),
+cheetah,8.16,exact,,2,,Kuperman AoA list (expansion),
+hedgehog,8.63,exact,,2,,Kuperman AoA list (expansion),
+canary,7.32,exact,,2,,Kuperman AoA list (expansion),
+gerbil,7.06,exact,,2,,Kuperman AoA list (expansion),
+mosquito,6.1,exact,,2,,Kuperman AoA list (expansion),
+cockroach,6.25,exact,,2,,Kuperman AoA list (expansion),
+fingernail,4.0,exact,,1,,Kuperman AoA list (expansion),
+eyebrow,5.5,exact,,1,,Kuperman AoA list (expansion),
+forehead,5.58,exact,,1,,Kuperman AoA list (expansion),
+ponytail,5.79,exact,,1,,Kuperman AoA list (expansion),
+eyelash,5.8,exact,,1,,Kuperman AoA list (expansion),
+wrist,5.94,exact,,1,human wrist,Kuperman AoA list (expansion),
+braid,7.22,exact,,2,braided hair,Kuperman AoA list (expansion),
+moustache,5.4,exact,,1,,Kuperman AoA list (expansion),
+chain,5.22,exact,,1,metal chain,Kuperman AoA list (expansion),
+shoelace,4.16,exact,,1,,Kuperman AoA list (expansion),
+washcloth,4.17,exact,,1,small washcloth,Kuperman AoA list (expansion),
+straw,4.22,exact,,1,drinking straw,Kuperman AoA list (expansion),
+dresser,4.28,exact,,1,,Kuperman AoA list (expansion),
+playpen,4.41,exact,,1,,Kuperman AoA list (expansion),
+pacifier,4.56,exact,,1,,Kuperman AoA list (expansion),
+drawing,4.83,exact,,1,child's drawing on paper,Kuperman AoA list (expansion),
+baseball,4.83,exact,,1,,Kuperman AoA list (expansion),
+basketball,5.3,exact,,1,,Kuperman AoA list (expansion),
+sweatshirt,5.0,exact,,1,sweatshirt with a hood,Kuperman AoA list (expansion),
+birdcage,5.63,exact,,1,,Kuperman AoA list (expansion),
+pillowcase,5.15,exact,,1,pillowcase cover,Kuperman AoA list (expansion),
+whistle,5.42,exact,,1,,Kuperman AoA list (expansion),
+frisbee,5.5,exact,,1,flying disc toy,Kuperman AoA list (expansion),
+cushion,5.53,exact,,1,sofa cushion,Kuperman AoA list (expansion),
+trophy,5.55,exact,,1,,Kuperman AoA list (expansion),
+battery,5.58,exact,,1,AA battery,Kuperman AoA list (expansion),
+lampshade,5.63,exact,,1,lampshade without a lamp,Kuperman AoA list (expansion),
+flyswatter,5.79,exact,,1,,Kuperman AoA list (expansion),
+lotion,5.83,exact,,1,lotion bottle,Kuperman AoA list (expansion),
+magazine,5.89,exact,,1,,Kuperman AoA list (expansion),
+beanbag,6.11,exact,,2,beanbag chair,Kuperman AoA list (expansion),
+checkers,6.11,exact,,2,checkers board game,Kuperman AoA list (expansion),
+domino,6.17,exact,,2,domino tiles,Kuperman AoA list (expansion),
+timer,6.28,exact,,2,kitchen timer,Kuperman AoA list (expansion),
+trumpet,6.28,exact,,2,toy trumpet,Kuperman AoA list (expansion),
+paintbox,6.35,exact,,2,,Kuperman AoA list (expansion),
+wand,6.39,exact,,2,magic wand toy,Kuperman AoA list (expansion),
+dustpan,6.47,exact,,2,,Kuperman AoA list (expansion),
+quilt,6.55,exact,,2,,Kuperman AoA list (expansion),
+armchair,6.56,exact,,2,soft armchair,Kuperman AoA list (expansion),
+yarn,6.61,exact,,2,ball of yarn,Kuperman AoA list (expansion),
+blouse,6.65,exact,,2,woman's blouse,Kuperman AoA list (expansion),
+screw,6.65,exact,,2,metal screw,Kuperman AoA list (expansion),
+album,6.72,exact,,2,photo album,Kuperman AoA list (expansion),
+tiara,6.77,exact,,2,,Kuperman AoA list (expansion),
+stencil,6.94,exact,,2,,Kuperman AoA list (expansion),
+carton,7.0,exact,,2,milk carton,Kuperman AoA list (expansion),
+easel,7.0,exact,,2,drawing easel,Kuperman AoA list (expansion),
+tutu,7.0,exact,,2,ballet tutu,Kuperman AoA list (expansion),
+volleyball,7.05,exact,,2,,Kuperman AoA list (expansion),
+xylophone,7.11,exact,,2,toy xylophone,Kuperman AoA list (expansion),
+tweezers,7.16,exact,,2,,Kuperman AoA list (expansion),
+doormat,7.21,exact,,2,doormat at a door,Kuperman AoA list (expansion),
+handkerchief,7.22,exact,,2,,Kuperman AoA list (expansion),
+tights,7.22,exact,,2,,Kuperman AoA list (expansion),
+harmonica,7.32,exact,,2,,Kuperman AoA list (expansion),
+detergent,7.33,exact,,2,laundry detergent bottle,Kuperman AoA list (expansion),
+kaleidoscope,7.41,exact,,2,,Kuperman AoA list (expansion),
+clothespin,7.83,exact,,2,,Kuperman AoA list (expansion),
+wrench,7.84,exact,,2,,Kuperman AoA list (expansion),
+chopsticks,7.85,exact,,2,,Kuperman AoA list (expansion),
+coaster,7.89,exact,,2,drink coaster,Kuperman AoA list (expansion),
+peeler,8.0,exact,,2,vegetable peeler,Kuperman AoA list (expansion),
+duster,8.11,exact,,2,feather duster,Kuperman AoA list (expansion),
+folder,8.21,exact,,2,paper folder,Kuperman AoA list (expansion),
+sunglasses,5.56,exact,,1,dark sunglasses,Kuperman AoA list (expansion),
+recorder,8.37,exact,,2,recorder flute,Kuperman AoA list (expansion),
+dartboard,8.44,exact,,2,,Kuperman AoA list (expansion),
+funnel,8.44,exact,,2,,Kuperman AoA list (expansion),
+saucer,8.44,exact,,2,,Kuperman AoA list (expansion),
+cable,9.2,exact,,3,charging cable,Kuperman AoA list (expansion),
+tripod,9.26,exact,,3,,Kuperman AoA list (expansion),
+plunger,9.63,exact,,3,toilet plunger,Kuperman AoA list (expansion),
+strainer,9.63,exact,,3,kitchen strainer,Kuperman AoA list (expansion),
+boomerang,9.79,exact,,3,,Kuperman AoA list (expansion),
+ukulele,10.76,exact,,3,,Kuperman AoA list (expansion),
+jersey,8.96,exact,,2,sports jersey,Kuperman AoA list (expansion),
+windbreaker,6.79,exact,,2,,Kuperman AoA list (expansion),
+cooler,6.11,exact,,2,drinks cooler box,Kuperman AoA list (expansion),
+rattle,4.5,exact,,1,baby rattle,Kuperman AoA list (expansion),
+ornament,6.1,exact,,2,decoration ornament,Kuperman AoA list (expansion),
+colander,9.0,exact,,2,,Kuperman AoA list (expansion),
+juicer,11.26,exact,,3,,Kuperman AoA list (expansion),
+protractor,9.75,exact,,3,,Kuperman AoA list (expansion),
+scanner,11.37,exact,,3,document scanner,Kuperman AoA list (expansion),
+wok,12.27,exact,,3,,Kuperman AoA list (expansion),
+hobbyhorse,8.35,exact,,2,toy hobby horse,Kuperman AoA list (expansion),
+quesadilla,11.2,exact,,3,,Kuperman AoA list (expansion),
+enchilada,11.28,exact,,3,,Kuperman AoA list (expansion),
+tofu,11.89,exact,,3,,Kuperman AoA list (expansion),
+tortellini,12.32,exact,,3,,Kuperman AoA list (expansion),
+fettuccine,12.94,exact,,3,,Kuperman AoA list (expansion),
+kale,12.12,exact,,3,,Kuperman AoA list (expansion),
+cilantro,12.27,exact,,3,,Kuperman AoA list (expansion),
+okra,12.61,exact,,3,,Kuperman AoA list (expansion),
+guava,12.39,exact,,3,,Kuperman AoA list (expansion),
+thyme,12.42,exact,,3,,Kuperman AoA list (expansion),
+dill,8.2,exact,,2,,Kuperman AoA list (expansion),
+jalapeno,11.33,exact,,3,,Kuperman AoA list (expansion),
+cutlet,11.76,exact,,3,,Kuperman AoA list (expansion),
+sun,3.4,exact,,1,sun in the sky,Option A: picture-book words,
+moon,4.83,exact,,1,moon in the sky,Option A: picture-book words,
+star,3.89,exact,,1,star in the night sky,Option A: picture-book words,
+cloud,3.63,exact,,1,white cloud in the sky,Option A: picture-book words,
+rainbow,4.26,exact,,1,,Option A: picture-book words,
+snowflake,5.32,exact,,1,,Option A: picture-book words,
+snowman,3.47,exact,,1,,Option A: picture-book words,
+snow,4.11,exact,,1,,Option A: picture-book words,
+lightning,4.76,exact,,1,,Option A: picture-book words,
+tree,3.57,exact,,1,tree with leaves,Option A: picture-book words,
+grass,3.94,exact,,1,,Option A: picture-book words,
+rock,3.22,exact,,1,rock stone,Option A: picture-book words,
+mountain,6.15,exact,,2,mountain peak,Option A: picture-book words,
+volcano,6.74,exact,,2,,Option A: picture-book words,
+sand,4.63,exact,,1,pile of sand,Option A: picture-book words,
+seashell,7.06,exact,,2,,Option A: picture-book words,
+pinecone,4.61,exact,,1,,Option A: picture-book words,
+acorn,5.95,exact,,1,,Option A: picture-book words,
+branch,5.11,exact,,1,tree branch,Option A: picture-book words,
+nest,5.11,exact,,1,,Option A: picture-book words,
+planet,6.67,exact,,2,planet in space,Option A: picture-book words,
+earth,5.37,exact,,1,planet earth globe from space,Option A: picture-book words,
+rose,6.11,exact,,2,,Option A: picture-book words,
+sunflower,6.0,exact,,1,,Option A: picture-book words,
+tulip,7.15,exact,,2,,Option A: picture-book words,
+daisy,5.55,exact,,1,,Option A: picture-book words,
+dandelion,5.11,exact,,1,,Option A: picture-book words,
+palm tree,3.57,exact,,1,,Option A: picture-book words,
+pine tree,3.57,exact,,1,,Option A: picture-book words,
+bush,4.9,exact,,1,green bush plant,Option A: picture-book words,
+wheat,6.53,exact,,2,,Option A: picture-book words,
+ship,5.33,exact,,1,big ship,Option A: picture-book words,
+submarine,7.94,exact,,2,,Option A: picture-book words,
+taxi,7.58,exact,,2,yellow taxi car,Option A: picture-book words,
+police car,3.37,exact,,1,,Option A: picture-book words,
+bulldozer,5.61,exact,,1,,Option A: picture-book words,
+jeep,6.32,exact,,2,jeep car,Option A: picture-book words,
+van,5.2,exact,,1,van car,Option A: picture-book words,
+garbage truck,3.79,exact,,1,,Option A: picture-book words,
+hot air balloon,4.37,exact,,1,hot air balloon in the sky,Option A: picture-book words,
+spaceship,4.67,exact,,1,,Option A: picture-book words,
+sled,4.89,exact,,1,,Option A: picture-book words,
+canoe,6.63,exact,,2,,Option A: picture-book words,
+swing,4.16,exact,,1,playground swing,Option A: picture-book words,
+slide,4.79,exact,,1,playground slide,Option A: picture-book words,
+seesaw,4.81,exact,,1,,Option A: picture-book words,
+sandbox,4.14,exact,,1,,Option A: picture-book words,
+bench,4.21,exact,,1,,Option A: picture-book words,
+fence,6.28,exact,,2,garden fence,Option A: picture-book words,
+gate,5.32,exact,,1,garden gate,Option A: picture-book words,
+mailbox,6.11,exact,,2,,Option A: picture-book words,
+traffic light,4.05,exact,,1,,Option A: picture-book words,
+stop sign,4.32,exact,,1,,Option A: picture-book words,
+fire hydrant,6.89,exact,,2,,Option A: picture-book words,
+tent,5.16,exact,,1,,Option A: picture-book words,
+wheelbarrow,6.78,exact,,2,,Option A: picture-book words,
+shovel,6.28,exact,,2,,Option A: picture-book words,
+rake,5.32,exact,,1,,Option A: picture-book words,
+watering can,4.32,exact,,1,,Option A: picture-book words,
+birdhouse,5.43,exact,,1,,Option A: picture-book words,
+scarecrow,5.56,exact,,1,,Option A: picture-book words,
+windmill,5.32,exact,,1,,Option A: picture-book words,
+hen,6.39,exact,,2,hen bird,Option A: picture-book words,
+rooster,6.41,exact,,2,,Option A: picture-book words,
+chick,5.53,exact,,1,baby chick,Option A: picture-book words,
+turkey,3.95,exact,,1,turkey bird,Option A: picture-book words,
+goose,5.15,exact,,1,,Option A: picture-book words,
+hippopotamus,7.0,exact,,2,,Option A: picture-book words,
+chimpanzee,7.26,exact,,2,,Option A: picture-book words,
+polar bear,3.58,exact,,1,,Option A: picture-book words,
+seal,5.42,exact,,1,seal animal,Option A: picture-book words,
+walrus,5.06,exact,,1,,Option A: picture-book words,
+seahorse,5.83,exact,,1,,Option A: picture-book words,
+lobster,7.44,exact,,2,,Option A: picture-book words,
+swan,6.32,exact,,2,,Option A: picture-book words,
+pigeon,6.21,exact,,2,,Option A: picture-book words,
+crow,5.74,exact,,1,crow bird,Option A: picture-book words,
+bat,4.85,exact,,1,bat animal,Option A: picture-book words,
+worm,3.89,exact,,1,earthworm,Option A: picture-book words,
+dragonfly,6.8,exact,,2,,Option A: picture-book words,
+grasshopper,5.78,exact,,1,,Option A: picture-book words,
+beetle,5.32,exact,,1,,Option A: picture-book words,
+fly,3.05,exact,,1,housefly insect,Option A: picture-book words,
+unicorn,4.83,exact,,1,toy unicorn,Option A: picture-book words,
+dragon,5.58,exact,,1,toy dragon,Option A: picture-book words,
+raccoon,6.79,exact,,2,,Option A: picture-book words,
+skunk,5.32,exact,,1,,Option A: picture-book words,
+beaver,5.21,exact,,1,,Option A: picture-book words,
+otter,5.47,exact,,1,,Option A: picture-book words,
+guinea pig,3.84,exact,,1,,Option A: picture-book words,
+porcupine,6.89,exact,,2,,Option A: picture-book words,
+sloth,8.37,exact,,2,,Option A: picture-book words,
+llama,8.61,exact,,2,,Option A: picture-book words,
+buffalo,6.7,exact,,2,buffalo animal,Option A: picture-book words,
+moose,5.22,exact,,1,,Option A: picture-book words,
+reindeer,3.58,exact,,1,,Option A: picture-book words,
+robin,6.69,exact,,2,,Option A: picture-book words,
+sparrow,7.49,exact,,2,,Option A: picture-book words,
+woodpecker,6.5,exact,,2,,Option A: picture-book words,
+hummingbird,6.95,exact,,2,,Option A: picture-book words,
+seagull,5.42,exact,,1,,Option A: picture-book words,
+pelican,8.22,exact,,2,,Option A: picture-book words,
+toucan,8.69,exact,,2,,Option A: picture-book words,
+vulture,8.89,exact,,2,,Option A: picture-book words,
+hawk,6.74,exact,,2,,Option A: picture-book words,
+squid,7.32,exact,,2,squid sea animal,Option A: picture-book words,
+tadpole,6.37,exact,,2,,Option A: picture-book words,
+mole,7.33,exact,,2,mole animal,Option A: picture-book words,
+chipmunk,4.7,exact,,1,,Option A: picture-book words,
+rat,5.11,exact,,1,,Option A: picture-book words,
+wasp,5.58,exact,,1,,Option A: picture-book words,
+moth,5.74,exact,,1,,Option A: picture-book words,
+firefly,6.39,exact,,2,,Option A: picture-book words,
+dove,6.63,exact,,2,,Option A: picture-book words,
+hyena,6.61,exact,,2,,Option A: picture-book words,
+cricket,7.72,exact,,2,cricket insect,Option A: picture-book words,
+clam,7.37,exact,,2,,Option A: picture-book words,
+armadillo,8.61,exact,,2,,Option A: picture-book words,
+anteater,8.5,exact,,2,,Option A: picture-book words,
+stork,7.65,exact,,2,,Option A: picture-book words,
+daffodil,5.63,exact,,1,,Option A: picture-book words,
+clover,5.74,exact,,1,,Option A: picture-book words,
+lily,6.67,exact,,2,,Option A: picture-book words,
+fern,8.67,exact,,2,,Option A: picture-book words,
+petal,6.33,exact,,2,,Option A: picture-book words,
+root,5.94,exact,,1,plant roots,Option A: picture-book words,
+seed,4.72,exact,,1,plant seeds,Option A: picture-book words,
+orchid,9.76,exact,,3,,Option A: picture-book words,
+lavender,9.11,exact,,3,,Option A: picture-book words,
+hill,3.47,exact,,1,green hill,Option A: picture-book words,
+sky,4.17,exact,,1,blue sky,Option A: picture-book words,
+pebble,5.68,exact,,1,,Option A: picture-book words,
+web,5.37,exact,,1,spider web,Option A: picture-book words,
+iceberg,8.21,exact,,2,iceberg in the sea,Option A: picture-book words,
+fossil,7.5,exact,,2,,Option A: picture-book words,
+honeycomb,7.11,exact,,2,,Option A: picture-book words,
+hammock,7.11,exact,,2,,Option A: picture-book words,
+wagon,5.22,exact,,1,,Option A: picture-book words,
+wheel,4.4,exact,,1,round wheel,Option A: picture-book words,
+fireworks,4.95,exact,,1,fireworks in the sky,Option A: picture-book words,
+tire,6.16,exact,,2,black rubber tire,Option A: picture-book words,
+anchor,5.72,exact,,1,,Option A: picture-book words,
+carriage,5.84,exact,,1,horse carriage,Option A: picture-book words,
+sleigh,6.0,exact,,1,,Option A: picture-book words,
+parachute,7.0,exact,,2,,Option A: picture-book words,
+blimp,6.63,exact,,2,,Option A: picture-book words,
+carousel,6.68,exact,,2,,Option A: picture-book words,
+ski,6.68,exact,,2,snow skis,Option A: picture-book words,
+statue,7.55,exact,,2,stone statue,Option A: picture-book words,
+treasure,6.06,exact,,2,treasure chest,Option A: picture-book words,
+streetlight,6.06,exact,,2,,Option A: picture-book words,
+beehive,7.47,exact,,2,,Option A: picture-book words,
+house,3.16,exact,,1,a house building,Option 2: picture-book places,
+school,3.89,exact,,1,a school building,Option 2: picture-book places,
+farm,3.85,exact,,1,,Option 2: picture-book places,
+barn,4.5,exact,,1,,Option 2: picture-book places,
+castle,5.8,exact,,1,,Option 2: picture-book places,
+beach,4.8,exact,,1,,Option 2: picture-book places,
+ocean,4.74,exact,,1,the ocean,Option 2: picture-book places,
+river,4.9,exact,,1,a river,Option 2: picture-book places,
+lake,4.61,exact,,1,a lake,Option 2: picture-book places,
+forest,6.28,exact,,2,a forest with trees,Option 2: picture-book places,
+island,7.41,exact,,2,an island in the sea,Option 2: picture-book places,
+desert,8.35,exact,,2,a sand desert,Option 2: picture-book places,
+cave,6.74,exact,,2,a rock cave,Option 2: picture-book places,
+park,4.47,exact,,1,a park with trees,Option 2: picture-book places,
+playground,4.28,exact,,1,a children's playground,Option 2: picture-book places,
+zoo,3.75,exact,,1,a zoo with animals,Option 2: picture-book places,
+garden,5.33,exact,,1,a flower garden,Option 2: picture-book places,
+road,4.55,exact,,1,a road,Option 2: picture-book places,
+bridge,5.58,exact,,1,a bridge,Option 2: picture-book places,
+tower,6.33,exact,,2,a tall tower,Option 2: picture-book places,
+lighthouse,6.11,exact,,2,,Option 2: picture-book places,
+igloo,5.42,exact,,1,,Option 2: picture-book places,
+hospital,5.55,exact,,1,,Option 2: picture-book places,
+library,4.95,exact,,1,,Option 2: picture-book places,
+supermarket,4.53,exact,,1,,Option 2: picture-book places,
+airport,6.84,exact,,2,,Option 2: picture-book places,
+train station,7.11,hardest part,,2,,Option 2: picture-book places,
+fire station,7.11,hardest part,,2,,Option 2: picture-book places,
+police station,7.11,hardest part,,2,,Option 2: picture-book places,
+bakery,7.16,exact,,2,,Option 2: picture-book places,
+restaurant,5.95,exact,,1,,Option 2: picture-book places,
+mosque,14.12,exact,,3,a mosque with a minaret,Option 2: picture-book places,
+pyramid,7.61,exact,,2,,Option 2: picture-book places,
+palace,6.89,exact,,2,,Option 2: picture-book places,
+tunnel,5.89,exact,,1,,Option 2: picture-book places,
+waterfall,5.47,exact,,1,,Option 2: picture-book places,
+pond,5.16,exact,,1,,Option 2: picture-book places,
+oasis,9.11,exact,,3,,Option 2: picture-book places,
+circus,4.53,exact,,1,,Option 2: picture-book places,
+stadium,7.0,exact,,2,,Option 2: picture-book places,
+store,4.76,exact,,1,a shop store,Option 2: picture-book places,
+kitchen,3.68,exact,,1,a kitchen room,Option 2: picture-book places,
+bedroom,3.9,exact,,1,a bedroom,Option 2: picture-book places,
+bathroom,3.0,exact,,1,a bathroom,Option 2: picture-book places,
+living room,,not found: level 2 by default,,2,a living room,Option 2: picture-book places,
+classroom,5.63,exact,,1,a school classroom,Option 2: picture-book places,
+puppy,3.28,exact,,1,small baby puppy,Option 3: specific types,
+kitten,3.64,exact,,1,small baby kitten,Option 3: specific types,
+lamb,4.15,exact,,1,small baby lamb,Option 3: specific types,
+calf,6.63,exact,,2,small baby cow,Option 3: specific types,
+foal,8.44,exact,,2,small baby horse,Option 3: specific types,
+piglet,5.68,exact,,1,small baby pig,Option 3: specific types,
+duckling,4.95,exact,,1,small baby duck,Option 3: specific types,
+cub,5.4,exact,,1,lion cub,Option 3: specific types,
+poodle,6.53,exact,,2,,Option 3: specific types,
+dalmatian,6.06,exact,,2,,Option 3: specific types,
+bulldog,7.28,exact,,2,,Option 3: specific types,
+beagle,7.39,exact,,2,,Option 3: specific types,
+tyrannosaurus,7.35,exact,,2,tyrannosaurus rex dinosaur,Option 3: specific types,
+triceratops,5.33,exact,,1,,Option 3: specific types,
+stegosaurus,8.95,exact,,2,,Option 3: specific types,
+brontosaurus,8.17,exact,,2,,Option 3: specific types,
+teacup,5.39,exact,,1,small teacup on a saucer,Option 3: specific types,
+mug,5.15,exact,,1,mug with a handle,Option 3: specific types,
+bunk bed,6.48,exact,,2,,Option 3: specific types,
+beach chair,4.8,hardest part,,1,,Option 3: specific types,
+sailboat,4.65,exact,,1,boat with a sail,Option 3: specific types,
+race car,6.0,hardest part,,1,race car with a number,Option 3: specific types,
+sports car,,not found: level 2 by default,,2,low red sports car,Option 3: specific types,
+school bus,3.89,hardest part,,1,yellow school bus,Option 3: specific types,
+tow truck,8.63,hardest part,,2,,Option 3: specific types,
+cement mixer,7.05,hardest part,,2,,Option 3: specific types,
+motorboat,6.53,exact,,2,small motorboat,Option 3: specific types,
+tugboat,6.17,exact,,2,,Option 3: specific types,
+soccer ball,5.89,hardest part,,1,,Option 3: specific types,
+tennis ball,7.53,hardest part,,2,,Option 3: specific types,
+beach ball,4.95,exact,,1,,Option 3: specific types,
+football,4.84,exact,,1,american football,Option 3: specific types,
+baseball bat,4.85,hardest part,,1,,Option 3: specific types,
+sun hat,3.4,hardest part,,1,big straw sun hat,Option 3: specific types,
+cowboy hat,4.55,hardest part,,1,,Option 3: specific types,
+party hat,4.58,hardest part,,1,,Option 3: specific types,
+pocket watch,4.74,hardest part,,1,,Option 3: specific types,
+alarm clock,5.8,exact,,1,small alarm clock with bells,Option 3: specific types,
+baby bottle,3.84,hardest part,,1,baby feeding bottle,Option 3: specific types,
+toy car,3.37,hardest part,,1,small plastic toy car,Option 3: specific types,
+toy train,4.0,hardest part,,1,colorful toy train,Option 3: specific types,
+picture frame,7.67,hardest part,,2,empty photo frame,Option 3: specific types,
+clownfish,,not found: level 2 by default,,2,,Option 3: specific types,
+tropical fish,9.05,hardest part,,3,,Option 3: specific types,
+cobra,7.47,exact,,2,cobra snake,Option 3: specific types,
+python,7.89,exact,,2,python snake,Option 3: specific types,
+high heels,,not found: level 2 by default,,2,,Option 3: specific types,
+oak tree,7.35,hardest part,,2,,Option 3: specific types,
+apple tree,4.15,hardest part,,1,,Option 3: specific types,
+plastic bag,5.11,hardest part,,1,,Option 3: specific types,
+shopping bag,4.7,hardest part,,1,paper shopping bag,Option 3: specific types,
+gift box,5.05,hardest part,,1,wrapped gift box with a ribbon,Option 3: specific types,
+jewelry box,6.67,hardest part,,2,,Option 3: specific types,
+toy box,4.3,hardest part,,1,,Option 3: specific types,
+music box,4.3,hardest part,,1,,Option 3: specific types,
+flower pot,6.55,exact,,2,empty clay flower pot,Option 3: specific types,
+fish tank,5.94,exact,,1,glass fish tank with fish,Option 3: specific types,
+bookshelf,7.68,exact,,2,bookshelf with books,Option 3: specific types,
+coffee table,4.94,hardest part,,1,,Option 3: specific types,
+ceiling fan,5.63,hardest part,,1,,Option 3: specific types,
+coloring book,3.68,hardest part,,1,,Option 3: specific types,
+picture book,4.05,hardest part,,1,children's picture book,Option 3: specific types,
+sketchbook,7.52,exact,,2,sketchbook with drawings,Option 3: specific types,
+colored pencils,,not found: level 2 by default,,2,,Option 3: specific types,
+glue stick,4.67,hardest part,,1,glue stick tube,Option 3: specific types,
+birthday cake,3.26,hardest part,,1,birthday cake with candles,Option 3: specific types,
+apple pie,4.15,hardest part,,1,,Option 3: specific types,
+chocolate milk,3.37,hardest part,,1,,Option 3: specific types,
+fruit salad,5.61,hardest part,,1,,Option 3: specific types,
+hot chocolate,3.37,hardest part,,1,,Option 3: specific types,
+fried egg,7.47,hardest part,,2,fried egg in a pan,Option 3: specific types,
+sand castle,5.42,exact,,1,,Option 3: specific types,
+hair clip,6.61,hardest part,,2,,Option 3: specific types,
+toy airplane,3.94,hardest part,,1,small toy airplane,Option 3: specific types,
+ice cream truck,5.95,hardest part,,1,,Option 3: specific types,
+double-decker bus,,not found: level 2 by default,,2,red double-decker bus,Option 3: specific types,
+golden retriever,8.74,hardest part,,2,golden retriever dog,Option 3: specific types,
+german shepherd,,not found: level 2 by default,,2,german shepherd dog,Option 3: specific types,
+french toast,,not found: level 2 by default,,2,,Option 3: specific types,
+fried rice,7.47,hardest part,,2,,Option 3: specific types,
+gingerbread man,6.0,hardest part,,1,,Option 3: specific types,
+candy cane,5.74,hardest part,,1,,Option 3: specific types,
+gummy bear,8.89,hardest part,,2,gummy bear candy,Option 3: specific types,
+jelly bean,5.63,exact,,1,,Option 3: specific types,
+rain boots,4.86,hardest part,,1,,Option 3: specific types,
+bow tie,7.94,exact,,2,,Option 3: specific types,
+sippy cup,,not found: level 2 by default,,2,,Option 3: specific types,
+night light,5.21,exact,,1,child's night light lamp,Option 3: specific types,

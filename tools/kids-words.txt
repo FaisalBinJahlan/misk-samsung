@@ -1,1044 +1,981 @@
 # Kids vocabulary for the expanded recognizer (ages 4-11).
+# Source: 26,932 WordNet labels ranked by frequency and concreteness, then filtered with four rules:
+# 1) found at home (toys included) or common in children's picture books  2) general words first; common specific types allowed  3) places allowed only if common in picture books  4) safe for children.
+# Basic home words the ranking missed were added by hand, and home objects from the MacArthur-Bates CDI (Words & Sentences) were added at level 1.
 # Format:  word            or  word | prompt text used to build the index
-# "## level N" starts a level: 1 = ages 4-6, 2 = ages 7-9, 3 = ages 10-11.
-# Lines starting with "# " are comments. Blank lines are ignored.
+# "## level N" starts a level: 1 = ages 4-6, 2 = ages 7-9, 3 = ages 10-11. Levels come from Kuperman et al. (2012) age-of-acquisition ratings.
 
 ## level 1
-# Home
-bed
-chair
-table
-sofa
-door
-window
-lamp
-clock
-pillow
-blanket
-cup
-plate
-bowl
-spoon
-fork
-bottle
-glass | drinking glass
-towel
-soap
-toothbrush
-toothpaste
-comb
-mirror
-bathtub
-toilet
-sink
-key
-box
-bag
-basket
-phone | mobile phone
-television
-remote control
-AirPods | airpods wireless earbuds
-computer | desktop computer
-book
-pen
-pencil
-crayon
-paper | sheet of paper
-scissors
+# Things
+airplane | big airplane
+backpack | school backpack
+bag | cloth bag
 ball
-doll
-teddy bear
-balloon
-kite
-toy car
+balloon | party balloon
+bandage
+baseball
+basket
+basketball
+bathtub
+battery | AA battery
+bed | wooden bed frame
+belt
+bib | baby bib
+bicycle
+birdcage
+blanket | folded blanket
 blocks | toy building blocks
-puzzle | jigsaw puzzle
-drum
-bell
-car key | car key fob
-# Clothes
-shoe
-sock
-hat
-shirt | t-shirt
-dress
-pants | trousers
-jacket
-glasses | eyeglasses
-umbrella
-backpack
-watch | wristwatch
-ring | finger ring jewelry
+boat | toy boat
+book | closed book
+boots | tall boots
+bottle | plastic bottle
+bowl | empty bowl
+box | cardboard box
+bracelet
+broom
+brush | cleaning brush
+bubbles | soap bubbles
+bucket
+bus | city bus
 button | clothing button
+cake | cake on a plate
+calendar
+camera
+can | tin can
+candle
+cap | cap with a front brim
+car | family car
+ceiling
+chain | metal chain
+chair | wooden chair
+chalk
+clay | modeling clay
+clock | round clock
+closet
+coat | long winter coat
+coin | metal coin
+comb
+costume
+crayon
+cup | small cup
+curtain
+cushion | sofa cushion
+desk | study desk with drawers
+diaper
+doll | toy doll
+dollhouse
+door
+doorbell
+doorknob
+drawer
+drawing | child's drawing on paper
+dress
+dresser
+drum | toy drum
+dryer | clothes dryer machine
+eraser
+fan | electric fan
+fire truck
+flag
+flashlight
+floor
+flyswatter
+fork
+frisbee | flying disc toy
+glass | clear drinking glass
+glasses | eyeglasses
+glove | winter glove
+glue | glue bottle
+guitar
+hairbrush
+hammer
+hat | wide hat with a round brim
+helicopter
+helmet
+high chair
+hole punch
+jacket | short zip-up jacket
+jar
+jeans | blue jeans
+jug | plastic water jug
+jump rope
+key | door key
+kite
+ladder
+lamp | table lamp
+lampshade | lampshade without a lamp
+light | ceiling light
+light bulb
+lipstick
+lotion | lotion bottle
+lunch box
+magazine
+map
+marker | marker pen
+mask | face mask
+mattress
+mirror
+mittens
+money | paper money
+mop | floor mop
+motorcycle | toy motorcycle
+napkin
+necklace
+newspaper
+oven | kitchen oven door
+pacifier
+paint | jar of paint
+painting
+pajamas
+pan | frying pan with a handle
+pants | long pants
+paper | sheet of paper
+paper towel | roll of paper towels
+pen | ballpoint pen
+pencil | wooden pencil
+pencil sharpener
+phone
+piano
+picture | drawing or photo on paper
+piggy bank
+pillow | bed pillow
+pillowcase | pillowcase cover
+plant | green plant in a pot
+plate
+playpen
+pot | cooking pot
+potty | baby potty chair
+prayer mat
+puppet
+purse | woman's small purse
+puzzle | jigsaw puzzle
+radio
+raincoat
+rattle | baby rattle
+refrigerator | tall refrigerator
+robot
+rocket
+rocking chair
+rope
+ruler
+salt shaker
+sandals
+scarf
+scissors
+screwdriver
+seal | seal animal
+sewing machine
+shampoo | shampoo bottle
+shelf | wall shelf
+shirt | man's shirt with buttons
+shoe | leather shoe
+shoelace
+shorts | short pants
+shower
+sink
+skirt
+skunk
+slippers
+sneaker | sports sneaker with laces
+soap
+sock
+sofa | big sofa
+sponge
+spoon | metal eating spoon
+stairs
+stapler
+stove | cooking stove top
+straw | drinking straw
+string | piece of string
+stroller
+sunglasses | dark sunglasses
+sweater | knitted sweater
+sweatshirt | sweatshirt with a hood
+swimsuit
+switch | light switch
+table | kitchen table
+tape | roll of sticky tape
+teddy bear | soft teddy bear toy
+television
+tie | necktie
+tissue | box of tissues
+toilet | toilet seat
+toilet paper | roll of toilet paper
+toothbrush
+toothpaste | toothpaste tube
+towel
+tractor
+train | real train on tracks
+trash can
+tricycle | three-wheel tricycle for kids
+trophy
+truck | big truck
+turtle | pet turtle
+umbrella
+uniform
+vacuum cleaner
+vest | clothing vest
+wall
+wallet
+washcloth | small washcloth
+washing machine | front-loading washing machine
+watch | wristwatch
+water tap
+whistle
+window
+yo-yo
+zipper
 # Food
 apple
-banana
-orange | orange fruit
-grapes
-strawberry
-watermelon
-lemon
-carrot
-tomato
-potato
-cucumber
-onion
-corn | corn on the cob
-egg
+beans
+biscuit
 bread
-cheese
-milk | glass of milk
-water | glass of water
-juice | glass of juice
-rice | bowl of rice
-cake
-cookie
-candy
-ice cream
-chocolate | chocolate bar
-pizza
-sandwich
-dates | dates fruit
-pear
-peach
-cherry
-pineapple
-mango
-coconut
-honey | jar of honey
+brownie
+bun
 butter
-yogurt
-soup | bowl of soup
-salad
-cereal | bowl of cereal
-popcorn
-sugar
-salt | salt shaker
-lunch | lunch plate of food
-# Animals
-cat
-dog
-bird
-fish
-cow
-horse
-sheep
-goat
-camel
-chicken | chicken bird
-duck
-rabbit
-mouse | mouse animal
-lion
-tiger
-elephant
-monkey
-giraffe
-zebra
-bear
-snake
-frog
-turtle
-butterfly
-bee
-ant
-spider
-owl
-penguin
-dolphin
-whale
-shark
-crab
-donkey
-deer
-fox
-wolf
-parrot
-kangaroo
-panda
-crocodile
-puppy
-kitten
-# Body
-hand
-foot
-nose
-eye
-ear
-mouth
-hair
-finger
-tooth
-person
-baby
-# Vehicles
-car
-bus
-truck
-bicycle
-motorcycle
-train
-airplane
-boat
-helicopter
-tractor
-ambulance
-fire truck
-police car
-taxi
-school bus
-# Nature
-tree
-flower
-leaf
-grass
-sun
-moon
-star | star shape
-cloud
-sand
-rock
-mountain
-rainbow
-palm tree
-sea
-beach
-# Places and things outside
-house
-mosque
-tent
-swing
-slide | playground slide
-playground
-# Toys and play
-robot | toy robot
-dinosaur
-football | soccer ball
-whistle
-bubbles | soap bubbles
-crown
-# School
-eraser
-ruler
-notebook
-marker | marker pen
-schoolbag | school bag
-lunch box
-water bottle
-desk
-whiteboard
-glue
-colored pencils
-paint | paint pots
-paintbrush
-sticker
-# More home
-fan | electric fan
-light | ceiling light
-stairs
-floor
-wall
-picture | framed picture
-bin | trash can
-bucket
-broom
-slippers
-sandals
-gloves
-scarf
-coat
-pajamas
-shorts
-skirt
-sweater
-cap | baseball cap
-belt
-necklace
-bracelet
-tissue | tissue box
-hairbrush
-shampoo
-sponge
-bandage | adhesive bandage
-diaper
-bib | baby bib
-pacifier
-stroller
-crib
-high chair
-potty | potty chair
-rattle | baby rattle
-baby bottle
-
-# Moved up and added for young children
-rubber duck
-lollipop
-cupcake
-chick | baby chick
-lamb
-hippopotamus
-octopus
-ladybug
-snail
-squirrel
-starfish
-sunflower
-snow
-fire
-sky
-river
-rocket
-sandcastle
-hamburger
-french fries
-donut
-pancake
-noodles
-nest | bird nest
-feather
-helmet
-guitar
-piano
-trophy
-puppet
-ship
-shower
-faucet | water tap
-pony
-stick | wooden stick
-flower pot
-plant | potted plant
-garden
-seesaw
-sandbox
-dollhouse
-tricycle
-face
-leg
-arm
-toy box
-sausage
-unicorn | toy unicorn
-
-## level 2
-# Kitchen
-refrigerator
-oven
-microwave
-stove
-kettle
-toaster
-blender
-pan | frying pan
-pot | cooking pot
-knife | kitchen knife
-cutting board
-teapot
-coffee pot | arabic coffee pot dallah
-jug
-napkin
-tray
-vase
-candle
-pinwheel | toy pinwheel
-straw | drinking straw
-lid | pot lid
-jar
-can | tin can
-thermos | thermos vacuum flask
-whisk
-spatula
-ladle
-# Furniture and house
-curtain
-rug
-cushion
-shelf
-drawer
-cupboard
-wardrobe
-stool
-bench
-air conditioner
-heater
-light bulb
-light switch
-socket | electrical wall socket
-plug | electric plug
-charger | phone charger
-battery
-flashlight
-hanger | clothes hanger
-iron | clothes iron
-washing machine
-vacuum cleaner
-mop
-laundry basket
-hair dryer
-perfume | perfume bottle
-toilet paper
-suitcase
-wallet
-lantern
-picture frame
-calendar
-newspaper
-magazine
-envelope
-map
-globe
-flag
-prayer mat | prayer rug
-doorbell
-doormat
-door handle
-keyboard | computer keyboard
-computer mouse
-laptop
-tablet | tablet computer
-headphones
-camera
-printer
-speaker | loudspeaker
-game controller
-microphone
-radio
-calculator
-alarm clock
-# Clothes and accessories
-sneakers
-boots
-tie | necktie
-sunglasses
-uniform | school uniform
-raincoat
-swimsuit
-apron
-earrings
-headband
-hair clip
-mask | face mask
-mittens
-hoodie
-vest
-# School
-pencil sharpener
-pencil case
-folder
-chalk
-blackboard
-glue stick
-clay | modeling clay
-paper clip
-tape | adhesive tape
-dictionary
-storybook | children's picture book
-# Toys and sports
-basketball
-tennis ball
-tennis racket
-volleyball
-baseball bat
-baseball
-golf ball
-bowling pin
-skateboard
-scooter | kick scooter
-roller skates
-jump rope
-yo-yo
-marbles
-dice
-chessboard
-playing cards
-board game
-medal
-goal | soccer goal
-rocking horse
-toy train
-toy airplane
-xylophone
-violin
-trumpet
-flute
-tambourine
-spinning top
-shovel | toy shovel
-swimming pool
-goggles | swimming goggles
-bow | hair bow
-ribbon
-gift | gift box
-party hat
-action figure
-stuffed animal
-# Food
-broccoli
-cauliflower
 cabbage
-lettuce
-spinach
-pepper | bell pepper
-chili | chili pepper
-garlic
-mushroom
-eggplant
-pumpkin
-zucchini
-peas
-beans | green beans
-olive
-avocado
-kiwi | kiwi fruit
-pomegranate
-fig
-plum
-apricot
-blueberry
-raspberry
-melon
-lime
-nuts | mixed nuts
-peanut
-almond
-raisins
-pasta
-spaghetti
-hot dog
-waffle
-croissant
-crackers
-chips | potato chips
-ketchup
-jam | jar of jam
-pie
+candy
+cheese
+chicken | cooked chicken
+chocolate | piece of chocolate
+coffee
+cookie
+cotton candy
+cracker
+cupcake
+dates | date fruits
+donut
+french fries
+grape
+gum
+hamburger
+honey
+hotdog
+ice cream
 jelly
-chewing gum
+juice | glass of juice
+ketchup
+lasagna
+lemon
+lemonade
+lollipop
+macaroni
 marshmallow
 meat | raw meat
-shrimp
-kebab
-falafel
-hummus
-lemonade
-smoothie
+meatball
+milk
 milkshake
-soda | can of soda
-flour | bag of flour
-oil | bottle of cooking oil
+muffin
+noodles
+nuts
+oatmeal
+orange | orange fruit
+pancake
+pasta | short pasta like penne
+peanut butter
+pear
+peas
+pickle
+pie | baked pie
+pizza
+popsicle
+potato
+potato chip
+pretzel
+pudding
+radish
+raisin
+rice
+salad | plate of salad
+salt
+sandwich
+soda | soda can
+soup | bowl of soup
+strawberry
+sugar
+syrup
+tea
 toast
-pita bread
-biscuits | tea biscuits
-# Animals
-hamster
-guinea pig
-hedgehog
-bat | bat animal
-falcon
-eagle
-crow
-sparrow
-pigeon
-peacock
-flamingo
-swan
-goose
-turkey | turkey bird
-ostrich
-rooster
-jellyfish
-seahorse
-seal | seal animal
-polar bear
-koala
-rhinoceros
-gorilla
-cheetah
-leopard
-lizard
-chameleon
-scorpion
-worm | earthworm
-caterpillar
-dragonfly
-grasshopper
-mosquito
-fly | housefly
-beetle
-lobster
-seashell
-calf | baby cow
-foal | baby horse
-goldfish
-gazelle
-oryx | arabian oryx
-llama
-sloth
-otter
-beaver
-buffalo
-tadpole
-# Vehicles and street
-van
-jeep
-pickup truck
-bulldozer
-excavator
-crane | construction crane
-cement mixer | cement mixer truck
-garbage truck
-tow truck
-sailboat
-canoe
-submarine
-hot air balloon
-tram
-wheelchair
-wagon | toy wagon
-traffic light
-stop sign
-street light
-bridge
-fire hydrant
-mailbox
-bus stop
-crosswalk
-parking lot
-road
-sidewalk
-gas station
-# Buildings and places
-building
-school | school building
-castle
-tower
-fountain
-fence
-gate
-elevator
-roof
-window blinds
-garage
-barn
-lighthouse
-windmill
-shop | small shop
-market | vegetable market
-farm
-zoo
-park
-# Nature
-cactus
-bush
-pine cone
-branch | tree branch
-log | wood log
-sand dune
-wave | ocean wave
-waterfall
-lake
-island
-volcano
-cave
-forest
-sunset
-lightning
-ice
-puddle
-mud
-soil
-coral
-planet
-rose
-tulip
+tomato
+waffle
+yogurt
+# Plants and fruit
+banana
+bell pepper
+broccoli
+bush | green bush plant
+carrot
+celery
+cereal
+cherry
+chess | chess pieces on a board
+cinnamon
+clover
+corn
+cucumber
+daffodil
 daisy
-wheat
-hay
-bamboo
-seed | seeds
-stone wall
-desert
+dandelion
+flower
+leaf
+lettuce
+mint | mint leaves
+mustard
+palm tree
+peach
+peanut
+pine tree
+plum
+popcorn
+pumpkin
+raspberry
+root | plant roots
+seed | plant seeds
+spinach
+sticker
+sunflower
+watermelon
+# Animals (pets and toys)
+ant
+bat | bat animal
+bear | brown bear animal
+bee | bee insect
+beetle
+bird | small bird
+butterfly
+camel
+cat | adult cat
+caterpillar
+chick | baby chick
+chipmunk
+cow | adult cow
+crab
+crocodile
+crow | crow bird
+deer
+dinosaur | toy dinosaur
+dog | adult dog
+donkey
+duck | adult duck
+eagle
+egg | whole egg
+elephant
+feather
+fish | fish swimming
+fly | housefly insect
+fox
+frog
+giraffe
+goat
+goose
+gorilla
+grasshopper
+guinea pig
+hamster
+horse | adult horse
+kangaroo
+koala
+ladybug
+lion
+lizard
+monkey
+moose
+moth
+otter
+owl
+panda
+parrot | parrot bird
+peacock
+penguin
+pig | adult pig
+polar bear
+rabbit
+rat
+reindeer
+rhinoceros
+seagull
+seahorse
+shark
+sheep | adult sheep
+snail
+snake | toy snake
+spider
+squirrel
+starfish
+tiger
+turkey | turkey bird
+unicorn | toy unicorn
+walrus
+wasp
+whale | toy whale
+wolf
+worm | earthworm
+zebra
+# Body
+ankle | ankle of a foot
+arm
+beard
+beaver
+belly
+cheek
+chin
+ear
+elbow
+eye
+eyebrow
+eyelash
+face
+finger | one finger
+fingernail
+foot | bare foot
+forehead
+hair
+hand
+head | human head
+knee
+leg
+lid
+lip | human lips
+moustache
+mouth
+neck
+nose
+ponytail
+shoulder
+thumb | thumb up
+toe | toes on a foot
+tongue
+tooth
+wrist | human wrist
+# Other
+ribbon
+# Nature (picture books)
+acorn
+branch | tree branch
+cloud | white cloud in the sky
+dragon | toy dragon
+earth | planet earth globe from space
+grass
+hill | green hill
+lightning
+moon | moon in the sky
+nest
+pebble
+pinecone
+rainbow
+rock | rock stone
+sand | pile of sand
+sky | blue sky
+snow
+snowflake
+snowman
+star | star in the night sky
+sun | sun in the sky
+tree | tree with leaves
+web | spider web
+# Vehicles and outdoor toys
+anchor
+bulldozer
+carriage | horse carriage
+fireworks | fireworks in the sky
+garbage truck
+hot air balloon | hot air balloon in the sky
+police car
+ship | big ship
+sled
+sleigh
+spaceship
+van | van car
+wagon
+wheel | round wheel
+# Outdoor things (picture books)
+bench
+birdhouse
+gate | garden gate
+rake
+sandbox
+scarecrow
+seesaw
+slide | playground slide
+stop sign
+swing | playground swing
+tent
+traffic light
+watering can
+windmill
+# Places (picture books)
+barn
+bathroom | a bathroom
+beach
+bedroom | a bedroom
+bridge | a bridge
+castle
+circus
+classroom | a school classroom
+farm
+garden | a flower garden
+hospital
+house | a house building
+igloo
+kitchen | a kitchen room
+lake | a lake
+library
+ocean | the ocean
+park | a park with trees
+playground | a children's playground
+pond
+restaurant
+river | a river
+road | a road
+school | a school building
+store | a shop store
+supermarket
+tunnel
+waterfall
+zoo | a zoo with animals
+# Specific types
+alarm clock | small alarm clock with bells
+apple pie
+apple tree
+baby bottle | baby feeding bottle
+baseball bat
+beach ball
+beach chair
+birthday cake | birthday cake with candles
+candy cane
+ceiling fan
+chocolate milk
+coffee table
+coloring book
+cowboy hat
+cub | lion cub
+duckling | small baby duck
+fish tank | glass fish tank with fish
+football | american football
+fruit salad
+gift box | wrapped gift box with a ribbon
+gingerbread man
+glue stick | glue stick tube
+hot chocolate
+ice cream truck
+jelly bean
+kitten | small baby kitten
+lamb | small baby lamb
+mug | mug with a handle
+music box
+night light | child's night light lamp
+party hat
+picture book | children's picture book
+piglet | small baby pig
+plastic bag
+pocket watch
+puppy | small baby puppy
+race car | race car with a number
+rain boots
+sailboat | boat with a sail
+sand castle
+school bus | yellow school bus
+shopping bag | paper shopping bag
+soccer ball
+sun hat | big straw sun hat
+teacup | small teacup on a saucer
+toy airplane | small toy airplane
+toy box
+toy car | small plastic toy car
+toy train | colorful toy train
+triceratops
 
-## level 3
-# Tools
-hammer
-screwdriver
-wrench
-pliers
-saw | hand saw
-drill | power drill
-nail | metal nail
-screw | metal screw
-measuring tape
-toolbox
-ladder
-rope
-chain | metal chain
-padlock
-lock | door lock
+## level 2
+# Things
+abacus
+action figure
+air conditioner
+album | photo album
+aluminum foil
+ambulance
+apron
+armchair | soft armchair
+bathrobe
+beanbag | beanbag chair
+binoculars
+blender
+blouse | woman's blouse
+board game
+bookmark
+bottle opener
+cabinet | kitchen cabinet
+calculator
+can opener
+carpet
+carton | milk carton
+chandelier
+checkers | checkers board game
+chopsticks
+clipboard
+clothespin
+coaster | drink coaster
+colander
+compass | drawing compass
+cookie cutter
+cooler | drinks cooler box
+crib | baby crib
+cutting board
+dartboard
+dental floss
+detergent | laundry detergent bottle
+dice | pair of dice
+dishwasher
+domino | domino tiles
+doormat | doormat at a door
+dumbbell
+duster | feather duster
+dustpan
+earring
+easel | drawing easel
+envelope
+folder | paper folder
+funnel
+goggles
+grater
+hair dryer
+hairpin
+handkerchief
+hanger | clothes hanger
+harmonica
+headband
+headphones
+heater | electric heater
+highlighter | highlighter pen
+hobbyhorse | toy hobby horse
+hourglass
+ice cube
+iron | clothes iron
+ironing board
+jersey | sports jersey
+kaleidoscope
+kettle | electric kettle
+lantern
+laundry basket
 magnet
 magnifying glass
-microscope
-telescope
-binoculars
-compass | magnetic compass
-thermometer
-stethoscope
-first aid kit
-weighing scale
-hourglass
-stopwatch
-abacus
-protractor
-beaker
-test tube
-funnel
-solar panel
-satellite dish
-antenna
-gear | metal gear
-wheel
-tire
-steering wheel
-engine | car engine
-garden hose
-sprinkler | lawn sprinkler
-watering can
-wheelbarrow
-rake
-lawn mower
-fishing rod
-anchor
-paddle | boat paddle
-life jacket
-axe
-headlamp | head torch
-extension cord
-smoke detector
-fire extinguisher
-safety helmet | construction hard hat
-safety goggles
-dustpan
-# Office and school
-stapler
-hole punch
-sticky note
-highlighter
+marbles | glass marbles
+microphone
+microwave oven
+nail polish
+notebook | spiral notebook
+ornament | decoration ornament
+padlock
+paintbox
+paintbrush
+paper clip
+peeler | vegetable peeler
+pencil case
+perfume | perfume bottle
+playing card
+pliers
+plug | electric plug on a cord
+printer
 projector
-binder | ring binder
-bookshelf
-bookmark
-sketchbook
-easel
-palette | paint palette
-sewing machine
-needle | sewing needle
-thread | spool of thread
-yarn | ball of yarn
-zipper
-safety pin
-coin
-banknote | paper money
-piggy bank
-ticket
-briefcase
-clipboard
-lanyard
-file cabinet
-pushpin
-rubber band
-encyclopedia
-atlas | world atlas
-# Kitchen
-colander
-grater
+quilt
+recorder | recorder flute
+remote control
 rolling pin
-tongs
-can opener
-measuring cup
-measuring spoons
-food processor
-coffee maker
-rice cooker
-dishwasher
-freezer
-chopsticks
-toothpick
+rubber duck | yellow rubber duck toy
+safety pin
 saucer
-ice cube
-oven mitt
-dish rack
-salad bowl
-cookie cutter
-egg carton
-lunch tray | cafeteria tray
-water filter | water filter jug
-# Electronics
-smartwatch
-flash drive | usb flash drive
-router | wifi router
-monitor | computer monitor
-webcam
-drone
-video camera
-joystick
-game console | video game console
-compact disc
-power bank
-smart speaker
-e-reader
-headset
-digital watch
-cable | usb cable
-# Animals
-meerkat
-lemur
-chimpanzee
-orangutan
-baboon
-hyena
-jaguar
-lynx
-bison
-antelope
-warthog
-porcupine
-skunk
-manatee
-narwhal
-stingray
-eel
-swordfish
-pufferfish
-clownfish
-sea turtle
-sea lion
-pelican
-toucan
-hummingbird
-woodpecker
-kingfisher
-vulture
-stork
-heron
-seagull
-robin
-canary
-budgie | budgerigar parakeet
-macaw
-cockatoo
-wasp
-moth
-firefly
-cricket | cricket insect
-praying mantis
-centipede
-iguana
-komodo dragon
-alligator
-tortoise
-cobra
-python | python snake
-toad
-axolotl
-walrus
-moose
-yak
-arabian horse
-termite
-hornet
-squid
-oyster
-mussel
-sea urchin
-tropical fish
-husky | husky dog
-dalmatian
-poodle
-# Nature and science
-glacier
-canyon
-valley
-cliff
-oasis
-crystal
-diamond
-gold | gold bars
-fossil
-root | tree roots
-tree trunk
-petal | flower petals
-thorn | rose thorns
-bud | flower bud
-greenhouse
-meadow
-hedge
-coral reef
-iceberg
-rainforest
-skeleton | human skeleton model
-brain | brain model
-heart | heart model
-lungs | lungs model
-earth | planet earth
-solar system | solar system model
-comet
-lava
-pebble
-marble | marble stone
-# Buildings and places
-skyscraper
-pyramid
-stadium
-hospital
-airport
-harbor
-museum
-library
-factory
-supermarket
-bakery
-restaurant
-pharmacy
-fire station
-police station
-post office
-train station
-hotel
-tunnel
-dam
-palace
-fort
-minaret
-dome
-arch
-column
-statue
-# Vehicles
-race car
-yacht
-ferry
-container ship
-blimp
-space shuttle
-satellite
-astronaut
-unicycle
-camper van
-trailer
-shopping cart
-escalator
-cable car
-motor scooter
-jet ski
-cargo plane
-glider
-forklift
-road roller
-snowplow
+scooter
+screw | metal screw
+skateboard
+sleeping bag
+spatula
+speaker | bluetooth speaker
+stencil
+stethoscope
+stool | small stool
+stopwatch
+suitcase
+tablecloth
+tablet | tablet computer screen
+tambourine
+teapot | ceramic teapot
+telescope
+tennis racket
+thermometer
+thermos
+thread
+tiara
+tights
+timer | kitchen timer
+toaster
+tongs
+toolbox
+toothpick
+trampoline | home trampoline
+tray
+trumpet | toy trumpet
+tutu | ballet tutu
+tweezers
+vase
+violin
+volleyball
+wand | magic wand toy
+whisk
+windbreaker
+wrench
+xylophone | toy xylophone
+yarn | ball of yarn
 # Food
-artichoke
-asparagus
-beetroot
-radish
-turnip
-celery
-ginger
-okra
-sweet potato
-kale
-papaya
-guava
-lychee
-passion fruit
-dragon fruit
-persimmon
-cranberry
-blackberry
-tangerine
-jackfruit
-cashew
-hazelnut
-chestnut
-pistachio
-walnut
-oats
-lentils
-chickpeas
 bagel
-pretzel
-burrito
-taco
+blackberry
+caramel
+cheesecake
+chili | red chili pepper
+coconut
+custard
+dough | bread dough
 dumpling
+eggplant
+flour
+hummus
+jam | jar of jam
+kebab
+lobster
+mayonnaise
+mole | mole animal
+octopus
 omelet
 porridge
-brownie
-macaron
-caramel
-cotton candy
-popsicle
-cinnamon roll
-mustard
-mint | mint leaves
-parsley
-basil
-cardamom
-sesame | sesame seeds
+ravioli
+sausage
+shrimp
+smoothie
+squid | squid sea animal
+taco
+tortilla
+vinegar
+wafer
+walnut
+# Plants and fruit
+almond
+apricot
+asparagus
+beet | beetroot vegetable
+blueberry
+cactus
+cantaloupe
+cashew
+cauliflower
+chestnut
+cranberry
+dill
+fern
+fig | fig fruit
+garlic
+ginger
 grapefruit
-muffin
-sushi
-noodle soup
-fruit salad
-granola bar
-# Clothes and accessories
-overalls
-cardigan
-tracksuit
-jersey | sports jersey
+kiwi
+lily
+lime | green lime fruit
+mango
+mushroom
+olive
+onion
+parsley
+petal
+pineapple
+pinwheel | toy pinwheel
+pistachio
+pomegranate
+rose
+tulip
+turnip
+wheat
+zucchini
+# Animals (pets and toys)
+anteater
+armadillo
+buffalo | buffalo animal
+canary
+cheetah
+chimpanzee
+clam
+cockroach
+cricket | cricket insect
+dolphin
+dove
+dragonfly
+firefly
+flamingo
+gerbil
+hawk
+hedgehog
+hen | hen bird
+hippopotamus
+hummingbird
+hyena
+jellyfish
+leopard
+llama
+mosquito
+ostrich
+pelican
+pigeon
+porcupine
+raccoon
+robin
+rooster
+sloth
+sparrow
+stork
+swan
+tadpole
+toucan
+vulture
+woodpecker
+# Body
+braid | braided hair
+socket | electrical wall socket
+# Other
+globe
+# Nature (picture books)
+fossil
+honeycomb
+iceberg | iceberg in the sea
+mountain | mountain peak
+planet | planet in space
+seashell
+volcano
+# Vehicles and outdoor toys
+blimp
+canoe
+jeep | jeep car
+parachute
+ski | snow skis
+submarine
+taxi | yellow taxi car
+tire | black rubber tire
+treasure | treasure chest
+# Outdoor things (picture books)
+beehive
+carousel
+fence | garden fence
+fire hydrant
+hammock
+mailbox
+shovel
+statue | stone statue
+streetlight
+wheelbarrow
+# Places (picture books)
+airport
+bakery
+cave | a rock cave
+desert | a sand desert
+fire station
+forest | a forest with trees
+island | an island in the sea
+lighthouse
+living room | a living room
+palace
+police station
+pyramid
+stadium
+tower | a tall tower
+train station
+# Specific types
+beagle
+bookshelf | bookshelf with books
 bow tie
-chef hat
-graduation cap
-tiara
-flip-flops
+brontosaurus
+bulldog
+bunk bed
+calf | small baby cow
+cement mixer
+clownfish
+cobra | cobra snake
+colored pencils
+dalmatian
+double-decker bus | red double-decker bus
+flower pot | empty clay flower pot
+foal | small baby horse
+french toast
+fried egg | fried egg in a pan
+fried rice
+german shepherd | german shepherd dog
+golden retriever | golden retriever dog
+gummy bear | gummy bear candy
+hair clip
 high heels
-ballet shoes
-ice skates
-snorkel
-flippers | swim fins
-lab coat
-costume | dress-up costume
-beanie
-wristband
-handbag
-# Sports and hobbies
-skis
-surfboard
-kayak
-sled
-dartboard
-badminton racket
-shuttlecock
-ping pong paddle
-hockey stick
-boxing gloves
-punching bag
-treadmill
-dumbbell
-yoga mat
-trampoline
-climbing wall
-hula hoop
-frisbee
+jewelry box
+motorboat | small motorboat
+oak tree
+picture frame | empty photo frame
+poodle
+python | python snake
+sippy cup
+sketchbook | sketchbook with drawings
+sports car | low red sports car
+stegosaurus
+tennis ball
+tow truck
+tugboat
+tyrannosaurus | tyrannosaurus rex dinosaur
+
+## level 3
+# Things
+binder | ring binder
 boomerang
-fishing net
-camping chair
-sleeping bag
-rubik's cube
-puzzle piece
-domino
-chess piece
-paper airplane
-origami
-model car
+cable | charging cable
+cardigan
+computer | desktop computer with a monitor
+computer mouse
+first-aid kit
+game controller
+juicer
+keyboard
+ladle | big soup ladle
+laptop | open laptop computer
+measuring tape
+microscope
+plunger | toilet plunger
+protractor
+scanner | document scanner
+sieve
+strainer | kitchen strainer
+treadmill
 tripod
+ukulele
+webcam
+wok
+# Food
+avocado
+burrito
+crepe
+croissant
+cutlet
+enchilada
+fettuccine
+quesadilla
+sushi
+tofu
+tortellini
+# Plants and fruit
+bamboo
+basil
+cilantro
+guava
+hazelnut
+jalapeno
+kale
+lavender
+okra
+orchid
+papaya
+thyme
+# Animals (pets and toys)
+charger | phone charger plug
+# Places (picture books)
+mosque | a mosque with a minaret
+oasis
+# Specific types
+tropical fish
