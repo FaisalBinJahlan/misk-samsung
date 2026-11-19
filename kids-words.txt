@@ -14,18 +14,18 @@ window
 lamp
 clock
 pillow
-blanket | bed blanket
-cup | mug with a handle
+blanket
+cup
 plate
 bowl
 spoon
 fork
 bottle
 glass | drinking glass
-towel | bath towel
+towel
 soap
 toothbrush
-toothpaste | toothpaste tube
+toothpaste
 comb
 mirror
 bathtub
@@ -33,16 +33,16 @@ toilet
 sink
 key
 box
-bag | shopping bag
+bag
 basket
 phone | mobile phone
 television
 remote control
 AirPods | airpods wireless earbuds
 computer | desktop computer
-book | closed book with a cover
-pen | ballpoint pen
-pencil | wooden pencil
+book
+pen
+pencil
 crayon
 paper | sheet of paper
 scissors
@@ -51,6 +51,7 @@ doll
 teddy bear
 balloon
 kite
+toy car
 blocks | toy building blocks
 puzzle | jigsaw puzzle
 drum
@@ -59,15 +60,15 @@ car key | car key fob
 # Clothes
 shoe
 sock
-hat | sun hat with a brim
+hat
 shirt | t-shirt
 dress
 pants | trousers
 jacket
 glasses | eyeglasses
 umbrella
-backpack | backpack with shoulder straps
-watch | analog wristwatch with hands
+backpack
+watch | wristwatch
 ring | finger ring jewelry
 button | clothing button
 # Food
@@ -118,15 +119,15 @@ lunch | lunch plate of food
 # Animals
 cat
 dog
-bird | small flying bird
+bird
 fish
 cow
 horse
 sheep
 goat
 camel
-chicken | farm chicken
-duck | duck bird swimming
+chicken | chicken bird
+duck
 rabbit
 mouse | mouse animal
 lion
@@ -135,6 +136,7 @@ elephant
 monkey
 giraffe
 zebra
+bear
 snake
 frog
 turtle
@@ -155,9 +157,12 @@ wolf
 parrot
 kangaroo
 panda
+crocodile
+puppy
+kitten
 # Body
 hand
-foot | bare human foot
+foot
 nose
 eye
 ear
@@ -165,21 +170,24 @@ mouth
 hair
 finger
 tooth
-person | whole person standing
+person
 baby
 # Vehicles
-car | family car
+car
 bus
-truck | big delivery truck
-bicycle | two-wheel bicycle
+truck
+bicycle
+motorcycle
 train
 airplane
+boat
 helicopter
 tractor
 ambulance
 fire truck
 police car
 taxi
+school bus
 # Nature
 tree
 flower
@@ -194,12 +202,15 @@ rock
 mountain
 rainbow
 palm tree
+sea
+beach
 # Places and things outside
 house
 mosque
 tent
 swing
 slide | playground slide
+playground
 # Toys and play
 robot | toy robot
 dinosaur
@@ -210,9 +221,11 @@ crown
 # School
 eraser
 ruler
-notebook | spiral notebook with lined paper
+notebook
 marker | marker pen
+schoolbag | school bag
 lunch box
+water bottle
 desk
 whiteboard
 glue
@@ -234,6 +247,7 @@ slippers
 sandals
 gloves
 scarf
+coat
 pajamas
 shorts
 skirt
@@ -255,12 +269,14 @@ crib
 high chair
 potty | potty chair
 rattle | baby rattle
+baby bottle
 
 # Moved up and added for young children
-rubber duck | yellow rubber duck toy
+rubber duck
 lollipop
 cupcake
 chick | baby chick
+lamb
 hippopotamus
 octopus
 ladybug
@@ -286,16 +302,19 @@ guitar
 piano
 trophy
 puppet
+ship
 shower
 faucet | water tap
+pony
 stick | wooden stick
 flower pot
+plant | potted plant
 garden
 seesaw
 sandbox
 dollhouse
-tricycle | three-wheel tricycle for kids
-face | close-up of a human face
+tricycle
+face
 leg
 arm
 toy box
@@ -305,17 +324,17 @@ unicorn | toy unicorn
 ## level 2
 # Kitchen
 refrigerator
-oven | kitchen oven door
+oven
 microwave
-stove | cooking stove top
-kettle | electric kettle
+stove
+kettle
 toaster
 blender
 pan | frying pan
 pot | cooking pot
 knife | kitchen knife
 cutting board
-teapot | ceramic teapot
+teapot
 coffee pot | arabic coffee pot dallah
 jug
 napkin
@@ -325,13 +344,16 @@ candle
 pinwheel | toy pinwheel
 straw | drinking straw
 lid | pot lid
+jar
 can | tin can
 thermos | thermos vacuum flask
 whisk
 spatula
+ladle
 # Furniture and house
 curtain
 rug
+cushion
 shelf
 drawer
 cupboard
@@ -359,6 +381,7 @@ toilet paper
 suitcase
 wallet
 lantern
+picture frame
 calendar
 newspaper
 magazine
@@ -372,8 +395,8 @@ doormat
 door handle
 keyboard | computer keyboard
 computer mouse
-laptop | open laptop computer with a keyboard
-tablet | tablet computer with no keyboard
+laptop
+tablet | tablet computer
 headphones
 camera
 printer
@@ -382,8 +405,12 @@ game controller
 microphone
 radio
 calculator
+alarm clock
 # Clothes and accessories
+sneakers
+boots
 tie | necktie
+sunglasses
 uniform | school uniform
 raincoat
 swimsuit
@@ -393,6 +420,7 @@ headband
 hair clip
 mask | face mask
 mittens
+hoodie
 vest
 # School
 pencil sharpener
@@ -400,6 +428,7 @@ pencil case
 folder
 chalk
 blackboard
+glue stick
 clay | modeling clay
 paper clip
 tape | adhesive tape
@@ -427,6 +456,8 @@ board game
 medal
 goal | soccer goal
 rocking horse
+toy train
+toy airplane
 xylophone
 violin
 trumpet
@@ -438,6 +469,7 @@ swimming pool
 goggles | swimming goggles
 bow | hair bow
 ribbon
+gift | gift box
 party hat
 action figure
 stuffed animal
@@ -465,13 +497,14 @@ plum
 apricot
 blueberry
 raspberry
+melon
 lime
 nuts | mixed nuts
 peanut
 almond
 raisins
-pasta | short pasta like penne
-spaghetti | long spaghetti noodles on a plate
+pasta
+spaghetti
 hot dog
 waffle
 croissant
@@ -511,7 +544,9 @@ peacock
 flamingo
 swan
 goose
+turkey | turkey bird
 ostrich
+rooster
 jellyfish
 seahorse
 seal | seal animal
@@ -533,6 +568,8 @@ fly | housefly
 beetle
 lobster
 seashell
+calf | baby cow
+foal | baby horse
 goldfish
 gazelle
 oryx | arabian oryx
@@ -540,17 +577,22 @@ llama
 sloth
 otter
 beaver
+buffalo
 tadpole
 # Vehicles and street
+van
 jeep
+pickup truck
 bulldozer
 excavator
 crane | construction crane
 cement mixer | cement mixer truck
 garbage truck
 tow truck
+sailboat
 canoe
 submarine
+hot air balloon
 tram
 wheelchair
 wagon | toy wagon
@@ -567,6 +609,7 @@ road
 sidewalk
 gas station
 # Buildings and places
+building
 school | school building
 castle
 tower
@@ -589,6 +632,7 @@ park
 cactus
 bush
 pine cone
+branch | tree branch
 log | wood log
 sand dune
 wave | ocean wave
@@ -604,6 +648,8 @@ ice
 puddle
 mud
 soil
+coral
+planet
 rose
 tulip
 daisy
@@ -630,6 +676,7 @@ ladder
 rope
 chain | metal chain
 padlock
+lock | door lock
 magnet
 magnifying glass
 microscope
@@ -680,7 +727,9 @@ sticky note
 highlighter
 projector
 binder | ring binder
+bookshelf
 bookmark
+sketchbook
 easel
 palette | paint palette
 sewing machine
@@ -693,6 +742,7 @@ coin
 banknote | paper money
 piggy bank
 ticket
+briefcase
 clipboard
 lanyard
 file cabinet
@@ -712,26 +762,34 @@ food processor
 coffee maker
 rice cooker
 dishwasher
+freezer
 chopsticks
 toothpick
 saucer
 ice cube
 oven mitt
 dish rack
+salad bowl
 cookie cutter
 egg carton
+lunch tray | cafeteria tray
 water filter | water filter jug
 # Electronics
-smartwatch | smartwatch with a touch screen
+smartwatch
 flash drive | usb flash drive
 router | wifi router
+monitor | computer monitor
 webcam
 drone
+video camera
+joystick
+game console | video game console
 compact disc
 power bank
 smart speaker
 e-reader
-digital watch | digital wristwatch with numbers
+headset
+digital watch
 cable | usb cable
 # Animals
 meerkat
@@ -742,6 +800,7 @@ baboon
 hyena
 jaguar
 lynx
+bison
 antelope
 warthog
 porcupine
@@ -753,6 +812,7 @@ eel
 swordfish
 pufferfish
 clownfish
+sea turtle
 sea lion
 pelican
 toucan
@@ -776,18 +836,23 @@ praying mantis
 centipede
 iguana
 komodo dragon
+alligator
+tortoise
 cobra
+python | python snake
 toad
 axolotl
 walrus
 moose
 yak
+arabian horse
 termite
 hornet
 squid
 oyster
 mussel
 sea urchin
+tropical fish
 husky | husky dog
 dalmatian
 poodle
@@ -802,18 +867,21 @@ diamond
 gold | gold bars
 fossil
 root | tree roots
+tree trunk
 petal | flower petals
 thorn | rose thorns
 bud | flower bud
 greenhouse
 meadow
 hedge
+coral reef
 iceberg
 rainforest
 skeleton | human skeleton model
 brain | brain model
 heart | heart model
 lungs | lungs model
+earth | planet earth
 solar system | solar system model
 comet
 lava
@@ -849,6 +917,7 @@ column
 statue
 # Vehicles
 race car
+yacht
 ferry
 container ship
 blimp
@@ -856,10 +925,12 @@ space shuttle
 satellite
 astronaut
 unicycle
+camper van
 trailer
 shopping cart
 escalator
 cable car
+motor scooter
 jet ski
 cargo plane
 glider
@@ -885,6 +956,7 @@ dragon fruit
 persimmon
 cranberry
 blackberry
+tangerine
 jackfruit
 cashew
 hazelnut
@@ -916,6 +988,7 @@ sesame | sesame seeds
 grapefruit
 muffin
 sushi
+noodle soup
 fruit salad
 granola bar
 # Clothes and accessories
@@ -927,6 +1000,7 @@ bow tie
 chef hat
 graduation cap
 tiara
+flip-flops
 high heels
 ballet shoes
 ice skates
@@ -935,6 +1009,8 @@ flippers | swim fins
 lab coat
 costume | dress-up costume
 beanie
+wristband
+handbag
 # Sports and hobbies
 skis
 surfboard
@@ -959,7 +1035,10 @@ fishing net
 camping chair
 sleeping bag
 rubik's cube
+puzzle piece
 domino
+chess piece
 paper airplane
 origami
+model car
 tripod
