@@ -46,7 +46,8 @@ const minScore = 0.21;
 // e.g. "cup" rather than a near tie with "thermos".
 const levelMargin = 0.02;
 
-async function recognize(pixels) {
+async function recognize(pixels, maxLevel = 3) {
+  console.log("Maximum allowed level:", maxLevel);
   const { session, labels, dimensions, inverseNorms, levels, vectors } = detector;
   const size = 256 * 256;
   const rgb = new Float32Array(size * 3);
@@ -60,8 +61,8 @@ async function recognize(pixels) {
   try {
     const embedding = output.data;
     const imageNorm = Math.hypot(...embedding);
-    let bestIndex = -1;
-    let bestScore = -Infinity;
+    // let bestIndex = -1;
+    // let bestScore = -Infinity;
     const levelBest = new Map();
     // The three highest-scoring words, kept for measurement (shown with ?debug=1).
     const top = [];
@@ -70,10 +71,10 @@ async function recognize(pixels) {
       let similarity = 0;
       for (let j = 0; j < dimensions; j++) similarity += vectors[base + j] * embedding[j];
       const score = similarity * inverseNorms[i] / imageNorm;
-      if (score > bestScore) {
+      /*if (score > bestScore) {
         bestIndex = i;
         bestScore = score;
-      }
+      }*/
       const best = levelBest.get(levels[i]);
       if (!best || score > best.score) levelBest.set(levels[i], { index: i, score });
       if (top.length < 3 || score > top[2].score) {
@@ -82,14 +83,96 @@ async function recognize(pixels) {
         if (top.length > 3) top.pop();
       }
     }
-    const candidates = top.map(({ word, level, score }) => ({ word, level, score: Math.round(score * 1000) / 1000 }));
+    const candidates = top.map(({ word, level, score }) => ({
+  word,
+  level,
+  score: Math.round(score * 1000) / 1000
+}));
+
+const levelCandidates = [...levelBest.entries()]
+  .map(([level, candidate]) => ({
+    word: labels[candidate.index],
+    level,
+    score: Math.round(candidate.score * 1000) / 1000
+  }))
+  .sort((a, b) => a.level - b.level);
+
+
     // Cosine similarity is a heuristic, not a probability or a safety rating.
-    if (bestScore < minScore) return { label: "", top: candidates };
-    for (const level of [...levelBest.keys()].sort((a, b) => a - b)) {
-      const { index, score } = levelBest.get(level);
-      if (score >= minScore && score >= bestScore - levelMargin) return { label: labels[index], top: candidates };
+    // Cosine similarity is a heuristic, not a probability or a safety rating.
+const allowedCandidates = [...levelBest.entries()]
+      .filter(([level]) => level <= maxLevel)
+      .map(([level, candidate]) => ({
+        index: candidate.index,
+        level,
+        score: candidate.score
+      }));
+
+    const higherCandidates = [...levelBest.entries()]
+      .filter(([level]) => level > maxLevel)
+      .map(([level, candidate]) => ({
+        index: candidate.index,
+        level,
+        score: candidate.score
+      }));
+
+    const bestAllowed = allowedCandidates.reduce(
+      (best, candidate) =>
+        !best || candidate.score > best.score ? candidate : best,
+      null
+    );
+
+    const bestHigher = higherCandidates.reduce(
+      (best, candidate) =>
+        !best || candidate.score > best.score ? candidate : best,
+      null
+    );
+
+    // No sufficiently reliable candidate.
+    if (
+      (!bestAllowed || bestAllowed.score < minScore) &&
+      (!bestHigher || bestHigher.score < minScore)
+    ) {
+      return {
+        label: "",
+        status: "unknown",
+        top: candidates,
+        levelCandidates
+      };
     }
-    return { label: labels[bestIndex], top: candidates };
+
+    // A higher-level object is clearly more likely.
+    if (
+      bestHigher &&
+      bestHigher.score >= minScore &&
+      (!bestAllowed || bestHigher.score > bestAllowed.score + levelMargin)
+    ) {
+      return {
+        label: "",
+        status: "higher_level",
+        detectedLevel: bestHigher.level,
+        top: candidates,
+        levelCandidates
+      };
+    }
+
+    // Show the best allowed-level word.
+    if (bestAllowed && bestAllowed.score >= minScore) {
+      return {
+        label: labels[bestAllowed.index],
+        status: "recognized",
+        detectedLevel: bestAllowed.level,
+        top: candidates,
+        levelCandidates
+      };
+    }
+
+    return {
+      label: "",
+      status: "unknown",
+      top: candidates,
+      levelCandidates
+    };
   } finally {
     input.dispose();
     output.dispose();
@@ -102,7 +185,7 @@ self.onmessage = async ({ data }) => {
       detector = await prepareDetector(data);
       self.postMessage({ ready: true, count: detector.labels.length });
     } else {
-      self.postMessage(await recognize(data.pixels));
+      self.postMessage(await recognize(data.pixels, data.maxLevel ?? 3));
     }
   } catch (error) {
     self.postMessage({ error: error?.message || String(error) });
