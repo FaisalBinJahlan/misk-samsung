@@ -1,0 +1,521 @@
+# Kids vocabulary for the expanded recognizer (ages 4-11).
+# Source: 26,932 WordNet labels ranked by frequency and concreteness, then filtered with four rules:
+# 1) found at home (toys included)  2) general word  3) not a place or abstract  4) safe for children.
+# Basic home words the ranking missed were added by hand, and home objects from the MacArthur-Bates CDI (Words & Sentences) were added at level 1.
+# Format:  word            or  word | prompt text used to build the index
+# "## level N" starts a level: 1 = ages 4-6, 2 = ages 7-9, 3 = ages 10-11. Levels come from Kuperman et al. (2012) age-of-acquisition ratings.
+
+## level 1
+# Things
+airplane
+backpack
+bag
+ball
+balloon
+bandage
+basket
+bathtub
+bed
+belt
+bib | baby bib
+bicycle
+blanket
+blocks | toy building blocks
+boat | toy boat
+book
+boots
+bottle
+bowl
+box
+bracelet
+broom
+brush | cleaning brush
+bubbles | soap bubbles
+bucket
+bus
+button | clothing button
+cake
+calendar
+camera
+can | tin can
+candle
+cap | baseball cap
+car
+ceiling
+chair
+chalk
+clay | modeling clay
+clock
+closet
+coat
+coat hanger
+coin | metal coin
+comb
+costume
+crayon
+cup
+curtain
+desk
+diaper
+doll
+dollhouse
+door
+doorbell
+doorknob
+drawer
+dress
+drum | toy drum
+dryer | clothes dryer machine
+eraser
+fan | electric fan
+fire truck
+flag
+flashlight
+floor
+fork
+glass | drinking glass
+glasses | eyeglasses
+glove | winter glove
+glue
+guitar
+hairbrush
+hammer
+hat
+helicopter
+helmet
+high chair
+hole punch
+jacket
+jar
+jeans
+jug | water jug
+jump rope
+key | door key
+kite
+ladder
+lamp
+light | ceiling light
+light bulb
+lipstick
+lunch box
+map
+marker | marker pen
+mask | face mask
+mat | floor mat
+mattress
+mirror
+mittens
+money | paper money
+mop | floor mop
+motorcycle | toy motorcycle
+napkin
+necklace
+newspaper
+oven
+paint | jar of paint
+painting
+pajamas
+pan | frying pan
+pants
+paper | sheet of paper
+paper towel
+pen
+pencil
+pencil sharpener
+phone
+piano
+picture | framed picture
+piggy bank
+pillow
+plant | potted plant
+plate
+pot | cooking pot
+potty | baby potty chair
+prayer mat
+puppet
+purse
+puzzle | jigsaw puzzle
+radio
+raincoat
+refrigerator
+robot
+rocket
+rocking chair
+rope
+ruler
+salt shaker
+sandals
+scarf
+scissors
+screwdriver
+sewing machine
+shampoo
+shelf
+shirt
+shoe
+shorts
+shower
+sink
+skirt
+slippers
+sneaker
+soap
+sock
+sofa
+sponge
+spoon
+stairs
+stapler
+stove
+string | piece of string
+stroller
+sweater
+swimsuit
+switch | light switch
+table
+tape | roll of sticky tape
+teddy bear
+television
+tie | necktie
+tissue | box of tissues
+toilet
+toilet paper
+toothbrush
+toothpaste
+towel
+tractor
+train
+trash can
+tricycle | three-wheel tricycle for kids
+truck
+turtle | pet turtle
+umbrella
+uniform
+vacuum cleaner
+vest | clothing vest
+wall
+wallet
+washing machine
+watch | wristwatch
+water tap
+window
+yo-yo
+zipper
+# Food
+apple
+beans
+biscuit
+bread
+butter
+cabbage
+candy
+cheese
+chocolate
+coffee
+cookie
+cotton candy
+cracker
+cupcake
+dates | date fruits
+donut
+french fries
+grape
+gum
+hamburger
+honey
+ice cream
+jelly
+juice
+ketchup
+lemon
+lemonade
+lollipop
+marshmallow
+meat
+meatball
+melon
+milk
+milkshake
+muffin
+noodles
+nuts
+orange | orange fruit
+pancake
+pasta
+peanut butter
+pear
+peas
+pickle
+pie | baked pie
+pizza
+popsicle
+potato
+potato chip
+pretzel
+pudding
+raisin
+rice
+salad
+salt
+sandwich
+soup
+spaghetti
+strawberry
+sugar
+tea
+toast
+tomato
+waffle
+water | glass of water
+yogurt
+# Plants and fruit
+banana
+bell pepper
+broccoli
+carrot
+celery
+cereal
+cherry
+chess | chess set
+corn
+cucumber
+flower
+leaf
+mustard
+peach
+peanut
+plum
+popcorn
+pumpkin
+raspberry
+spinach
+sticker
+watermelon
+# Animals (pets and toys)
+ant
+bird
+cat
+cow
+dinosaur
+dog
+donkey
+duck
+egg
+elephant
+feather
+fish | goldfish or fish
+frog
+giraffe
+goat
+goldfish
+hamster
+horse
+lion
+monkey
+owl
+parrot
+penguin
+pig
+rabbit
+shark
+sheep
+spider
+tiger
+zebra
+# Body
+ankle
+arm
+beard
+belly
+cheek
+chin
+ear
+elbow
+eye
+face
+finger
+foot
+hair
+hand
+head | human head
+knee
+leg
+lid
+lip | human lips
+mouth
+neck
+nose
+shoulder
+thumb
+toe
+tongue
+tooth
+# Other
+ribbon
+
+## level 2
+# Things
+abacus
+action figure
+air conditioner
+aluminum foil
+ambulance
+apron
+aquarium
+bathrobe
+binoculars
+blender
+blow dryer
+board game
+bookmark
+bottle opener
+cabinet | kitchen cabinet
+calculator
+can opener
+carpet
+chandelier
+clipboard
+compass | drawing compass
+cookie cutter
+crib | baby crib
+cutting board
+dental floss
+dice | pair of dice
+dishwasher
+dumbbell
+earring
+envelope
+flute
+goggles
+grater
+hair dryer
+hairpin
+hanger | clothes hanger
+headband
+headphones
+heater
+highlighter | highlighter pen
+hourglass
+ice cube
+iron | clothes iron
+ironing board
+kettle
+lantern
+laundry basket
+magnet
+magnifying glass
+marbles | glass marbles
+microphone
+microwave oven
+nail polish
+notebook
+padlock
+paintbrush
+paper clip
+pencil case
+perfume | perfume bottle
+playing card
+pliers
+plug | electric plug
+printer
+projector
+remote control
+rolling pin
+rubber duck | yellow rubber duck toy
+safety pin
+scooter
+skateboard
+sleeping bag
+spatula
+speaker | bluetooth speaker
+stethoscope
+stool | small stool
+stopwatch
+suitcase
+tablecloth
+tablet | tablet computer
+tambourine
+teapot
+telescope
+tennis racket
+thermometer
+thermos
+thread
+toaster
+tongs
+toolbox
+toothpick
+trampoline | home trampoline
+tray
+vase
+violin
+whisk
+# Food
+bagel
+blackberry
+caramel
+chili | red chili pepper
+coconut
+eggplant
+flour
+hummus
+jam | jar of jam
+kebab
+omelet
+porridge
+sausage
+walnut
+# Plants and fruit
+almond
+apricot
+asparagus
+blueberry
+cactus
+cauliflower
+chestnut
+cranberry
+garlic
+ginger
+grapefruit
+kiwi
+mango
+mushroom
+olive
+onion
+parsley
+pineapple
+pomegranate
+zucchini
+# Animals (pets and toys)
+dolphin
+# Body
+socket | electrical wall socket
+# Other
+globe
+
+## level 3
+# Things
+binder | ring binder
+cardigan
+computer
+computer mouse
+first-aid kit
+game controller
+keyboard
+ladle
+laptop
+measuring tape
+microscope
+sieve
+treadmill
+webcam
+# Food
+avocado
+burrito
+croissant
+sushi
+# Plants and fruit
+bamboo
+basil
+# Animals (pets and toys)
+charger | phone charger

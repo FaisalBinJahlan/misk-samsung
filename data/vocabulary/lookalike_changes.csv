@@ -1,0 +1,204 @@
+﻿word,level,change,old_prompt,new_prompt,reason
+airplane,1,prompt added,,big airplane,to separate it from a look-alike word
+backpack,1,prompt added,,school backpack,to separate it from a look-alike word
+bag,1,prompt added,,cloth bag,to separate it from a look-alike word
+balloon,1,prompt added,,party balloon,to separate it from a look-alike word
+book,1,prompt added,,closed book,to separate it from a look-alike word
+boots,1,prompt added,,tall boots,to separate it from a look-alike word
+bottle,1,prompt added,,plastic bottle,to separate it from a look-alike word
+bowl,1,prompt added,,empty bowl,to separate it from a look-alike word
+box,1,prompt added,,cardboard box,to separate it from a look-alike word
+bus,1,prompt added,,city bus,to separate it from a look-alike word
+cake,1,prompt added,,cake on a plate,to separate it from a look-alike word
+cap,1,prompt changed,baseball cap,cap with a front brim,to separate it from a look-alike word
+car,1,prompt added,,family car,to separate it from a look-alike word
+chair,1,prompt added,,wooden chair,to separate it from a look-alike word
+clock,1,prompt added,,round clock,to separate it from a look-alike word
+coat,1,prompt added,,long winter coat,to separate it from a look-alike word
+coat hanger,1,removed,,,same as hanger
+coffeepot,1,removed,,,looks like kettle and teapot
+cup,1,prompt added,,small cup,to separate it from a look-alike word
+desk,1,prompt added,,study desk with drawers,to separate it from a look-alike word
+doll,1,prompt added,,toy doll,to separate it from a look-alike word
+freezer,1,removed,,,part of a refrigerator
+glass,1,prompt changed,drinking glass,clear drinking glass,to separate it from a look-alike word
+glue,1,prompt added,,glue bottle,to separate it from a look-alike word
+hat,1,prompt added,,wide hat with a round brim,to separate it from a look-alike word
+jacket,1,prompt added,,short zip-up jacket,to separate it from a look-alike word
+jeans,1,prompt added,,blue jeans,to separate it from a look-alike word
+jug,1,prompt changed,water jug,plastic water jug,to separate it from a look-alike word
+lamp,1,prompt added,,table lamp,to separate it from a look-alike word
+lampshade,1,prompt added,,lampshade without a lamp,to separate it from a look-alike word
+mat,1,removed,floor mat,,unclear; doormat is kept
+oven,1,prompt added,,kitchen oven door,to separate it from a look-alike word
+pan,1,prompt changed,frying pan,frying pan with a handle,to separate it from a look-alike word
+pants,1,prompt added,,long pants,to separate it from a look-alike word
+paper towel,1,prompt added,,roll of paper towels,to separate it from a look-alike word
+pen,1,prompt added,,ballpoint pen,to separate it from a look-alike word
+pencil,1,prompt added,,wooden pencil,to separate it from a look-alike word
+picture,1,prompt changed,framed picture,drawing or photo on paper,to separate it from a look-alike word
+pillow,1,prompt added,,bed pillow,to separate it from a look-alike word
+pillowcase,1,prompt added,,pillowcase cover,to separate it from a look-alike word
+plant,1,prompt changed,potted plant,green plant in a pot,to separate it from a look-alike word
+purse,1,prompt added,,woman's small purse,to separate it from a look-alike word
+refrigerator,1,prompt added,,tall refrigerator,to separate it from a look-alike word
+shampoo,1,prompt added,,shampoo bottle,to separate it from a look-alike word
+shelf,1,prompt added,,wall shelf,to separate it from a look-alike word
+shirt,1,prompt added,,man's shirt with buttons,to separate it from a look-alike word
+shoe,1,prompt added,,leather shoe,to separate it from a look-alike word
+shorts,1,prompt added,,short pants,to separate it from a look-alike word
+sneaker,1,prompt added,,sports sneaker with laces,to separate it from a look-alike word
+sofa,1,prompt added,,big sofa,to separate it from a look-alike word
+spoon,1,prompt added,,metal eating spoon,to separate it from a look-alike word
+stove,1,prompt added,,cooking stove top,to separate it from a look-alike word
+sunglasses,1,prompt added,,dark sunglasses,to separate it from a look-alike word
+sweater,1,prompt added,,knitted sweater,to separate it from a look-alike word
+sweatshirt,1,prompt added,,sweatshirt with a hood,to separate it from a look-alike word
+table,1,prompt added,,kitchen table,to separate it from a look-alike word
+teddy bear,1,prompt added,,soft teddy bear toy,to separate it from a look-alike word
+toilet,1,prompt added,,toilet seat,to separate it from a look-alike word
+toilet paper,1,prompt added,,roll of toilet paper,to separate it from a look-alike word
+toothpaste,1,prompt added,,toothpaste tube,to separate it from a look-alike word
+train,1,prompt added,,real train on tracks,to separate it from a look-alike word
+truck,1,prompt added,,big truck,to separate it from a look-alike word
+washcloth,1,prompt added,,small washcloth,to separate it from a look-alike word
+washing machine,1,prompt added,,front-loading washing machine,to separate it from a look-alike word
+chocolate,1,prompt added,,piece of chocolate,to separate it from a look-alike word
+juice,1,prompt added,,glass of juice,to separate it from a look-alike word
+meat,1,prompt added,,raw meat,to separate it from a look-alike word
+melon,1,removed,,,looks like watermelon
+pasta,1,prompt added,,short pasta like penne,to separate it from a look-alike word
+salad,1,prompt added,,plate of salad,to separate it from a look-alike word
+soup,1,prompt added,,bowl of soup,to separate it from a look-alike word
+water,1,removed,glass of water,,hard to see in a photo; glass is kept
+chess,1,prompt changed,chess set,chess pieces on a board,to separate it from a look-alike word
+bear,1,prompt changed,toy bear,brown bear animal,to separate it from a look-alike word
+bee,1,prompt added,,bee insect,to separate it from a look-alike word
+bird,1,prompt added,,small bird,to separate it from a look-alike word
+cat,1,prompt added,,adult cat,to separate it from a look-alike word
+cow,1,prompt added,,adult cow,to separate it from a look-alike word
+dinosaur,1,prompt added,,toy dinosaur,to separate it from a look-alike word
+dog,1,prompt added,,adult dog,to separate it from a look-alike word
+duck,1,prompt added,,adult duck,to separate it from a look-alike word
+egg,1,prompt added,,whole egg,to separate it from a look-alike word
+fish,1,prompt changed,goldfish or fish,fish swimming,to separate it from a look-alike word
+goldfish,1,removed,,,same as fish
+horse,1,prompt added,,adult horse,to separate it from a look-alike word
+parrot,1,prompt added,,parrot bird,to separate it from a look-alike word
+pig,1,prompt added,,adult pig,to separate it from a look-alike word
+sheep,1,prompt added,,adult sheep,to separate it from a look-alike word
+ankle,1,prompt added,,ankle of a foot,to separate it from a look-alike word
+finger,1,prompt added,,one finger,to separate it from a look-alike word
+foot,1,prompt added,,bare foot,to separate it from a look-alike word
+thumb,1,prompt added,,thumb up,to separate it from a look-alike word
+toe,1,prompt added,,toes on a foot,to separate it from a look-alike word
+earth,1,prompt changed,planet earth,planet earth globe from space,to separate it from a look-alike word
+hot air balloon,1,prompt added,,hot air balloon in the sky,to separate it from a look-alike word
+ship,1,prompt added,,big ship,to separate it from a look-alike word
+wheel,1,prompt changed,car wheel,round wheel,to separate it from a look-alike word
+sea,1,removed,the sea with waves,,same as ocean
+street,1,removed,a city street,,same as road
+alarm clock,1,prompt added,,small alarm clock with bells,to separate it from a look-alike word
+apple juice,1,removed,,,a type of juice
+baby bottle,1,prompt added,,baby feeding bottle,to separate it from a look-alike word
+baseball cap,1,removed,,,same as cap
+bath towel,1,removed,,,same as towel
+beach towel,1,removed,,,same as towel
+birthday cake,1,prompt added,,birthday cake with candles,to separate it from a look-alike word
+bumblebee,1,removed,,,same as bee
+chicken soup,1,removed,,,a type of soup
+chocolate cake,1,removed,,,a type of cake
+chocolate chip cookie,1,removed,,,a type of cookie
+desk lamp,1,removed,,,a type of lamp
+duckling,1,prompt changed,baby duck,small baby duck,to separate it from a look-alike word
+fish tank,1,prompt added,,glass fish tank with fish,to separate it from a look-alike word
+gift box,1,prompt added,,wrapped gift box with a ribbon,to separate it from a look-alike word
+glue stick,1,prompt added,,glue stick tube,to separate it from a look-alike word
+ice cream cone,1,removed,,,a type of ice cream
+kitten,1,prompt added,,small baby kitten,to separate it from a look-alike word
+lamb,1,prompt changed,baby sheep,small baby lamb,to separate it from a look-alike word
+mug,1,prompt changed,coffee mug,mug with a handle,to separate it from a look-alike word
+orange juice,1,removed,,,a type of juice
+paper cup,1,removed,,,a type of cup
+picture book,1,prompt added,,children's picture book,to separate it from a look-alike word
+piglet,1,prompt changed,baby pig,small baby pig,to separate it from a look-alike word
+puppy,1,prompt added,,small baby puppy,to separate it from a look-alike word
+race car,1,prompt added,,race car with a number,to separate it from a look-alike word
+rag doll,1,removed,,,a type of doll
+sailboat,1,prompt added,,boat with a sail,to separate it from a look-alike word
+salad bowl,1,removed,,,a type of bowl
+school bus,1,prompt added,,yellow school bus,to separate it from a look-alike word
+shoe box,1,removed,,,a type of box
+shopping bag,1,prompt added,,paper shopping bag,to separate it from a look-alike word
+soup bowl,1,removed,,,a type of bowl
+storybook,1,removed,,,same as picture book
+sun hat,1,prompt added,,big straw sun hat,to separate it from a look-alike word
+teacup,1,prompt added,,small teacup on a saucer,to separate it from a look-alike word
+teaspoon,1,removed,,,a type of spoon
+toy airplane,1,prompt added,,small toy airplane,to separate it from a look-alike word
+toy car,1,prompt added,,small plastic toy car,to separate it from a look-alike word
+toy train,1,prompt added,,colorful toy train,to separate it from a look-alike word
+train set,1,removed,,,same as toy train
+wall clock,1,removed,,,a type of clock
+water bottle,1,removed,,,a type of bottle
+wooden spoon,1,removed,,,a type of spoon
+aquarium,2,removed,,,same as fish tank
+armchair,2,prompt added,,soft armchair,to separate it from a look-alike word
+barrette,2,removed,,,same as hair clip
+blouse,2,prompt added,,woman's blouse,to separate it from a look-alike word
+blow dryer,2,removed,,,same as hair dryer
+chessboard,2,removed,,,same as chess
+conditioner,2,removed,hair conditioner bottle,,looks like shampoo
+diary,2,removed,,,looks like notebook
+doormat,2,prompt added,,doormat at a door,to separate it from a look-alike word
+flute,2,removed,,,looks like recorder
+heater,2,prompt added,,electric heater,to separate it from a look-alike word
+kettle,2,prompt added,,electric kettle,to separate it from a look-alike word
+notebook,2,prompt added,,spiral notebook,to separate it from a look-alike word
+pitcher,2,removed,water pitcher,,same as jug
+radiator,2,removed,heating radiator,,looks like heater
+sweatpants,2,removed,,,a type of pants
+tablet,2,prompt changed,tablet computer,tablet computer screen,to separate it from a look-alike word
+teapot,2,prompt added,,ceramic teapot,to separate it from a look-alike word
+steak,2,removed,,,a type of meat
+houseplant,2,removed,potted houseplant,,same as plant
+tangerine,2,removed,,,looks like orange
+parakeet,2,removed,,,looks like parrot
+tire,2,prompt changed,car tire,black rubber tire,to separate it from a look-alike word
+boiled egg,2,removed,,,a type of egg
+bookshelf,2,prompt added,,bookshelf with books,to separate it from a look-alike word
+calf,2,prompt changed,baby cow,small baby cow,to separate it from a look-alike word
+chocolate bar,2,removed,,,a type of chocolate
+dining table,2,removed,,,a type of table
+double-decker bus,2,prompt added,,red double-decker bus,to separate it from a look-alike word
+flip-flops,2,removed,,,looks like sandals
+flower pot,2,prompt added,,empty clay flower pot,to separate it from a look-alike word
+foal,2,prompt changed,baby horse,small baby horse,to separate it from a look-alike word
+fried egg,2,prompt added,,fried egg in a pan,to separate it from a look-alike word
+frying pan,2,removed,,,same as pan
+motorboat,2,prompt added,,small motorboat,to separate it from a look-alike word
+pickup truck,2,removed,,,a type of truck
+picture frame,2,prompt added,,empty photo frame,to separate it from a look-alike word
+rowboat,2,removed,,,looks like canoe
+sketchbook,2,prompt added,,sketchbook with drawings,to separate it from a look-alike word
+speedboat,2,removed,,,same as motorboat
+sports car,2,prompt added,,low red sports car,to separate it from a look-alike word
+swimming goggles,2,removed,,,same as goggles
+tablespoon,2,removed,,,a type of spoon
+tyrannosaurus,2,prompt added,,tyrannosaurus rex dinosaur,to separate it from a look-alike word
+carafe,3,removed,,,same as jug
+computer,3,prompt added,,desktop computer with a monitor,to separate it from a look-alike word
+headboard,3,removed,bed headboard,,part of bed
+ladle,3,prompt added,,big soup ladle,to separate it from a look-alike word
+laptop,3,prompt added,,open laptop computer,to separate it from a look-alike word
+leggings,3,removed,,,same as tights
+charger,3,prompt changed,phone charger,phone charger plug,to separate it from a look-alike word
+sand dune,3,removed,,,looks like desert
+yacht,3,removed,,,looks like ship
+bed,1,prompt added,,wooden bed frame,to separate it from a look-alike word
+blanket,1,prompt added,,folded blanket,to separate it from a look-alike word
+spaghetti,1,removed,long spaghetti noodles,,looks like noodles
+comforter,2,removed,,,same as blanket
+plug,2,prompt changed,electric plug,electric plug on a cord,to separate it from a look-alike word
+stew,2,removed,bowl of stew,,looks like soup
+grizzly bear,2,removed,,,same as bear
