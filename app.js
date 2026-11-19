@@ -12,6 +12,12 @@ const sentence = document.getElementById("sentence");
 const replay = document.getElementById("replay");
 const voiceSettings = document.getElementById("voice-settings");
 const voiceDialog = document.getElementById("voice-dialog");
+const historyButton = document.getElementById("history-button");
+const historyDialog = document.getElementById("history-dialog");
+const historyClose = document.getElementById("history-close");
+const historyList = document.getElementById("history-list");
+const historyEmpty = document.getElementById("history-empty");
+const historyClear = document.getElementById("history-clear");
 const voiceSelect = document.getElementById("voice-select");
 const voicePreview = document.getElementById("voice-preview");
 const voiceNote = document.getElementById("voice-note");
@@ -23,6 +29,8 @@ const canvas = document.createElement("canvas");
 const context = canvas.getContext("2d", { willReadFrequently: true });
 const speech = window.speechSynthesis;
 const voiceStorageKey = "misk-english-voice";
+const historyStorageKey = "misk-recognition-history";
+const maxHistoryItems = 30;
 let selectedVoice = "";
 let draftVoice = "";
 try { selectedVoice = localStorage.getItem(voiceStorageKey) ?? ""; } catch {}
@@ -37,8 +45,59 @@ let cameraReady = false;
 let micEnabled = false;
 let spokenUtterance;
 let speechTimer;
+
+// Child age group
+const ageScreen = document.getElementById("age-screen");
+const ageSelect = document.getElementById("age-select");
+const ageStart = document.getElementById("age-start");
+const ageError = document.getElementById("age-error");
+
+const ageStorageKey = "misk-child-age-group";
+const validAgeGroups = ["4-6", "7-9", "10-11"];
+
+// Show age selection only when no valid age is saved
+let savedAgeGroup = "";
+
+try {
+  savedAgeGroup = localStorage.getItem(ageStorageKey) || "";
+} catch (error) {
+  console.warn("Could not read saved age group", error);
+}
+
+ageScreen.hidden = validAgeGroups.includes(savedAgeGroup);
+
+ageStart.addEventListener("click", () => {
+  const selectedAge = ageSelect.value;
+
+  if (!validAgeGroups.includes(selectedAge)) {
+    ageError.hidden = false;
+    return;
+  }
+
+  try {
+    localStorage.setItem(ageStorageKey, selectedAge);
+    savedAgeGroup = selectedAge;
+    ageError.hidden = true;
+    ageScreen.hidden = true;
+  } catch (error) {
+    console.warn("Could not save age group", error);
+    ageError.textContent = "تعذّر حفظ العمر. حاول مرة أخرى.";
+    ageError.hidden = false;
+  }
+});
+
+ageSelect.addEventListener("change", () => {
+  ageError.hidden = true;
+});
+
 const speechInput = createSpeechInput({
-  canListen: () => cameraReady && !busy && !spokenUtterance && !voiceDialog.open && !document.hidden,
+  canListen: () =>
+  cameraReady &&
+  !busy &&
+  !spokenUtterance &&
+  !voiceDialog.open &&
+  !historyDialog.open &&
+  !document.hidden,
   onQuestion: () => {
     if (!busy && camera.readyState >= 2 && camera.videoWidth) recognize("voice");
     else speechInput.refresh();
@@ -70,6 +129,101 @@ document.addEventListener("visibilitychange", () => {
   speechInput.refresh();
   if (document.visibilityState === "visible") checkForUpdate();
 });
+
+function loadHistory() {
+  try {
+    const history = JSON.parse(
+      localStorage.getItem(historyStorageKey) || "[]"
+    );
+
+    if (!Array.isArray(history)) return [];
+
+    // Remove Face records to protect privacy.
+    const safeHistory = history.filter(
+      (record) =>
+        record &&
+        String(record.word || "").trim().toLowerCase() !== "face"
+    );
+
+    // Update stored history if Face records were found.
+    if (safeHistory.length !== history.length) {
+      localStorage.setItem(
+        historyStorageKey,
+        JSON.stringify(safeHistory)
+      );
+    }
+
+    return safeHistory;
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(label) {
+  if (String(label).trim().toLowerCase() === "face") {
+    return false;
+  }
+
+  try {
+    const image = canvas.toDataURL("image/jpeg", 0.65);
+
+    const record = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      word: label,
+      sentence: englishSentence(label),
+      image,
+      date: new Date().toISOString(),
+    };
+
+    const history = loadHistory();
+    history.unshift(record);
+
+    while (history.length > maxHistoryItems) {
+      history.pop();
+    }
+
+    localStorage.setItem(historyStorageKey, JSON.stringify(history));
+    return true;
+  } catch (error) {
+    console.warn("Could not save history", error);
+    return false;
+  }
+}
+
+function renderHistory() {
+  const history = loadHistory();
+
+  historyList.replaceChildren();
+  historyEmpty.hidden = history.length > 0;
+
+  for (const record of history) {
+    const item = document.createElement("div");
+    item.className = "history-item";
+
+    const image = document.createElement("img");
+    image.src = record.image;
+    image.alt = record.word;
+
+    const info = document.createElement("div");
+    info.className = "history-item-info";
+
+    const word = document.createElement("span");
+    word.className = "history-item-word";
+    word.textContent = record.word;
+
+    const date = document.createElement("span");
+    date.className = "history-item-date";
+
+    const parsedDate = new Date(record.date);
+    date.textContent = Number.isNaN(parsedDate.getTime())
+      ? ""
+      : parsedDate.toLocaleString();
+
+    info.append(word, date);
+    item.append(image, info);
+    historyList.append(item);
+  }
+}
 
 function setInputMode(useMic) {
   micEnabled = useMic;
@@ -227,7 +381,7 @@ async function downloadExpanded(session) {
 }
 
 function requestExpanded(message, session) {
-  expandedWorker ??= new Worker("expanded-worker.js?v=11");
+  expandedWorker ??= new Worker("expanded-worker.js?v=12");
   const worker = expandedWorker;
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => fail(new Error("انتهت مهلة تجهيز التعرّف.")), 150000);
@@ -268,8 +422,29 @@ async function recognizeExpanded(session) {
   }
   if (session !== cameraSession) return { label: "" };
   status.textContent = "جاري التعرّف…";
-  const { label, top = [] } = await requestExpanded({ type: "recognize", pixels }, session);
-  return { label, top };
+  const ageLevels = {
+  "4-6": 1,
+  "7-9": 2,
+  "10-11": 3
+};
+
+const maxLevel = ageLevels[savedAgeGroup] ?? 3;
+
+const {
+  label,
+  status: recognitionStatus = "recognized",
+  detectedLevel,
+  top = [],
+  levelCandidates = []
+} = await requestExpanded({ type: "recognize", pixels, maxLevel }, session);
+
+return {
+  label,
+  status: recognitionStatus,
+  detectedLevel,
+  top,
+  levelCandidates
+};
 }
 
 // Measurement for testing (?debug=1): one record per question, kept in
@@ -278,10 +453,27 @@ const debugMode = new URLSearchParams(location.search).has("debug");
 window.showSayLog = [];
 function logAttempt(record) {
   if (!debugMode) return;
+
   window.showSayLog.push(record);
-  const guesses = record.top.map(({ word, score }) => `${word} ${score}`).join(" | ");
-  console.info(`[measure] #${window.showSayLog.length} ${record.trigger}: answer="${record.answer || "(not sure)"}" `
-    + `top3: ${guesses} | recognition ${record.recognitionMs} ms, total ${record.totalMs} ms`);
+
+  const guesses = record.top
+    .map(({ word, score }) => `${word} ${score}`)
+    .join(" | ");
+
+  const levels = record.levelCandidates
+    .map(({ word, level, score }) => `Level ${level}: ${word} ${score}`)
+    .join(" | ");
+
+  console.info(
+    `[measure] #${window.showSayLog.length} ${record.trigger}: `
+    + `answer="${record.answer || "(not sure)"}" `
+    + `status="${record.recognitionStatus}" `
+    + `detectedLevel="${record.detectedLevel ?? "-"}" `
+    + `top3: ${guesses} | `
+    + `best pre level: ${levels} | `
+    + `recognition ${record.recognitionMs} ms, `
+    + `total ${record.totalMs} ms`
+  );
 }
 function copyMeasurements() {
   const header = "n,trigger,answer,top1,score1,top2,score2,top3,score3,recognition_ms,total_ms";
@@ -488,19 +680,36 @@ async function recognize(trigger = "button") {
   try {
     takeSnapshot();
     const recognitionStart = performance.now();
-    const { label, top } = await recognizeExpanded(session);
+    const {
+    label,
+    status: recognitionStatus = "recognized",
+    detectedLevel,
+    top = [],
+    levelCandidates = []
+} = await recognizeExpanded(session);
     if (session !== cameraSession) return;
     logAttempt({
-      trigger,
-      answer: label,
-      top,
-      recognitionMs: Math.round(performance.now() - recognitionStart),
-      totalMs: Math.round(performance.now() - startedAt),
-    });
-    if (!label) {
-      status.textContent = "قرّب الغرض داخل الإطار وجرّب مرة ثانية.";
-      return;
-    }
+    trigger,
+    answer: label,
+    recognitionStatus,
+    detectedLevel,
+    top,
+    levelCandidates,
+    recognitionMs: Math.round(performance.now() - recognitionStart),
+    totalMs: Math.round(performance.now() - startedAt),
+});
+    if (recognitionStatus === "higher_level") {
+  status.textContent =
+    `هذا الغرض في مستوى تعليمي اعلى, واصل التعلم الى ان تصل اليه`;
+  return;
+}
+
+if (recognitionStatus === "unknown" || !label) {
+  status.textContent =
+    "لم أتمكن من التعرّف على الغرض. قرّبه داخل الإطار وجرّب مرة ثانية.";
+  return;
+}
+    saveHistory(label);
     spokenWord = label;
     word.textContent = spokenWord[0].toUpperCase() + spokenWord.slice(1);
     sentence.textContent = englishSentence(spokenWord);
@@ -526,6 +735,33 @@ async function recognize(trigger = "button") {
 }
 
 action.addEventListener("click", () => stream ? recognize() : openCamera());
+historyButton.addEventListener("click", () => {
+  renderHistory();
+  historyDialog.showModal();
+  speechInput.refresh();
+});
+
+historyClose.addEventListener("click", () => {
+  historyDialog.close();
+});
+
+historyClear.addEventListener("click", () => {
+  const confirmed = confirm("هل أنت متأكد من مسح جميع عمليات التعرّف المحفوظة؟");
+
+  if (!confirmed) return;
+
+  try {
+    localStorage.removeItem(historyStorageKey);
+    renderHistory();
+  } catch (error) {
+    console.warn("Could not clear history", error);
+    alert("تعذّر مسح السجل. حاول مرة أخرى.");
+  }
+});
+
+historyDialog.addEventListener("close", () => {
+  speechInput.refresh();
+});
 manualMode.addEventListener("click", () => {
   setInputMode(false);
   if (!busy) status.textContent = "حط الغرض داخل الإطار واضغط الزر.";
