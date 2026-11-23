@@ -279,6 +279,142 @@ button:disabled { cursor: wait; }
   border-radius: 50%;
 }
 
+/* History */
+.history-dialog {
+  width: min(90%, 520px);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.history-header h2 {
+  margin: 0;
+}
+
+.history-list {
+  display: grid;
+  gap: 12px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.history-item img {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.history-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  direction: ltr;
+  text-align: left;
+}
+
+.history-item-word {
+  font-weight: bold;
+}
+
+.history-item-date {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.history-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#history-clear {
+  color: #fbfafa;
+}
+
+/* Age selection screen */
+.age-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #102525;
+}
+
+.age-screen[hidden] {
+  display: none;
+}
+
+.age-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 28px 24px;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #152c27;
+  text-align: center;
+}
+
+.age-card h2 {
+  margin: 0 0 12px;
+  font-size: 25px;
+}
+
+.age-card p {
+  margin: 0 0 24px;
+  line-height: 1.7;
+}
+
+.age-card label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.age-card select {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.age-card button {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #e2f78a;
+  color: #152c27;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#age-error {
+  margin-top: 12px;
+  color: #c62828;
+}
+
+
 @media (max-height: 540px) {
   .viewfinder { top: 39%; width: min(49vw, 32dvh); }
   .controls { gap: 6px; bottom: max(13px, env(safe-area-inset-bottom)); }
@@ -290,3 +426,5 @@ button:disabled { cursor: wait; }
   .viewfinder { top: 49%; }
   .controls { width: min(37vw, 330px); inset-inline-start: 0; inset-inline-end: auto; }
 }
+
+

@@ -12,6 +12,25 @@
 </head>
 <body>
   <main id="experience" class="experience">
+
+<section id="age-screen" class="age-screen" aria-labelledby="age-title" hidden>
+  <div class="age-card">
+    <h2 id="age-title">كم عمر الطفل؟</h2>
+    <p>اختر العمر حتى نعرض الكلمات المناسبة له.</p>
+
+    <label for="age-select">عمر الطفل</label>
+    <select id="age-select">
+      <option value="">اختر العمر</option>
+      <option value="4-6">من 4 إلى 6 سنوات</option>
+      <option value="7-9">من 7 إلى 9 سنوات</option>
+      <option value="10-11">من 10 إلى 11 سنة</option>
+    </select>
+
+    <button id="age-start" type="button">ابدأ التعلم</button>
+    <p id="age-error" role="alert" hidden>فضلاً اختر العمر أولاً.</p>
+  </div>
+</section>
+
     <video id="camera" class="camera" autoplay muted playsinline aria-hidden="true"></video>
     <div class="shade" aria-hidden="true"></div>
 
@@ -21,9 +40,13 @@
         <h1>تعلّم بالكاميرا</h1>
       </div>
       <div class="top-actions">
+        <button id="history-button" class="stop" type="button">
+          السجل
+        </button>
         <button id="voice-settings" class="stop" type="button" aria-haspopup="dialog" hidden>الصوت</button>
         <button id="stop" class="stop" type="button" hidden>إيقاف الكاميرا</button>
       </div>
+      
     </header>
 
     <div id="viewfinder" class="viewfinder" aria-hidden="true">
@@ -67,6 +90,22 @@
         </div>
       </form>
     </dialog>
+    <dialog id="history-dialog" class="voice-dialog history-dialog" aria-labelledby="history-title">
+  <div class="history-header">
+  <h2 id="history-title">السجل</h2>
+
+  <div class="history-actions">
+    <button id="history-clear" type="button">مسح السجل</button>
+    <button id="history-close" type="button">إغلاق</button>
+  </div>
+</div>
+
+  <div id="history-list" class="history-list"></div>
+
+  <p id="history-empty" hidden>
+    لا توجد عمليات تعرّف محفوظة حتى الآن.
+  </p>
+</dialog>
   </main>
 </body>
 </html>
