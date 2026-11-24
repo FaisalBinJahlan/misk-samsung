@@ -1,0 +1,1 @@
+{"model":"CLIP ViT-B/32","source":"Xenova/clip-vit-base-patch32","dimensions":512,"labels":{"bytes":4645,"expandedBytes":14223,"parts":[{"name":"labels-00.bin","bytes":4645}]},"index":{"bytes":296340,"expandedBytes":512000,"parts":[{"name":"index-00.bin","bytes":296340}]}}
