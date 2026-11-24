@@ -25,6 +25,15 @@ const inputModes = document.getElementById("input-modes");
 const manualMode = document.getElementById("manual-mode");
 const micMode = document.getElementById("mic-mode");
 const micPanel = document.getElementById("mic-panel");
+const modelPanel = document.getElementById("model-panel");
+const modelSelect = document.getElementById("model-select");
+
+let selectedModel = "mobileclip";
+
+modelSelect.addEventListener("change", () => {
+  selectedModel = modelSelect.value;
+  console.log("Selected model:", selectedModel);
+});
 const canvas = document.createElement("canvas");
 const context = canvas.getContext("2d", { willReadFrequently: true });
 const speech = window.speechSynthesis;
@@ -41,6 +50,10 @@ let busy = false;
 let spokenWord = "";
 let expandedWorker;
 let cancelExpanded;
+let clipWorker;
+let cancelClip;
+let siglipWorker;
+let cancelSiglip;
 let cameraReady = false;
 let micEnabled = false;
 let spokenUtterance;
@@ -109,6 +122,16 @@ const speechInput = createSpeechInput({
 });
 const expandedFolder = new URL("vendor/expanded-lite/", document.baseURI);
 const expandedCacheName = "misk-expanded-model-v5";
+const clipFolder = new URL("vendor/clip-vit-base-patch32/",document.baseURI);
+const clipIndexFolder = new URL("index/", clipFolder);
+const clipCacheName = "misk-clip-vit-base-patch32-v1";
+const clipModelBytes = 88648877;
+// SigLIP Base assets
+const siglipFolder = new URL("vendor/siglip/", document.baseURI);
+const siglipOnnxFolder = new URL("onnx/", siglipFolder);
+const siglipPartsFolder = new URL("external_parts/", siglipOnnxFolder);
+const siglipIndexFolder = new URL("index/", siglipFolder);
+const siglipCacheName = "misk-siglip-base-v1";
 
 // GitHub Pages lets browsers keep the page for a while, so phones can keep
 // running an old version. Compare with version.json and reload when it changed.
@@ -159,7 +182,7 @@ function loadHistory() {
   }
 }
 
-function saveHistory(label) {
+function saveHistory(label, model) {
   if (String(label).trim().toLowerCase() === "face") {
     return false;
   }
@@ -170,6 +193,7 @@ function saveHistory(label) {
     const record = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       word: label,
+      model: model,
       sentence: englishSentence(label),
       image,
       date: new Date().toISOString(),
@@ -211,6 +235,17 @@ function renderHistory() {
     word.className = "history-item-word";
     word.textContent = record.word;
 
+    const model = document.createElement("span");
+    model.className = "history-item-model";
+
+    const modelNames = {
+      mobileclip: "MobileCLIP-S0",
+      clip: "CLIP ViT-B/32",
+      siglip: "SigLIP Base"
+    };
+
+    model.textContent = modelNames[record.model] || "غير محدد";
+
     const date = document.createElement("span");
     date.className = "history-item-date";
 
@@ -219,7 +254,7 @@ function renderHistory() {
       ? ""
       : parsedDate.toLocaleString();
 
-    info.append(word, date);
+    info.append(word, model, date);
     item.append(image, info);
     historyList.append(item);
   }
@@ -380,6 +415,484 @@ async function downloadExpanded(session) {
   }
 }
 
+
+async function downloadClip(session) {
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  cancelClip = () => controller.abort();
+
+  const cache = await window.caches
+    ?.open(clipCacheName)
+    .catch(() => null);
+
+  const progress = new Map();
+  let total = 0;
+  let retrying = 0;
+  let lastMessage;
+
+  function report() {
+    if (session !== cameraSession) return;
+
+    const sum = [...progress.values()]
+      .reduce((a, b) => a + b, 0);
+
+    const percent = total
+      ? Math.min(99, Math.floor(100 * sum / total))
+      : 0;
+
+    const caption = retrying
+      ? "جاري إعادة محاولة الاتصال"
+      : "جاري تحميل نموذج CLIP";
+
+    const message = `${caption}… ${percent}٪`;
+
+    if (message !== lastMessage) {
+      lastMessage = message;
+      status.textContent = message;
+    }
+  }
+
+  async function part(name, folder, expectedBytes) {
+    const url = new URL(name, folder).href;
+
+    const cached = await cache?.match(url).catch(() => null);
+
+    let data = await cached?.arrayBuffer().catch(() => null);
+
+    if (
+      !data ||
+      (expectedBytes && data.byteLength !== expectedBytes)
+    ) {
+      let lastError;
+
+      for (
+        let attempt = 0;
+        attempt < 3 && !signal.aborted;
+        attempt++
+      ) {
+        if (attempt) {
+          retrying++;
+          report();
+        }
+
+        try {
+          const requestUrl = new URL(url);
+
+          if (attempt) {
+            requestUrl.searchParams.set(
+              "retry",
+              String(Date.now())
+            );
+          }
+
+          data = await downloadExpandedPart(
+            requestUrl.href,
+            signal,
+            (loaded) => {
+              if (expectedBytes) {
+                progress.set(name, loaded);
+              }
+              report();
+            }
+          );
+
+          if (
+            expectedBytes &&
+            data.byteLength !== expectedBytes
+          ) {
+            throw new Error("Incomplete CLIP file");
+          }
+
+          if (expectedBytes) {
+            await cache?.put(
+              url,
+              new Response(data)
+            ).catch(() => {});
+          }
+
+          lastError = null;
+          break;
+
+        } catch (error) {
+          data = null;
+          progress.delete(name);
+          lastError = error;
+
+        } finally {
+          if (attempt) retrying--;
+          report();
+        }
+      }
+
+      if (!data || signal.aborted) {
+        throw lastError ?? new Error("CLIP download canceled");
+      }
+    }
+
+    if (expectedBytes) {
+      progress.set(name, data.byteLength);
+      report();
+    }
+
+    return new Uint8Array(data);
+  }
+
+  async function assemble(entry, folder) {
+    const buffer = new Uint8Array(entry.bytes);
+    let offset = 0;
+
+    for (const { name, bytes } of entry.parts) {
+      const piece = await part(name, folder, bytes);
+
+      buffer.set(piece, offset);
+      offset += piece.length;
+    }
+
+    if (offset !== entry.bytes) {
+      throw new Error("Incomplete CLIP asset");
+    }
+
+    return buffer;
+  }
+
+  try {
+    report();
+
+    // Read CLIP vocabulary index manifest.
+    const clipManifestBytes = await part(
+      "assets.json",
+      clipIndexFolder
+    );
+
+    const clipAssets = JSON.parse(
+      new TextDecoder().decode(clipManifestBytes)
+    );
+
+    // Read the existing ONNX Runtime manifest.
+    const runtimeManifestBytes = await part(
+      "assets.json",
+      expandedFolder
+    );
+
+    const runtimeAssets = JSON.parse(
+      new TextDecoder().decode(runtimeManifestBytes)
+    );
+
+    // Calculate total download size.
+    total =
+      clipModelBytes +
+      clipAssets.index.bytes +
+      clipAssets.labels.bytes +
+      runtimeAssets.runtime.bytes +
+      runtimeAssets.script.bytes +
+      runtimeAssets.module.bytes;
+
+    // Download the model, index, vocabulary and runtime.
+    const [
+      model,
+      index,
+      vocabulary,
+      wasm,
+      runtimeScript,
+      runtimeModule
+    ] = await Promise.all([
+      part(
+        "vision_model_int8.onnx",
+        clipFolder,
+        clipModelBytes
+      ),
+
+      assemble(clipAssets.index, clipIndexFolder),
+
+      assemble(clipAssets.labels, clipIndexFolder),
+
+      assemble(runtimeAssets.runtime, expandedFolder),
+
+      assemble(runtimeAssets.script, expandedFolder),
+
+      assemble(runtimeAssets.module, expandedFolder)
+    ]);
+
+    if (session !== cameraSession) {
+      throw new Error("Camera session ended");
+    }
+
+    // Expected sizes after decompression inside clip-worker.js.
+    const lengths = {
+      model: clipModelBytes,
+      wasm: runtimeAssets.runtime.expandedBytes,
+      vocabulary: clipAssets.labels.expandedBytes,
+      index: clipAssets.index.expandedBytes
+    };
+
+    return {
+      model,
+      index,
+      vocabulary,
+      wasm,
+      runtimeScript,
+      runtimeModule,
+      lengths
+    };
+
+  } finally {
+    controller.abort();
+
+    if (session === cameraSession) {
+      cancelClip = undefined;
+    }
+  }
+}
+
+
+async function downloadSiglip(session) {
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  cancelSiglip = () => controller.abort();
+
+  const cache = await window.caches
+    ?.open(siglipCacheName)
+    .catch(() => null);
+
+  const progress = new Map();
+  let total = 0;
+  let retrying = 0;
+  let lastMessage = "";
+
+  function report() {
+    if (session !== cameraSession) return;
+
+    const downloaded = [...progress.values()]
+      .reduce((sum, value) => sum + value, 0);
+
+    const percent = total
+      ? Math.min(99, Math.floor(downloaded / total * 100))
+      : 0;
+
+    const caption = retrying
+      ? "جاري إعادة محاولة الاتصال"
+      : "جاري تحميل نموذج SigLIP";
+
+    const message = `${caption}… ${percent}٪`;
+
+    if (message !== lastMessage) {
+      lastMessage = message;
+      status.textContent = message;
+    }
+  }
+
+  async function part(url, expectedBytes, cacheResult = true) {
+    const cached = cacheResult
+      ? await cache?.match(url).catch(() => null)
+      : null;
+
+    let data = await cached?.arrayBuffer().catch(() => null);
+
+    if (!data || (expectedBytes && data.byteLength !== expectedBytes)) {
+      let lastError;
+
+      for (let attempt = 0; attempt < 3 && !signal.aborted; attempt++) {
+        if (attempt) {
+          retrying++;
+          report();
+        }
+
+        try {
+          const requestUrl = new URL(url);
+
+          if (attempt) {
+            requestUrl.searchParams.set("retry", String(Date.now()));
+          }
+
+          data = await downloadExpandedPart(
+            requestUrl.href,
+            signal,
+            (loaded) => {
+              if (expectedBytes) progress.set(url, loaded);
+              report();
+            }
+          );
+
+          if (expectedBytes && data.byteLength !== expectedBytes) {
+            throw new Error("Incomplete SigLIP asset");
+          }
+
+          if (cacheResult && expectedBytes) {
+            await cache?.put(url, new Response(data)).catch(() => {});
+          }
+
+          lastError = null;
+          break;
+        } catch (error) {
+          data = null;
+          progress.delete(url);
+          lastError = error;
+        } finally {
+          if (attempt) retrying--;
+          report();
+        }
+      }
+
+      if (!data || signal.aborted) {
+        throw lastError ?? new Error("SigLIP download canceled");
+      }
+    }
+
+    if (expectedBytes) {
+      progress.set(url, data.byteLength);
+      report();
+    }
+
+    return new Uint8Array(data);
+  }
+
+  async function assemble(entry, folder) {
+    const buffer = new Uint8Array(entry.bytes);
+    let offset = 0;
+
+    for (const item of entry.parts) {
+      const url = new URL(item.name, folder).href;
+      const piece = await part(url, item.bytes);
+
+      buffer.set(piece, offset);
+      offset += piece.byteLength;
+    }
+
+    if (offset !== entry.bytes) {
+      throw new Error("Incomplete SigLIP runtime");
+    }
+
+    return buffer;
+  }
+
+  try {
+    report();
+
+    // Read the shared ONNX Runtime manifest.
+    const runtimeManifestUrl = new URL(
+      "assets.json",
+      expandedFolder
+    ).href;
+
+    const runtimeManifestBytes = await part(
+      runtimeManifestUrl,
+      0,
+      false
+    );
+
+    const runtimeAssets = JSON.parse(
+      new TextDecoder().decode(runtimeManifestBytes)
+    );
+
+    const runtimeFolder = expandedFolder;
+
+    const modelUrl = new URL(
+      "image_encoder.onnx",
+      siglipOnnxFolder
+    ).href;
+
+    const embeddingsUrl = new URL(
+      "embeddings.bin",
+      siglipIndexFolder
+    ).href;
+
+    const labelsUrl = new URL(
+      "labels.json",
+      siglipIndexFolder
+    ).href;
+
+    const metadataUrl = new URL(
+      "web_metadata.json",
+      siglipIndexFolder
+    ).href;
+
+    const manifestUrl = new URL(
+      "manifest.json",
+      siglipPartsFolder
+    ).href;
+
+    const runtimeScriptUrl = new URL(
+      "ort.wasm.min.js",
+      runtimeFolder
+    ).href;
+
+    const runtimeModuleUrl = new URL(
+      "ort-wasm-simd-threaded.mjs",
+      runtimeFolder
+    ).href;
+
+    const runtimeBytes = runtimeAssets.runtime.bytes;
+    const runtimeScriptBytes = 95707;
+    const runtimeModuleBytes = 24274;
+
+    total =
+      1604365 +
+      3072000 +
+      14139 +
+      192 +
+      0 +
+      runtimeBytes +
+      runtimeScriptBytes +
+      runtimeModuleBytes;
+
+    const [
+      model,
+      embeddings,
+      labels,
+      metadata,
+      manifest,
+      runtimeCompressed,
+      runtimeScript,
+      runtimeModule
+    ] = await Promise.all([
+      part(modelUrl, 1604365),
+      part(embeddingsUrl, 3072000),
+      part(labelsUrl, 14139),
+      part(metadataUrl, 192),
+      part(manifestUrl, 0, false),
+      assemble(runtimeAssets.runtime, runtimeFolder),
+      part(runtimeScriptUrl, runtimeScriptBytes, false),
+      part(runtimeModuleUrl, runtimeModuleBytes, false)
+    ]);
+
+    // The six runtime parts form one gzip stream.
+    const wasm = await new Response(
+      new Blob([runtimeCompressed]).stream().pipeThrough(
+        new DecompressionStream("gzip")
+      )
+    ).arrayBuffer();
+
+    if (wasm.byteLength !== runtimeAssets.runtime.expandedBytes) {
+      throw new Error("ONNX Runtime WASM size mismatch");
+    }
+
+    if (session !== cameraSession) {
+      throw new Error("Camera session ended");
+    }
+
+    return {
+      model,
+      wasm,
+      runtimeScript,
+      runtimeModule,
+      embeddings,
+      labels,
+      metadata,
+      weightsBaseUrl: siglipPartsFolder.href,
+      manifest
+    };
+
+  } finally {
+    controller.abort();
+
+    if (session === cameraSession) {
+      cancelSiglip = undefined;
+    }
+  }
+}
+
 function requestExpanded(message, session) {
   expandedWorker ??= new Worker("expanded-worker.js?v=12");
   const worker = expandedWorker;
@@ -411,6 +924,404 @@ function requestExpanded(message, session) {
     }
   });
 }
+
+
+function requestClip(message, session) {
+  clipWorker ??= new Worker("clip-worker.js?v=1");
+
+  const worker = clipWorker;
+
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(
+      () => fail(new Error("انتهت مهلة تجهيز CLIP.")),
+      180000
+    );
+
+    const fail = (error) => {
+      clearTimeout(timer);
+      worker.terminate();
+
+      if (clipWorker === worker) {
+        clipWorker = undefined;
+      }
+
+      cancelClip = undefined;
+      reject(error);
+    };
+
+    cancelClip = () => {
+      fail(new Error("CLIP operation canceled"));
+    };
+
+    worker.onerror = (event) => {
+      fail(new Error(event.message || "CLIP worker error"));
+    };
+
+    worker.onmessage = ({ data }) => {
+      if (data.error) {
+        fail(new Error(data.error));
+        return;
+      }
+
+      clearTimeout(timer);
+      cancelClip = undefined;
+      resolve(data);
+    };
+
+    const buffers = Object.values(message)
+      .filter(ArrayBuffer.isView)
+      .map((value) => value.buffer);
+
+    try {
+      worker.postMessage(message, buffers);
+    } catch (error) {
+      fail(error);
+    }
+  });
+}
+
+
+function requestSiglip(message, session) {
+  siglipWorker ??= new Worker("siglip-worker.js?v=1");
+
+  const worker = siglipWorker;
+
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(
+      () => fail(new Error("انتهت مهلة تجهيز SigLIP.")),
+      600000
+    );
+
+    const fail = (error) => {
+      clearTimeout(timer);
+      worker.terminate();
+
+      if (siglipWorker === worker) {
+        siglipWorker = undefined;
+      }
+
+      cancelSiglip = undefined;
+      reject(error);
+    };
+
+    cancelSiglip = () => {
+      fail(new Error("SigLIP operation canceled"));
+    };
+
+    worker.onerror = (event) => {
+      fail(new Error(event.message || "SigLIP worker error"));
+    };
+
+    worker.onmessage = ({ data }) => {
+  if (data.error) {
+    fail(new Error(data.error));
+    return;
+  }
+
+  // Ignore progress messages and wait for the final result
+  if (
+    data.progress &&
+    !data.ready &&
+    !data.model &&
+    !data.top &&
+    !data.message
+  ) {
+    return;
+  }
+
+  clearTimeout(timer);
+  cancelSiglip = undefined;
+  resolve(data);
+};
+
+    if (session !== cameraSession) {
+      fail(new Error("Camera session ended"));
+      return;
+    }
+
+    const buffers = [
+      ...new Set(
+        Object.values(message)
+          .filter(ArrayBuffer.isView)
+          .map((value) => value.buffer)
+      )
+    ];
+
+    try {
+      worker.postMessage(message, buffers);
+    } catch (error) {
+      fail(error);
+    }
+  });
+}
+
+
+
+async function prepareClip(session) {
+  if (!clipWorker) {
+    const assets = await downloadClip(session);
+
+    if (session !== cameraSession) {
+      return false;
+    }
+
+    status.textContent = "اكتمل تحميل CLIP. جاري تجهيز النموذج…";
+
+    const response = await requestClip(
+      {
+        type: "prepare",
+        ...assets
+      },
+      session
+    );
+
+  }
+
+  return session === cameraSession;
+}
+
+
+async function prepareSiglip(session) {
+  if (!siglipWorker) {
+    const assets = await downloadSiglip(session);
+
+    if (session !== cameraSession) {
+      return false;
+    }
+
+    status.textContent =
+      "اكتمل تحميل SigLIP. جاري تجهيز النموذج…";
+
+    const response = await requestSiglip(
+      {
+        type: "prepare",
+        ...assets
+      },
+      session
+    );
+
+  }
+
+  return session === cameraSession;
+}
+
+
+window.testSiglipModel = async function () {
+  const session = cameraSession;
+
+  try {
+    status.textContent = "جاري اختبار SigLIP…";
+
+    const ready = await prepareSiglip(session);
+
+    if (!ready || session !== cameraSession) {
+      return;
+    }
+
+    const response = await requestSiglip(
+      { type: "test" },
+      session
+    );
+
+    console.log("SigLIP test result:", response);
+
+    status.textContent = "نجح تحميل واختبار SigLIP.";
+
+    return response;
+
+  } catch (error) {
+    console.error("SigLIP test failed:", error);
+
+    status.textContent =
+      `فشل اختبار SigLIP: ${error.message}`;
+  }
+};
+
+
+async function recognizeClip(session) {
+  const pixels = context.getImageData(0, 0, 256, 256).data;
+
+  if (!clipWorker) {
+    await prepareClip(session);
+  }
+
+  if (session !== cameraSession) {
+    return { label: "" };
+  }
+
+  status.textContent = "جاري التعرّف باستخدام CLIP…";
+
+  const ageLevels = {
+    "4-6": 1,
+    "7-9": 2,
+    "10-11": 3
+  };
+
+  const maxLevel = ageLevels[savedAgeGroup] ?? 3;
+
+  const {
+    label,
+    status: recognitionStatus = "recognized",
+    detectedLevel,
+    top = [],
+    levelCandidates = []
+  } = await requestClip(
+    {
+      type: "recognize",
+      pixels,
+      width: 256,
+      height: 256,
+      maxLevel
+    },
+    session
+  );
+
+  return {
+    label,
+    status: recognitionStatus,
+    detectedLevel,
+    top,
+    levelCandidates
+  };
+}
+
+async function recognizeSiglip(session) {
+  if (!siglipWorker) {
+    await prepareSiglip(session);
+  }
+
+  if (session !== cameraSession) {
+    return { label: "" };
+  }
+
+  const pixels = context.getImageData(
+    0,
+    0,
+    256,
+    256
+  ).data;
+
+  status.textContent = "جاري التعرّف باستخدام SigLIP…";
+
+  const result = await requestSiglip(
+    {
+      type: "recognize",
+      pixels,
+      width: 256,
+      height: 256
+    },
+    session
+  );
+
+  if (session !== cameraSession) {
+    return { label: "" };
+  }
+
+  return result;
+}
+
+
+window.testClipRecognition = async function () {
+  if (busy || !stream) {
+    console.warn("الكاميرا مشغولة أو غير مفعّلة.");
+    return;
+  }
+
+  const startedAt = performance.now();
+  const session = cameraSession;
+
+  try {
+    busy = true;
+    action.disabled = true;
+
+    takeSnapshot();
+
+    const recognitionStart = performance.now();
+
+    const {
+      label,
+      status: recognitionStatus = "recognized",
+      detectedLevel,
+      top = [],
+      levelCandidates = []
+    } = await recognizeClip(session);
+
+    if (session !== cameraSession) return;
+
+    const recognitionMs = Math.round(
+      performance.now() - recognitionStart
+    );
+
+    const totalMs = Math.round(
+      performance.now() - startedAt
+    );
+
+    logAttempt({
+      trigger: "CLIP",
+      answer: label,
+      recognitionStatus,
+      detectedLevel,
+      top,
+      levelCandidates,
+      recognitionMs,
+      totalMs
+    });
+
+    console.log("CLIP result:", {
+      label,
+      recognitionStatus,
+      detectedLevel,
+      top,
+      levelCandidates,
+      recognitionMs,
+      totalMs
+    });
+
+    return { label, top, recognitionMs };
+
+  } catch (error) {
+    console.error("CLIP test failed:", error);
+
+  } finally {
+    if (session === cameraSession) {
+      canvas.width = 0;
+      canvas.height = 0;
+      action.disabled = false;
+      busy = false;
+    }
+  }
+};
+
+
+window.testClipModel = async function () {
+  const session = cameraSession;
+
+  try {
+    status.textContent = "جاري اختبار CLIP…";
+
+    const ready = await prepareClip(session);
+
+    if (!ready || session !== cameraSession) {
+      return;
+    }
+
+    const result = await requestClip(
+      { type: "test" },
+      session
+    );
+
+    console.log("CLIP test result:", result);
+
+    status.textContent = "نجح تحميل واختبار CLIP ViT-B/32.";
+
+    return result;
+
+  } catch (error) {
+    console.error("CLIP test failed:", error);
+    status.textContent = `فشل اختبار CLIP: ${error.message}`;
+  }
+};
+
 
 async function recognizeExpanded(session) {
   const pixels = context.getImageData(0, 0, 256, 256).data;
@@ -561,6 +1472,7 @@ function closeCamera(message = "شغّل الكاميرا ووجّهها نحو 
   cancelSpeech();
   status.textContent = message;
   action.textContent = "شغّل الكاميرا";
+  modelPanel.hidden = true;
   action.disabled = false;
   busy = false;
 }
@@ -605,6 +1517,7 @@ async function openCamera() {
   inputModes.hidden = false;
   stop.hidden = false;
   action.textContent = "ماهذا؟";
+  modelPanel.hidden = false;
   status.textContent = "حط الغرض داخل الإطار واضغط الزر.";
   action.disabled = false;
 }
@@ -680,24 +1593,51 @@ async function recognize(trigger = "button") {
   try {
     takeSnapshot();
     const recognitionStart = performance.now();
-    const {
-    label,
-    status: recognitionStatus = "recognized",
-    detectedLevel,
-    top = [],
-    levelCandidates = []
-} = await recognizeExpanded(session);
+    let recognitionResult;
+
+    if (selectedModel === "clip") {
+      recognitionResult = await recognizeClip(session);
+    } else if (selectedModel === "siglip") {
+      recognitionResult = await recognizeSiglip(session);
+    } else {
+      recognitionResult = await recognizeExpanded(session);
+    }
+
+
+const {
+  label: returnedLabel,
+  status: recognitionStatus = "recognized",
+  detectedLevel,
+  top = [],
+  levelCandidates = []
+} = recognitionResult;
+
+const label =
+  returnedLabel ||
+  top?.[0]?.word ||
+  "";
     if (session !== cameraSession) return;
-    logAttempt({
-    trigger,
-    answer: label,
-    recognitionStatus,
-    detectedLevel,
-    top,
-    levelCandidates,
-    recognitionMs: Math.round(performance.now() - recognitionStart),
-    totalMs: Math.round(performance.now() - startedAt),
+    const attemptResult = {
+  model: selectedModel,
+  answer: label,
+  status: recognitionStatus,
+  recognitionMs: Math.round(performance.now() - recognitionStart),
+  totalMs: Math.round(performance.now() - startedAt),
+  top: JSON.stringify(top)
+};
+
+logAttempt({
+  trigger: `${trigger}/${selectedModel}`,
+  answer: label,
+  recognitionStatus,
+  detectedLevel,
+  top,
+  levelCandidates,
+  recognitionMs: attemptResult.recognitionMs,
+  totalMs: attemptResult.totalMs,
 });
+
+console.table([attemptResult]);
     if (recognitionStatus === "higher_level") {
   status.textContent =
     `هذا الغرض في مستوى تعليمي اعلى, واصل التعلم الى ان تصل اليه`;
@@ -709,7 +1649,7 @@ if (recognitionStatus === "unknown" || !label) {
     "لم أتمكن من التعرّف على الغرض. قرّبه داخل الإطار وجرّب مرة ثانية.";
   return;
 }
-    saveHistory(label);
+    saveHistory(label, selectedModel);
     spokenWord = label;
     word.textContent = spokenWord[0].toUpperCase() + spokenWord.slice(1);
     sentence.textContent = englishSentence(spokenWord);
