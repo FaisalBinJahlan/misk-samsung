@@ -1,0 +1,13 @@
+{
+ "ar": {
+  "encoder.onnx": 8012610,
+  "decoder.onnx": 20376763,
+  "vocab.json": 317131
+ },
+ "en": {
+  "encoder.onnx": 7937661,
+  "decoder.onnx": 20243286,
+  "vocab.json": 317134
+ },
+ "silero": 1289603
+}

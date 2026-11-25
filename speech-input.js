@@ -1,25 +1,27 @@
 "use strict";
 
-// Voice question, fully on the device: a small voice-activity model (Silero VAD)
-// detects a short spoken phrase such as "ماهذا؟" and takes the picture. No audio
-// leaves the device. app.js uses createSpeechInput({ canListen, onQuestion, onError }).
+// Voice question, fully on the device. Silero VAD finds short spoken phrases;
+// Moonshine Tiny (Arabic and English) reads each phrase, and only the question
+// ("ماهذا؟" in any dialect, or "what is this?") takes the picture. No audio leaves
+// the device. app.js uses createSpeechInput({ canListen, onQuestion, onError }).
 
 const VAD_SAMPLE_RATE = 16000;
 const VAD_FRAME = 512;                          // 32 ms per frame
 const FRAME_SECONDS = VAD_FRAME / VAD_SAMPLE_RATE;
 
-// A question = a short phrase with a quiet moment before and after it.
-// Long talking (a conversation, the TV) is ignored.
+// A phrase = speech followed by a quiet moment. Phrases of this length are read
+// by the speech model; longer talk (a conversation, the TV) is ignored.
 const SPEECH_ON = 0.5;                          // probability that starts a phrase
 const SPEECH_OFF = 0.35;                        // probability below which it is quiet again
 const MIN_PHRASE = 0.25;                        // seconds
-const MAX_PHRASE = 2.0;
-const QUIET_BEFORE = 0.7;
+const MAX_PHRASE = 3.0;
 const QUIET_AFTER = 0.6;
 
 const runtimeFolder = new URL("vendor/expanded-lite/", document.baseURI);
 const runtimeCacheName = "misk-expanded-model-v5";   // shared with app.js, so nothing is downloaded twice
 const vadModelUrl = new URL("vendor/vad/silero_vad.onnx", document.baseURI);
+const speechFolder = new URL("vendor/moonshine/", document.baseURI);
+const SPEECH_LANGS = ["ar", "en"];
 
 const debugSpeech = new URLSearchParams(location.search).has("debug");
 function log(...parts) {
@@ -35,7 +37,54 @@ const TEXT = {
   failed: "تعذّر تجهيز المايك. تأكد من الاتصال وجرّب مرة ثانية، أو استخدم زر «ماهذا؟».",
 };
 
-// Loads the ONNX Runtime files (shared with the picture model) and the voice model.
+// Lowercases, removes diacritics and unifies letter forms (أ/إ/آ → ا, ى → ي, ة → ه).
+function normalizeArabic(text) {
+  return text
+    .toLowerCase()
+    .replace(/[\u2018\u2019\u02BC]/g, "'")
+    .replace(/[ً-ٰٟـ]/g, "")
+    .replace(/[أإآٱ]/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/ة/g, "ه")
+    .replace(/[^\p{L}\p{N}\s']/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// A question = question word + "this" word, in either order, or a question about the name.
+const QUESTION_WORDS_DIALECT = ["وش", "وشو", "ويش", "ايش", "اش", "اشنو", "شو", "شنو", "شنهو", "شني", "شنهي", "شنوه", "شنوا", "شن", "واش"];
+const QUESTION_WORDS = ["ما", "ماذا", ...QUESTION_WORDS_DIALECT];
+const THIS_WORDS = ["هذا", "هذه", "هذي", "هاذا", "هاذه", "هاذي", "هاذ", "هاد", "هادا", "هادي", "هاي", "هيدا", "هيدي", "هدا", "هدي", "ذاك", "هذاك", "ذيك", "هذيك"];
+// Short forms only count after a dialect question word, so "ماذا تفعل" is not a question.
+const THIS_WORDS_SHORT = ["ذا", "ذي", "ده", "دا", "دي"];
+const NAME_WORDS = ["اسمه", "اسمها", "اسمو"];
+const any = (words) => `(?:${words.join("|")})`;
+const START = "(?:^| )";
+const END = "(?: |$)";
+// Allowed in the middle: "وش يكون هذا". Only these words, so "ما عندي هذا" is not a question.
+const FILLER_WORDS = ["هو", "هي", "يكون", "تكون", "يعني", "بالضبط", "طيب"];
+const HE_SHE = `(?:${any(FILLER_WORDS)} ){0,2}`;
+const QUESTION_PATTERNS = [
+  new RegExp(`${START}${any(QUESTION_WORDS)} ?${HE_SHE}${any(THIS_WORDS)}${END}`),            // ما هذا، شو هاد
+  new RegExp(`${START}${any(QUESTION_WORDS_DIALECT)} ?${HE_SHE}${any(THIS_WORDS_SHORT)}${END}`), // وش ذا، شنو دا
+  new RegExp(`${START}ايه ?(?:ده|دي|دا)${END}`),                                                // ايه ده ("ايه" alone = yes)
+  new RegExp(`${START}${any([...THIS_WORDS, ...THIS_WORDS_SHORT])} ${any(QUESTION_WORDS_DIALECT)}${END}`), // هذا وش
+  new RegExp(`${START}(?:ده|دي|دا) ايه${END}`),                                                 // ده ايه
+  new RegExp(`${START}${any([...QUESTION_WORDS, "ايه"])} ?اسم ${any([...THIS_WORDS, ...THIS_WORDS_SHORT])}${END}`), // وش اسم هذا
+  new RegExp(`${START}${any(QUESTION_WORDS)} ?${any(NAME_WORDS)}${END}`),                       // شو اسمو (not اسمك)
+  /(?:^| )(?:what|wat|wut)(?:'s|s)?(?: exactly| actually)?(?: is| was|'s)?(?: the name of)? (?:this|that|it|dis|dat)(?: |$)/, // what is this
+  /(?:^| )what(?:'s| is) (?:this|that|it) (?:called|named)(?: |$)/,                             // what is this called
+  /(?:^| )(?:what are|what're) (?:these|those|they)(?: |$)/,                                     // what are these
+  /(?:^| )what do you call (?:this|that|it)(?: |$)/,                                             // what do you call this
+  /(?:^| )(?:وات|واط|وت|واتس|وتس|واتز|واتيز|وتيز) ?(?:از|ايز|إز)? ?(?:ذس|ذيس|ذيز|ذز|ديس|زيس|ذات|دات)(?: |$)/, // English heard as "وات از ذس"
+];
+
+function isQuestion(transcript) {
+  const text = normalizeArabic(transcript);
+  return QUESTION_PATTERNS.some((pattern) => pattern.test(text));
+}
+
+// Loads the ONNX Runtime files (shared with the picture model) and the voice models.
 async function loadVoiceModel(onProgress) {
   const cache = await window.caches?.open(runtimeCacheName).catch(() => null);
   async function fetchBytes(url) {
@@ -70,8 +119,25 @@ async function loadVoiceModel(onProgress) {
     return result;
   }
 
+  // Voice model files, kept in the same cache.
+  async function cachedFile(url, bytes, step) {
+    const cached = await cache?.match(url.href).catch(() => null);
+    const data = cached ? new Uint8Array(await cached.arrayBuffer()) : null;
+    if (data && data.byteLength === bytes) {
+      step(bytes);
+      return data.buffer;
+    }
+    const fresh = await fetchBytes(url);
+    if (fresh.byteLength !== bytes) throw new Error(`Incomplete file: ${url}`);
+    await cache?.put(url.href, new Response(fresh)).catch(() => {});
+    step(bytes);
+    return fresh.buffer;
+  }
+
   const assets = JSON.parse(new TextDecoder().decode(await fetchBytes(new URL("assets.json", runtimeFolder))));
-  const total = assets.runtime.bytes + assets.script.bytes + assets.module.bytes;
+  const speechAssets = JSON.parse(new TextDecoder().decode(await fetchBytes(new URL("assets.json", speechFolder))));
+  const speechBytes = SPEECH_LANGS.reduce((sum, lang) => sum + Object.values(speechAssets[lang]).reduce((a, b) => a + b, 0), 0);
+  const total = assets.runtime.bytes + assets.script.bytes + assets.module.bytes + speechAssets.silero + speechBytes;
   let done = 0;
   const step = (bytes) => {
     done += bytes;
@@ -82,12 +148,13 @@ async function loadVoiceModel(onProgress) {
   const runtimeModule = await assemble(assets.module, step);
   const wasm = await gunzip(runtime, assets.runtime.expandedBytes);
 
-  let model = await cache?.match(vadModelUrl.href).then((r) => r?.arrayBuffer()).catch(() => null);
-  if (!model) {
-    model = (await fetchBytes(vadModelUrl)).buffer;
-    await cache?.put(vadModelUrl.href, new Response(model.slice(0))).catch(() => {});
+  const model = await cachedFile(vadModelUrl, speechAssets.silero, step);
+  const speech = [];
+  for (const lang of SPEECH_LANGS) {
+    const file = (name) => cachedFile(new URL(`${lang}/${name}`, speechFolder), speechAssets[lang][name], step);
+    speech.push({ lang, encoder: await file("encoder.onnx"), decoder: await file("decoder.onnx"), vocab: await file("vocab.json") });
   }
-  return { runtimeScript, runtimeModule, wasm: wasm.buffer, model };
+  return { runtimeScript, runtimeModule, wasm: wasm.buffer, model, speech };
 }
 
 // One worker for the whole visit; preparing the model again is slow.
@@ -96,11 +163,12 @@ let vadReady;
 function prepareVoiceModel(onProgress) {
   vadReady ??= (async () => {
     const files = await loadVoiceModel(onProgress);
-    vadWorker = new Worker("vad-worker.js?v=1");
+    vadWorker = new Worker("vad-worker.js?v=2");
     await new Promise((resolve, reject) => {
       vadWorker.onmessage = ({ data }) => (data.error ? reject(new Error(data.error)) : resolve());
       vadWorker.onerror = (event) => reject(new Error(event.message));
-      vadWorker.postMessage({ type: "prepare", ...files }, [files.wasm, files.model]);
+      const transfer = [files.wasm, files.model, ...files.speech.flatMap((s) => [s.encoder, s.decoder, s.vocab])];
+      vadWorker.postMessage({ type: "prepare", ...files }, transfer);
     });
     return vadWorker;
   })().catch((error) => {
@@ -151,27 +219,26 @@ function createLevelBars() {
   };
 }
 
-// Decides when a phrase counts as a question (see the constants at the top).
+// Finds short phrases (see the constants at the top). Frames are numbered from the
+// start, so the worker can cut out the audio of a phrase.
 function createPhraseDetector(onPhrase) {
   let speaking = false;
   let quietFrames = 0;
   let phraseFrames = 0;
-  let quietBefore = false;
+  let startFrame = 0;
   return {
     reset() {
       speaking = false;
-      quietFrames = 0;      // after a pause, require a fresh quiet moment before the next phrase
+      quietFrames = 0;
       phraseFrames = 0;
     },
-    push(probability) {
+    push(probability, frame) {
       if (!speaking) {
         if (probability >= SPEECH_ON) {
           speaking = true;
-          quietBefore = quietFrames * FRAME_SECONDS >= QUIET_BEFORE;
+          startFrame = frame;
           phraseFrames = 1;
           quietFrames = 0;
-        } else {
-          quietFrames += 1;
         }
         return speaking;
       }
@@ -184,8 +251,8 @@ function createPhraseDetector(onPhrase) {
       if (quietFrames * FRAME_SECONDS >= QUIET_AFTER) {
         const seconds = phraseFrames * FRAME_SECONDS;
         speaking = false;
-        log(`phrase ${seconds.toFixed(2)} s, quiet before: ${quietBefore}`);
-        if (quietBefore && seconds >= MIN_PHRASE && seconds <= MAX_PHRASE) onPhrase(seconds);
+        log(`phrase ${seconds.toFixed(2)} s`);
+        if (seconds >= MIN_PHRASE && seconds <= MAX_PHRASE) onPhrase(startFrame, startFrame + phraseFrames, seconds);
       }
       return speaking;
     },
@@ -202,11 +269,16 @@ function createSpeechInput({ canListen, onQuestion, onError }) {
   let speaking = false;
   let speechUnlocked = false;
   let pending = [];
+  let reading = false;     // a phrase is being read by the speech model
+  let request = 0;
 
-  const detector = createPhraseDetector((seconds) => {
-    log(`question detected (${seconds.toFixed(2)} s)`);
-    pause();
-    onQuestion();
+  // A phrase is read by the speech model; only the question takes the picture.
+  const detector = createPhraseDetector((start, end, seconds) => {
+    if (reading) return;
+    reading = true;
+    request += 1;
+    vadWorker?.postMessage({ type: "transcribe", start, end, id: request });
+    log(`reading a ${seconds.toFixed(2)} s phrase`);
   });
 
   function setText(text) {
@@ -227,6 +299,8 @@ function createSpeechInput({ canListen, onQuestion, onError }) {
   function pause() {
     paused = true;
     pending = [];
+    reading = false;
+    request += 1;            // answers to earlier phrases are ignored
     speaking = false;
     detector.reset();
     vadWorker?.postMessage({ type: "reset" });
@@ -311,11 +385,26 @@ function createSpeechInput({ canListen, onQuestion, onError }) {
 
     vadWorker.onmessage = ({ data }) => {
       if (myToken !== token || paused) return;
+      if (data.texts || data.id) {
+        if (data.id !== request) return;
+        reading = false;
+        if (data.error) {
+          log("speech model error:", data.error);
+          return;
+        }
+        log(`heard: ${data.texts.map(({ lang, text }) => `${lang} "${text}"`).join(", ")} (${data.ms} ms)`);
+        if (data.texts.some(({ text }) => isQuestion(text))) {
+          log("question detected");
+          pause();
+          onQuestion();
+        }
+        return;
+      }
       if (data.error) {
         log("voice model error:", data.error);
         return;
       }
-      for (const probability of data.probs) speaking = detector.push(probability);
+      data.probs.forEach((probability, i) => { speaking = detector.push(probability, data.first + i); });
     };
 
     const source = context.createMediaStreamSource(stream);

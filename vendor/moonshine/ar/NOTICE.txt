@@ -1,0 +1,10 @@
+This Moonshine AI Model is licensed under the Moonshine AI Community License, Copyright © Moonshine AI Ltd. All Rights Reserved
+
+Powered by Moonshine AI
+
+Files: encoder.onnx and decoder.onnx are the 8-bit quantized ONNX export of
+moonshine-tiny-ar (https://huggingface.co/UsefulSensors/moonshine-tiny-ar),
+taken unchanged from https://huggingface.co/onnx-community/moonshine-tiny-ar-ONNX
+(encoder_model_quantized.onnx and decoder_model_merged_quantized.onnx).
+vocab.json is the token list of the model's tokenizer.json, saved in a smaller
+form; it was not otherwise changed. The model weights were not modified.
