@@ -1,0 +1,152 @@
+{
+  "source": "image_encoder.onnx.data",
+  "total_bytes": 371538464,
+  "chunk_size": 10485760,
+  "parts": [
+    {
+      "name": "weights-000.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-001.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-002.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-003.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-004.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-005.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-006.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-007.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-008.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-009.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-010.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-011.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-012.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-013.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-014.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-015.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-016.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-017.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-018.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-019.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-020.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-021.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-022.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-023.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-024.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-025.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-026.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-027.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-028.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-029.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-030.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-031.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-032.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-033.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-034.bin",
+      "bytes": 10485760
+    },
+    {
+      "name": "weights-035.bin",
+      "bytes": 4536864
+    }
+  ],
+  "sha256": "1e92d0bf39078b7a24d9572d73a50b67546bdc15e6cd10cb0d5adf1d72fcba90"
+}

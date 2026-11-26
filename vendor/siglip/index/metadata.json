@@ -1,0 +1,7 @@
+{
+  "model": "google/siglip-base-patch16-224",
+  "embedding_dimension": 768,
+  "number_of_words": 1000,
+  "number_of_templates": 10,
+  "dtype": "float32"
+}

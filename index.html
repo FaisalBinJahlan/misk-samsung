@@ -40,12 +40,19 @@
         <h1>تعلّم بالكاميرا</h1>
       </div>
       <div class="top-actions">
-        <button id="history-button" class="stop" type="button">
-          السجل
-        </button>
+        <button id="history-button" class="stop" type="button">السجل</button>
         <button id="voice-settings" class="stop" type="button" aria-haspopup="dialog" hidden>الصوت</button>
         <button id="stop" class="stop" type="button" hidden>إيقاف الكاميرا</button>
+        <div id="model-panel" class="model-panel" hidden>
+        <select id="model-select">
+          <option value="mobileclip">MobileCLIP-S0</option>
+          <option value="clip">CLIP ViT-B/32</option>
+          <option value="siglip">SigLIP Base</option>
+        </select>
       </div>
+      </div>
+
+      
       
     </header>
 
@@ -69,7 +76,10 @@
         <button id="manual-mode" type="button" aria-pressed="true">بالزر</button>
         <button id="mic-mode" type="button" aria-pressed="false">بالمايك</button>
       </div>
-      <button id="action" class="action" type="button">شغّل الكاميرا</button>
+      
+
+<button id="action" class="action" type="button">شغّل الكاميرا</button>
+
       <div id="mic-panel" class="mic-panel" hidden>
         <div id="mic-wave" class="mic-wave" aria-hidden="true">
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
